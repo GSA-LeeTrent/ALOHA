@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<head><title>IGNORED</title></head>
+   	<body>
+   		<ui:composition>
+		 		 <div id="sidebar">
+					<div class="top-sidebar-box"> 
+						<div class="leaveBalance"> 
+							<h5><h:outputText value="#{bundle['leaveRequest.sidebar.label.leaveBalances']}"/></h5> 							
+							<h:dataTable styleClass="sidebar" rowClasses="oddRow,evenRow" value="#{lrCancelMB.leaveBalances}" 
+								var="leaveBalanceItem" rendered="#{lrCancelMB.leaveBalanceCount > 0}">
+								<f:facet name="caption">
+									<h:outputText value="#{lrCancelMB.leaveDetail.employeeName}"/>
+								</f:facet>
+								<h:column>
+	   								<f:facet name="header">
+	                                	<h:outputText value="#{bundle['leaveRequest.sidebar.label.leaveType']}"/>
+	                            	</f:facet>							
+									<h:outputText value="#{leaveBalanceItem.key}"/>
+								</h:column>
+								<h:column>
+	   								<f:facet name="header">
+	                                	<h:outputText value="#{bundle['leaveRequest.sidebar.label.leaveBalance']}"/>
+	                            	</f:facet>							
+									<h:outputText value="#{leaveBalanceItem.value}"/>
+								</h:column>			
+							</h:dataTable>
+							<div class="sidebarDisclaimer"><h:outputText value="#{bundle['leaveBalance.disclaimer.text']}"/></div>
+						</div>
+					</div>	
+		 		 </div>
+      </ui:composition>
+   </body>
+</html>

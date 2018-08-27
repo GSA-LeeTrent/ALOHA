@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+      
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-lrReports.xhtml">
+	    <ui:define name="content">
+	    	<icecore:config render="false"/>
+	 		<div id="main-content" style="width:100%;">
+	 			<h:outputScript library="javascript" name="ShowHide.js" target="head" />
+				<p class="sectionTitle"><h:outputText value="#{bundle['report.lrVariance.pageTitle']}"/></p>
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+				<div class="form">
+					<h:form id="payPeriodForm" prependId="false">
+						<table class="formTable">
+							<tr>
+								<td width="15%" rowspan="2">
+									<h:outputLabel for="emps" value="#{bundle['report.lrVariance.label.facilities']}"/>
+								</td>
+								
+								<td width="35%" rowspan="2">
+									<h:selectManyListbox id="emps" value="#{lrVarianceReportMB.selectedFacilities}" size="6">
+										<f:selectItems value="#{lrVarianceReportMB.facilities}"/>
+									</h:selectManyListbox>
+								</td>
+								
+								<td width="15%"><h:outputLabel for="payPeriodsFrom" value="#{bundle['leaveRequest.label.payPeriodFrom']}"/></td>
+								<td width="35%">
+									<h:selectOneMenu id="payPeriodsFrom" tabindex="1" value="#{lrVarianceReportMB.selectedFromPayPeriod}">
+					 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+					 					<f:selectItems value="#{payPeriodMB.currentAndPastPayPeriods}"/>
+		 							</h:selectOneMenu>&nbsp;
+		 						</td>		 						
+							</tr>
+							<tr>
+								<td width="15%"><h:outputLabel for="payPeriodsTo" value="#{bundle['leaveRequest.label.payPeriodTo']}"/></td>
+								<td width="35%">
+									<h:selectOneMenu id="payPeriodsTo" tabindex="1" value="#{lrVarianceReportMB.selectedToPayPeriod}">
+					 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+					 					<f:selectItems value="#{payPeriodMB.currentAndPastPayPeriods}"/>
+		 							</h:selectOneMenu>&nbsp;
+		 						</td>		 						
+							</tr>
+							<tr>
+								<td width="15%">&nbsp;</td>
+								<td width="35%">&nbsp;</td>
+								<td width="15%">&nbsp;</td>
+								<td width="35%">&nbsp;</td>		 						
+							</tr>							
+							<tr>
+								<td colspan="4" align="center">
+		 							<h:commandButton id="runRecon" tabindex="2" styleClass="submitButton" 
+				 						action="#{lrVarianceReportMB.onSelectFilters}" value="#{bundle['leaveRequest.button.runReport']}"/>
+				 						<h:button type="reset" value="#{bundle['application.reset']}"></h:button>
+								</td>
+							</tr>
+						</table>
+						<h:outputText style="font-weight:bold;color:red;" value="#{bundle['application.noDataFound']}" rendered="#{lrVarianceReportMB.noDataFound}"/>
+					</h:form>
+				</div>
+				<h:form id="leaveRequestReportForm" prependId="false" >
+				
+					<ui:fragment rendered="#{fn:length(lrVarianceReportMB.rptLR) > 0}">
+						<div style="margin-left:auto;margin-right:auto;mmargin-top:10px;margin-bottom:10px;text-align:center;font-size:medium;font-weight:bold;">ALOHA / ETAMS discrepancy corrections process nightly, and will be reflected in ALOHA the following calendar day.</div>
+					</ui:fragment>
+				
+					<center>
+					   	<h:commandLink id="exportRpt" tabindex="2" styleClass="submitButton" action="#{lrVarianceReportMB.exportRpt2}" value="#{bundle['leaveRequest.link.exportToExcel']}" rendered="#{fn:length(lrVarianceReportMB.rptLR) > 0}"/>
+					</center>
+					
+					<h:dataTable 
+						var="lrrItem" 
+						value="#{lrVarianceReportMB.rptLRFiltered}" 
+						class="Datatable" 
+						style="margin-left:auto; margin-right:auto;margin-bottom:20px;" 
+						rowClasses="weekDayRow,weekEndRow" 
+						frame="border" 
+						border="3" 
+						rendered="#{fn:length(lrVarianceReportMB.rptLRFiltered) > 0}">
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.form.title']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.lrHeaderId}"></h:outputText>						
+						</h:column>	
+
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.lastname']}" action="#{lrVarianceReportMB.sortByLastName}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!lrVarianceReportMB.sortLastNameAscending and lrVarianceReportMB.sortBy == 'LastName'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{lrVarianceReportMB.sortLastNameAscending and lrVarianceReportMB.sortBy == 'LastName'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.empLName}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.firstname']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.empFName}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.middlename']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.empMName}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['report.lrVariance.label.column.orgLoc']}" action="#{lrVarianceReportMB.sortByOrgLocCode}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!lrVarianceReportMB.sortOrgLocCodeAscending and lrVarianceReportMB.sortBy == 'OrgLocCode'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{lrVarianceReportMB.sortOrgLocCodeAscending and lrVarianceReportMB.sortBy == 'OrgLocCode'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.orgLocCode}"></h:outputText>						
+						</h:column>						
+
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['application.label.FAT']}" action="#{lrVarianceReportMB.sortByFATCode}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!lrVarianceReportMB.sortFATCodeAscending and lrVarianceReportMB.sortBy == 'FATCode'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{lrVarianceReportMB.sortFATCodeAscending and lrVarianceReportMB.sortBy == 'FATCode'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.FATCode}"></h:outputText>						
+						</h:column>							
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.year']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.year}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.payperiod']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.payPeriod}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.date']}" action="#{lrVarianceReportMB.sortByDate}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!lrVarianceReportMB.sortDateAscending and lrVarianceReportMB.sortBy == 'Date'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{lrVarianceReportMB.sortDateAscending and lrVarianceReportMB.sortBy == 'Date'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveDt}">
+								<f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+							</h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.schedule.leaveType']}" action="#{lrVarianceReportMB.sortByLeaveType}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!lrVarianceReportMB.sortLeaveTypeAscending and lrVarianceReportMB.sortBy == 'LeaveType'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{lrVarianceReportMB.sortLeaveTypeAscending and lrVarianceReportMB.sortBy == 'LeaveType'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveType}"></h:outputText>						
+						</h:column>						
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['application.title']}"></h:outputText><br/>
+								<h:outputText value="#{bundle['leaveRequest.label.hours']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveHrsAloha}"></h:outputText>						
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.etams']}"></h:outputText><br/>
+								<h:outputText value="#{bundle['leaveRequest.label.hours']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveHrsEtams}"></h:outputText>						
+						</h:column>
+	
+					</h:dataTable>
+
+					<h:panelGroup id="xlrdetail1"  
+					   style="z-index:999;display:none;position:absolute;background-color: white;padding: 5px;">
+						<h:panelGroup id="lrdetail">
+						<ui:include src="lrViewById.xhtml"></ui:include>
+						<a onmouseover="HideContent('xlrdetail1'); return true;"
+   						href="javascript:HideContent('xlrdetail1')">
+						[hide]</a>
+						</h:panelGroup>					
+					</h:panelGroup>					
+					<div class="buttonPanel" style="text-align:center;">	
+						<h:commandLink  rendered="#{userMB.loggedIn}" action="home" value="#{bundle['header.label.home']}" /><br/><br/>
+					</div>
+				</h:form>				
+			</div>
+	    </ui:define>
+	</ui:composition>
+</html>

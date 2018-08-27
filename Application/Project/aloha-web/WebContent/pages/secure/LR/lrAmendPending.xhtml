@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/pages/templates/template-leave.xhtml">
+	<ui:define name="content">
+ 		<div id="main-content">
+ 		 	<h3 style="text-align:center;">Leave Request Amendment</h3>
+			<h2 class="formTitle">Pending:</h2>
+			<ul class="message">
+				<h:outputText value="#{bundle['leaveRequest.amend.msg.pending1']}"/>
+				<li><h:outputText value="#{bundle['leaveRequest.amend.msg.pending2']}"/></li>
+				<li><h:outputText value="#{bundle['leaveRequest.amend.msg.pending3']}"/></li>
+				<li>Otherwise, click the &quot;Cancel&quot; button.</li>				
+				
+			</ul>
+			<p class="sectionTitle"><h:outputText value="Pending Leave Request Amendment:"/></p>
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrAmendMB.amendedLeaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrAmendMB.amendedLeaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="submitterFullName" value="#{lrAmendMB.amendedLeaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="payPeriod" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrAmendMB.amendedLeaveDetail.payPeriodDateRange}"/></td>
+				</tr>		
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approvers" value="#{bundle['application.label.supervisor']}"/></td>
+					<td><h:outputText value="#{lrAmendMB.amendedLeaveDetail.approver.fullName}"/></td>
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatus" value="#{lrAmendMB.amendedLeaveDetail.leaveStatus.label}"/></td>								
+				</tr>	
+				<tr>
+				
+				</tr>
+			</table>	
+			
+			<!--  					 						
+			<c:if test="#{not empty lrAmendMB.amendedLeaveDetail.submitterComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.amendmentRemarks']}" /></p>
+				<div class="remarks">
+					<c:forEach var="submitterComment" items="#{lrAmendMB.amendedLeaveDetail.submitterComments}">
+						<h:outputText value="#{submitterComment.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>
+						<h:outputText value="#{submitterComment.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+				</div>
+			</c:if>		
+			-->
+				
+			<!-- ALL REMARKS  -->
+			<h:form>
+				<ui:insert name="lrAllRemarksPanel">
+					<ui:include src="common/lrAllRemarks.xhtml">
+						<ui:param name="lrAllRemarksList" value="#{lrAmendMB.amendedLeaveDetail.leaveHeader.allRemarks}" />
+					</ui:include>
+				</ui:insert>	   
+			</h:form>				
+				
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="Amendment Details:"/></p>			
+			<table class="sideBySide" cellspacing="0">
+				<caption>
+					<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+						<f:param value="#{lrAmendMB.amendedLeaveDetail.payPeriodDateRange}" />
+					</h:outputFormat>					
+				</caption>
+	            <ui:insert name="sideBySideHeader">
+	            	<ui:include src="../../sections/lrSideBySideHeader.xhtml"/>
+	            </ui:insert>
+				<c:forEach var="sideBySideItem" items="#{lrAmendMB.sideBySideItems}" varStatus="status">
+		            <ui:insert name="sideBySideItems">
+		            	<ui:include src="../../sections/lrSideBySideItems.xhtml"/>
+		            </ui:insert>
+				</c:forEach>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#9FA8D6;"><h:outputText value="#{bundle['application.label.total']}"/></th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#9FA8D6;">
+						<h:outputText value="#{lrAmendMB.approvedLeaveDetail.totalLeaveHours}"/>
+					</th>
+					<th style="background-color:#9FA8D6;">&nbsp;</th>
+					<th class="number" style="padding: 4px 10px;font-weight:bold;vertical-align:middle;background-color:#94BFCF;"><h:outputText value="#{bundle['application.label.total']}"/></th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#94BFCF;"><h:outputText value="#{lrAmendMB.amendedLeaveDetail.totalLeaveHours}"/></th>
+					<th style="background-color:#94BFCF;">&nbsp;</th>
+				</tr>
+			</table>
+			
+			<c:if test="#{not empty lrAmendMB.submitterRemarks}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.amendmentRemarks']}"/></p>
+				<div class="remarks">
+					<h:outputText value="#{lrAmendMB.submitterRemarks}"/>			
+				</div>
+			</c:if>	
+			
+		 	<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+       		<div id="lrAmendmentButtonPanel" class="availableActions">
+				<h:form prependId="false">
+                 	<h:commandButton 
+                 		action="#{lrAmendMB.onConfirm}" 
+                 		value="#{bundle['application.text.confirmPendingAmendment']}"
+                 		onclick="onLRAmendmentButtonClicked();">
+                 	</h:commandButton>&nbsp; 
+                 	<h:commandButton 
+                 		action="#{lrAmendMB.onChange}" 
+                 		value="#{bundle['application.text.makeRevisions']}"
+                 		onclick="onLRAmendmentButtonClicked();">
+                 	</h:commandButton>&nbsp; 
+ 					<h:button
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListSubmitOwn"
+						rendered="#{lrAmendMB.inSubmitOwnMode}">
+					</h:button>
+					<h:button
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListOnBehalfOf"
+						rendered="#{lrAmendMB.inOnBehalfOfMode}">
+					</h:button>  						
+				</h:form>   
+			</div>
+		</div>	
+		<script language="JavaScript">
+			function onLRAmendmentButtonClicked() {
+				document.getElementById("lrAmendmentButtonPanel").style.display="none";
+			}
+		</script>
+	</ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="../../sections/sidebar-lr-amend.xhtml"/>
+    </ui:define>
+</ui:composition>
+</html>

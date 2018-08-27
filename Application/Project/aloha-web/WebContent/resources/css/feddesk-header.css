@@ -1,0 +1,57 @@
+@CHARSET "ISO-8859-1";
+
+#top-links {
+    float: right;
+    margin-top: 7px;
+}
+#top-links a:link, a:visited {
+	color: #282e8c;
+	text-decoration:none;
+}
+#top-links a:hover { 
+	text-decoration: underline;
+	color: #282E8C; 
+	color:#435997;	
+}
+#top-links li {
+    background:none repeat scroll 0 0 transparent;
+    color:#27308D;
+    color:#435997;	
+    float:left;
+    font-size:small;
+    list-style:none;
+    padding:0 5px;
+}
+#logos {
+	clear:both;
+	height:50px;
+}
+#logo-left {
+	float:left;
+}
+#logo-right {
+	float: right;
+	font-family: "Bodoni MT Black";
+	font-size: 40px;
+	margin-top: 10px;
+	color: #666666;
+	color:#7D8CA5;
+	color:#435997;	
+	color:#5c69ad;
+}
+#top-navbar {
+	background: url(../images/doubleline_hdr.gif) repeat-x 0 0;
+	padding: 11px;
+	padding-bottom:0px;
+	margin-top: 9px;
+	margin-bottom:0px;
+	clear: both;
+	text-align: center;
+	width: 965px;
+}
+#userpref {
+	clear:both;
+}
+#userpref-right {
+float: right;
+}

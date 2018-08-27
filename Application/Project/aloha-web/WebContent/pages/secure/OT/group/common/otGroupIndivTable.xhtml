@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel id="otGroupIndivDetailPanel" header="&nbsp;&nbsp;#{bundle['ot.group.sectionTitle.groupOTDetails']}" rendered="true"
+		style="width:90%;margin-top:20px;padding:5px;font-size:small;font-family:Arial;color:red;">
+
+	    <div style="padding:10px;">
+  
+           	<ace:dataTable id="otGroupIndivDetailDataTable"
+                        value="#{otIndivDetailList}"
+                        var="otIndivDetail"
+                        rows="0">
+ 
+                <ace:column id="exp">
+                    <ace:expansionToggler />
+                </ace:column>
+                
+                <ace:column id="otEmployeeNameLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.name.employee']}">
+                    <h:outputText id="otEmployeeNameValue" value="#{otIndivDetail.employeeName}"/>
+                </ace:column>
+
+                <ace:column id="otEmployeeEstHoursLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.indiv.taskItem.estHrs']}">
+                    <h:outputText id="otEmployeeEstHoursValue" value="#{otIndivDetail.estNbrOfHours}"/>
+                </ace:column>
+
+                <ace:column id="otTypeNameLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.name.otType']}">
+                    <h:outputText id="otTypeNameValue" value="#{otIndivDetail.typeLabel}"/>
+                </ace:column>
+      
+                <ace:column id="otGroupOriginatorNameLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.name.originator']}">
+                    <h:outputText id="otGroupOriginatorNameValue" value="#{otIndivDetail.groupOwnerName}"/>
+                </ace:column>
+                
+              	<ace:column id="otGroupIdLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.column.label.groupId']}">
+                    <h:outputText id="otGroupIdValue" value="#{otIndivDetail.groupId}"/>
+                </ace:column>                  
+                
+                <ace:column id="otIndivStatusLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.name.otIndivStatus']}" rendered="#{not onFinalize}">
+                    <h:outputText id="otIndivStatusValue" value="#{otIndivDetail.statusName}"  rendered="#{not onFinalize}"/>
+                </ace:column>
+                
+             	<ace:column id="otApprovedCommandStatusChangeOutcomeLabel" 
+             				headerText="#{bundle['ot.group.name.indivStatus.new']}" 
+             				rendered="#{ reviewFinalizeDecisionsForIndividuals and otIndivDetail.approvalComanded}">
+                    <h:outputText 	id="otApprovedCommandStatusChangeOutcomeValue" 
+                    				styleClass="otGroupFinalizeNewIndivStatusValue"
+                    				style="color:#3E7D3E;font-weight:bold;"
+                    				value="#{otIndivDetail.approvalCommandStatusChangeOutcome}" 
+                    				rendered="#{ reviewFinalizeDecisionsForIndividuals and otIndivDetail.approvalComanded}"/>                    				
+                </ace:column>			
+				
+             	<ace:column id="otDeniedCommandStatusChangeOutcomeLabel" 
+             				headerText="#{bundle['ot.group.name.indivStatus.new']}" 
+             				rendered="#{ reviewFinalizeDecisionsForIndividuals and not otIndivDetail.approvalComanded}">
+                    <h:outputText 	id="otDeniedCommandStatusChangeOutcomeValue" 
+                    				styleClass="otGroupFinalizeNewIndivStatusValue"
+                    				style="color:red;font-weight:bold;"
+                    				value="#{otIndivDetail.approvalCommandStatusChangeOutcome}" 
+                    				rendered="#{ reviewFinalizeDecisionsForIndividuals and not otIndivDetail.approvalComanded}"/>                    				
+                </ace:column>				
+				
+                <ace:column id="otNewIndivStatusLabel" headerText="New Status" style="width:15%;" rendered="#{ onFinalize and renderApprovalCheckbox }">
+                    <h:outputText id="otNewIndivStatusValue"  value="#{otIndivDetail.approvalCommandStatusChangeOutcome}" 
+                    	style="#{otIndivDetail.styleForNewStatus}" rendered="#{ onFinalize and renderApprovalCheckbox }"/>
+                </ace:column>                 
+
+              	<ace:column id="otGroupIndivApprovedLabel" headerText="&nbsp;&nbsp;#{bundle['ot.group.indiv.approved']}" 
+               		 rendered="#{ onFinalize and renderApprovalCheckbox }">
+	            	<h:selectBooleanCheckbox id="otGroupIndivApprovedValue"  
+	            		styleClass="otGroupFinalizeIndivApproveCheckbox" 
+	            		value="#{otIndivDetail.approvalComanded}" 
+	            		rendered="#{onFinalize and renderApprovalCheckbox}"
+	            		onclick="assignNewStatus(this);"/>
+             	</ace:column>          		 
+
+           		  
+                <ace:panelExpansion>
+		            <ui:insert name="otGroupTaskItemTable">
+		            	<ui:include src="otGroupTaskItemTable.xhtml">
+		            		<ui:param name="otIndivDetail" value="#{otIndivDetail}" />
+		            	</ui:include>
+		            </ui:insert>		
+                </ace:panelExpansion>          
+         
+	           <f:facet name="footer" rendered="#{onFinalize and renderApprovalCheckbox }">
+					<table style="width:50%;margin-left:auto;margin-right:auto;">
+						<tr>
+							<td align="center">
+								<ace:linkButton	
+									id="otGroupFinalizeLinkButtonApproveAll" 
+									value="#{bundle['ot.group.label.finalize.approveAll']}" 
+									style="font-weight:bold;white-space:nowrap;" 
+									rendered="#{ onFinalize and renderApprovalCheckbox }"> 
+										<ace:ajax event="activate" onStart="checkAll(); return false;"/> 
+								</ace:linkButton> 		                          
+							</td>								
+							<td align="center">
+								<ace:linkButton	
+									id="otGroupFinalizeLinkButtonDenyAll" 
+									value="#{bundle['ot.group.label.finalize.denyAll']}" 
+									style="font-weight:bold;white-space:nowrap;" 
+									rendered="#{ onFinalize and renderApprovalCheckbox }"> 
+										<ace:ajax event="activate" onStart="uncheckAll(); return false;"/> 
+								</ace:linkButton>		                 		
+							</td>
+						</tr>
+					</table>
+	            </f:facet>   
+            </ace:dataTable>   
+		</div>
+		
+		<ui:fragment rendered="#{ onFinalize and renderApprovalCheckbox }">
+			<div id="approveDenyCounts" style="text-align:center;">
+				<span id="approvedCountMsg" style="color:#3E7D3E;font-weight:bold;"/> 
+				<span style="color:black;font-weight:bold;">&nbsp;/&nbsp;</span>
+				<span id="deniedCountMsg" style="color:red;font-weight:bold;"/>				
+			</div>
+		</ui:fragment>
+		<ui:fragment rendered="#{ onFinalize and reviewFinalizeDecisionsForIndividuals  }">
+			<div id="approveDenyCountsForReview" style="text-align:center;">
+				<span id="approvedCountMsgForReview" style="color:#3E7D3E;font-weight:bold;"/> 
+				<span style="color:black;font-weight:bold;">&nbsp;/&nbsp;</span>
+				<span id="deniedCountMsgForReview" style="color:red;font-weight:bold;"/>				
+			</div>
+		</ui:fragment>
+					
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

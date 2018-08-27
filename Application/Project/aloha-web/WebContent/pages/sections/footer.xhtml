@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<h:form>
+		<div id="footer">
+			<ui:fragment rendered="#{ (not userMB.loggedIn) or (userMB.showFooterLinks) }">
+				<ul>
+					<li style="display:inline;list-style-type:none;padding:5px;">
+						<h:commandLink tabindex="70" action="sitemap" >
+							<h:outputText value="#{bundle['footer.label.sitemap']}"/>
+						</h:commandLink>
+					</li>
+					<li style="display:inline;list-style-type:none;padding:5px;">|</li>
+					<li style="display:inline;list-style-type:none;padding:5px;">
+						<h:commandLink tabindex="71" action="accessibility">
+							<h:outputText value="#{bundle['footer.label.accessibility']}"/>
+						</h:commandLink>
+					</li>
+					<li style="display:inline;list-style-type:none;padding:5px;">|</li>
+					<li style="display:inline;list-style-type:none;padding:5px;">
+						<h:commandLink tabindex="72" action="contactUs" >
+							<h:outputText value="#{bundle['footer.label.contactUs']}"/>
+						</h:commandLink>
+					</li>					
+				</ul>
+			</ui:fragment>	
+		</div>
+	</h:form>
+	<div id="bottom-links" class="mobileOnly">
+				<h:form>	
+			   		<ul>
+			   			<ui:fragment rendered="#{userMB.loggedIn}">
+						   	<li><h:outputText value="#{userMB.user.loginName}" style="color:#9FA3AE;"/></li>
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{userMB.loggedIn and userMB.showFooterLinks}">
+				   			<li>|</li>
+			   			</ui:fragment>
+			   			
+						<ui:fragment rendered="#{ (not userMB.loggedIn) or (userMB.showFooterLinks) }">
+				   			<li>
+						    	<h:commandLink tabindex="60" action="help" >
+							     	<h:outputText value="#{bundle['header.label.help']}"/>
+						    	</h:commandLink>
+				   			</li>
+						</ui:fragment>
+			   			<ui:fragment rendered="#{userMB.loggedIn and userMB.showFooterLinks}">
+			   				<li>|</li>
+						   	<!--   <li>
+				    			<h:commandLink tabindex="61" action="home">
+				     				<h:outputText value="#{bundle['header.label.home']}"/>
+				    			</h:commandLink>
+						   	</li>
+						   	<li>|</li>-->
+							<li>
+								<a href="#" tabindex="62" onclick="onSelectUserPreferences();">Preferences</a>
+			   				</li>
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{userMB.loggedIn and userMB.showFooterLinks}">
+			   				<!--   <li>|</li>
+			   				<li>
+				    			<h:commandLink tabindex="63" action="#{userMB.logout}" onclick="removeCookie();">
+				     				<h:outputText value="#{bundle['header.label.logout']}"/>
+				    			</h:commandLink>
+			   				</li>
+			   				-->
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{ not userMB.loggedIn}">
+			   				<li>|</li>
+			   				<li>
+				    			<h:commandLink action="login">
+				     				<h:outputText value="#{bundle['header.label.login']}"/>
+				    			</h:commandLink>
+			   				</li>
+			   			</ui:fragment>
+			   		</ul>
+				</h:form>
+			</div>
+</ui:composition>
+</body>
+</html>

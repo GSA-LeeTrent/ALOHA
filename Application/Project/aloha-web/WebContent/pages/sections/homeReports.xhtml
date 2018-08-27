@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<div id="sectionReports" class="homeSection" style="#{homeMB.reportsSectionDisplay}">		
+		<div class="homePanel left">
+			<div class="whiteBorder2"> 
+				<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.leave']}" /></h5>
+				<ul>
+					<li>
+						<h:commandLink tabindex="31" value="#{bundle['leaveRequest.sectionTitle.report']}" action="#{homeMB.runLeaveRequestReport}"/>
+					</li>
+					
+					<!--  
+					<li>
+						<h:commandLink tabindex="32" value="#{bundle['leaveRequest.timecard.report']}" 
+							action="#{homeMB.runLeaveRequestsRecon}"/>
+					</li>
+					-->
+					
+					<!--  
+					<ui:fragment rendered="#{userMB.user.facilityCoordinator}">
+						<li>
+							<h:link 
+								value="#{bundle['home.link.text.lr.report.variance']}" 
+								outcome="lrVarianceReport"
+								rendered="#{userMB.user.facilityCoordinator}">
+							</h:link>
+						</li>
+					</ui:fragment>
+					-->
+				</ul>	
+			</div>
+		</div>
+		<div class="homePanel right">
+			<div class="whiteBorder2"> 
+				<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.overtime']}" /></h5>
+				<ul>
+					<li>
+						<h:commandLink tabindex="33" value="#{bundle['overtimeRequest.sectionTitle.report']}" 
+							action="#{homeMB.runOvertimeRequestReport}"/>
+					</li>
+					
+					<!--  
+					<li>
+						<h:commandLink tabindex="34" value="#{bundle['overtimeRequest.timecard.report']}" 
+							action="#{homeMB.runOvertimeRequestsRecon}"/>
+					</li>
+					-->
+				</ul>	
+			</div>
+		</div>
+	</div>
+</ui:composition>
+</body>
+</html>

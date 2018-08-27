@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<div id="sectionAdmin" class="homeSection"  style="#{homeMB.adminSectionDisplay}">		
+		<div class="homePanel left">
+			<div class="whiteBorder2"> 
+				<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.admin']}" /></h5>
+				<ul>
+					<li>
+						<h:link tabindex="51" outcome="listAdXref" value="#{bundle['adXref.menu.link']}" rendered="#{userMB.user.alohaAdmin}"></h:link>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="homePanel right">
+			<div class="whiteBorder2">&nbsp;</div>
+		</div>
+	</div>
+</ui:composition>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<ui:composition template="/pages/templates/template-leave-r.xhtml">
+	<ui:define name="content">
+		<icecore:config render="false"/>
+ 		<div id="main-content">
+			<p class="sectionTitle">
+				<h:outputText value="#{bundle['leaveRequest.view.submitted']}" rendered="#{lrViewMB.leaveDetail.submitted}"/>
+				<h:outputText value="#{bundle['leaveRequest.view.cancelled']}" rendered="#{lrViewMB.leaveDetail.cancelled}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.approved']}" rendered="#{lrViewMB.leaveDetail.approved}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.denied']}" rendered="#{lrViewMB.leaveDetail.denied}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.pendAmend']}" rendered="#{lrViewMB.leaveDetail.pendingAmendment}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.pendWithdraw']}" rendered="#{lrViewMB.leaveDetail.pendingWithdrawal}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.amended']}" rendered="#{lrViewMB.leaveDetail.amended}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.withdrawn']}" rendered="#{lrViewMB.leaveDetail.withdrawn}"/>						
+			</p>			
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrViewMB.leaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrViewMB.leaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<th class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></th>
+					<td><h:outputText id="submitterFullName" value="#{lrViewMB.leaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrViewMB.leaveDetail.payPeriodDateRange}"/></td>								
+				</tr>		
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approverFullName" value="#{bundle['application.label.supervisor']}"/></td>
+					<td><h:outputText id="approverFullName" value="#{lrViewMB.leaveDetail.approver.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatus" value="#{lrViewMB.leaveDetail.leaveStatus.label}"/></td>								
+				</tr>	
+			</table>			
+			<!--  			
+			<c:if test="#{not empty lrViewMB.leaveDetail.submitterComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.submitterRemarks02']}" /></p>
+				<div class="remarks">
+					<c:forEach var="submitterComment" items="#{lrViewMB.leaveDetail.submitterComments}">
+						<h:outputText value="#{submitterComment.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>
+						<h:outputText value="#{submitterComment.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+				</div>
+			</c:if>	
+			<c:if test="#{not empty lrViewMB.leaveDetail.approverComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.supervisorRemarks']}"/></p>
+				<div class="remarks">
+					<c:forEach var="approverRemark" items="#{lrViewMB.leaveDetail.approverComments}">
+						<h:outputText value="#{approverRemark.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>										
+						<h:outputText value="#{approverRemark.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+			
+				</div>
+			</c:if>
+			-->
+			
+			<!-- ALL REMARKS  -->
+			<h:form>
+				<ui:insert name="lrAllRemarksPanel">
+					<ui:include src="common/lrAllRemarks.xhtml">
+						<ui:param name="lrAllRemarksList" value="#{lrViewMB.leaveDetail.leaveHeader.allRemarks}" />
+					</ui:include>
+				</ui:insert>	   
+			</h:form>
+			<p class="sectionTitle"><h:outputText value="#{bundle['leaveRequest.label.requstedTimeOff']}"/></p>			
+				<table class="dataTableView">
+					<caption>
+						<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+							<f:param value="#{lrViewMB.leaveDetail.payPeriodDateRange}" />
+						</h:outputFormat>					
+					</caption>
+					<thead>
+						<tr>
+							<th><h:outputText value="#{bundle['leaveRequest.label.schedule.date']}"/></th>
+							<th><h:outputText value="#{bundle['leaveRequest.label.schedule.dayOfWeek']}"/></th>
+							<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.leaveDesc']}"/></th>
+							<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.leaveHours']}"/></th>
+							<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.startTime']}"/></th>
+						</tr>
+					</thead>
+					<tbody>	
+						<c:forEach var="leaveItem" items="#{lrViewMB.leaveDetail.leaveItems}" varStatus="status">
+							<c:choose>
+								<c:when test="#{ status.index % 2 == 0 }">
+									<tr class="even">
+										<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+										<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+										<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+										<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+										<td>
+											<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+												<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+											</h:outputText>
+											<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+										</td>										
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<tr class="odd">
+										<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+										<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+										<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+										<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+										<td>
+											<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+												<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+											</h:outputText>
+											<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+										</td>										
+									</tr>											
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</tbody>
+					<tfoot>	
+						<tr>
+							<th colspan="3" class="number"><h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']}"/>&nbsp;</th>
+							<th class="number">
+								<h:outputText value="#{lrViewMB.leaveDetail.totalLeaveHours}"/></th>
+								<th>&nbsp;</th>
+						</tr>
+					</tfoot>						
+				</table>
+
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+			<div class="availableActions" style="padding-left:0;margin-top:8px;">
+				<h:form>	
+					<h:commandLink 
+						id="lrViewLinkCancel"
+						rendered="#{ lrViewMB.leaveRequestCancelable }"
+						value="#{bundle['application.text.cancelLeaveRequest']}" 
+						style="margin-right:10px;font-size:medium;"
+						action="#{lrCancelMB.initCancel}"> 
+						<f:param name="leaveDetailId" value="#{lrViewMB.leaveDetail.id}"/>
+						<f:param name="#{lrModeMB.modeKey}" value="#{lrViewMB.mode}"/>
+					</h:commandLink>
+					<h:link 
+						id="lrViewLinkChangeSupv"
+						rendered="#{ lrViewMB.changeOfSupervisorAllowedForThisLeaveRequest}"
+						value="#{bundle['application.link.text.changeSupervisor']}" 
+						style="margin-right:10px;font-size:medium;"
+						outcome="lrChangeSupervisorFromViewPage">	
+						<f:param name="leaveDetailId" value="#{lrViewMB.leaveDetail.id}"/>
+						<f:param name="#{lrModeMB.modeKey}" value="#{lrViewMB.mode}"/>
+					</h:link>					
+					<h:link 
+						id="lrViewLinkAmendV2"
+						rendered="#{lrViewMB.leaveRequestAmendable}"
+						value="#{bundle['application.link.text.amend']}" 
+						style="margin-right:10px;font-size:medium;"
+						outcome="lrAmendV2FromViewPage">	
+						<f:param name="leaveDetailId" value="#{lrViewMB.leaveDetail.id}"/>
+						<f:param name="#{lrModeMB.modeKey}" value="#{lrViewMB.mode}"/>
+					</h:link>					
+					<h:commandLink 
+						id="lrViewLinkWithdraw"
+						rendered="#{ lrViewMB.leaveRequestWithdrawable }"
+						value="#{bundle['application.link.text.withdraw']}" 
+						style="margin-right:10px;font-size:medium;"
+						action="#{lrWithdrawMB.initWithdrawal}">
+						<f:param name="leaveDetailId" value="#{lrViewMB.leaveDetail.id}"/>
+						<f:param name="#{lrModeMB.modeKey}" value="#{lrViewMB.mode}"/>
+					</h:commandLink>	
+                     <h:commandLink 
+                     	id="lrViewLinkApproveDeny"
+                     	rendered="#{ lrViewMB.leaveRequestApproveable }"
+                     	value="#{bundle['application.link.text.approveDeny']}" 
+                     	style="margin-right:10px;font-size:medium;"
+                     	action="#{lrApproveMB.initApproval}">
+						<f:param name="leaveDetailId" value="#{lrViewMB.leaveDetail.id}"/>
+					</h:commandLink>							
+					<h:link
+						id="lrViewLinkReturnToList_SO" 
+						rendered="#{lrViewMB.inSubmitOwnMode}"
+						value="#{bundle['application.link.text.returnToList']}" 
+						style="font-size:medium;"
+						outcome="lrListSubmitOwn">
+					</h:link>
+					<h:link 
+						id="lrViewLinkReturnToList_OBO"
+						rendered="#{lrViewMB.inOnBehalfOfMode}"
+						value="#{bundle['application.link.text.returnToList']}" 
+						style="font-size:medium;"
+						outcome="lrListOnBehalfOf">
+					</h:link>	
+					<h:link 
+						id="lrViewLinkReturnToList_MGT"
+						rendered="#{lrViewMB.inApproverMode}"
+						value="#{bundle['application.link.text.returnToList']}" 
+						style="font-size:medium;"
+						outcome="lrListManagement">
+					</h:link>
+				</h:form>
+			</div>
+		</div>	
+	</ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="../../sections/sidebar-lr-view.xhtml"/>
+    </ui:define>	    	
+</ui:composition>
+</html>

@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-leave.xhtml">
+	    <ui:define name="content">
+	    	<icecore:config render="false"/>
+	 		<div id="main-content">
+	 		 	<h3 style="text-align:center;">Create Leave Request</h3>
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+				<p class="sectionTitle"><h:outputText value="#{bundle['leaveRequest.sectionTitle.new']}"/></p>
+					<h:form id="payPeriodForm" prependId="false">
+						<table class="formTable">
+							<tr>
+								<ui:fragment rendered="#{lrCreateMB.submitOwn}">
+									<td width="15%">
+										<h:outputText tabindex="1" id="employeeName" value="#{bundle['leaveRequest.label.employee']}" style="font-weight:bold;"/>
+									</td>
+									<td width="25%">
+										<h:outputText tabindex="2" value="#{lrCreateMB.employee.fullName}"/>
+									</td>
+								</ui:fragment>
+								<ui:fragment rendered="#{lrCreateMB.onBehalfOf}">
+									<td width="15%">
+										<h:outputLabel tabindex="3" id="employeeDropDown" for="employees" value="#{bundle['leaveRequest.label.employee']}"/>
+									</td>
+									<td width="25%">
+										<h:selectOneMenu tabindex="4" id="employees" label="#{bundle['application.label.employee']}" value="#{lrCreateMB.selectedEmployee}"  
+											disabled="#{lrCreateMB.ppDisabled}">
+						 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.employee']}" itemValue="0"/>
+						 					<f:selectItems value="#{lrCreateMB.employees}"/>
+						 				</h:selectOneMenu>
+									</td>
+								</ui:fragment>
+								<td width="15%"><h:outputLabel for="payPeriods" tabindex="5" value="#{bundle['leaveRequest.label.payPeriod']}"/></td>
+								<td colspan="2">
+									<h:selectOneMenu id="payPeriods" tabindex="6" value="#{lrCreateMB.selectedPayPeriod}"
+										disabled="#{lrCreateMB.ppDisabled}">
+					 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+					 					<f:selectItems value="#{payPeriodMB.payPeriods}"/>
+		 							</h:selectOneMenu>&nbsp;
+		 							<h:commandButton rendered="#{lrCreateMB.submitOwn}" id="payPeriodSubmitButton" tabindex="7" styleClass="submitButton" 
+				 						action="#{lrCreateMB.onSelectedPayPeriod}" 
+				 						value="#{bundle['leaveRequest.button.label.submit']}"
+				 						disabled="#{lrCreateMB.ppDisabled}" />
+		 							<h:commandButton rendered="#{lrCreateMB.onBehalfOf}" id="payPeriodEmployeeSubmitButton" tabindex="8" styleClass="submitButton" 
+				 						action="#{lrCreateMB.onSelectedEmployeeAndPayPeriod}" 
+				 						value="#{bundle['leaveRequest.button.label.submit']}"
+				 						disabled="#{lrCreateMB.ppDisabled}"/>
+		 						</td>
+							</tr>
+							<tr>
+								<td width="15%"><h:outputText value="#{bundle['application.label.submitter']}" tabindex="9" style="font-weight:bold;"/></td>
+								<td width="25%"><h:outputText tabindex="10" value="#{lrCreateMB.submitter.fullName}"/></td>
+								<td colspan="2">&nbsp;</td>
+							</tr>							
+						</table>
+					</h:form>
+				<div style="width:90%;"><ul id="errorDiv" class="errorMsg" style="display:none;"></ul></div>
+				<h:form id="leaveRequestForm" prependId="false" rendered="#{lrCreateMB.renderLeaveRequestForm}">				
+					<p class="sectionTitle" >Employee Schedule:</p>
+					<table class="Datatable" style="width:95%;margin-left:0px;">
+						<caption>
+							<h:outputFormat tabindex="11" value="#{bundle['application.label.detail.payPeriod']}">
+								<f:param value="#{lrCreateMB.selectedPayPeriodDateRange}" />
+							</h:outputFormat>					
+						</caption>
+			            <ui:insert name="lrBaseScheduleHeader">
+			            	<ui:include src="../../sections/lrBaseScheduleHeader.xhtml"/>
+			            </ui:insert>
+						<tbody>
+				            <ui:insert name="lrBaseScheduleApplyToAll">
+				            	<ui:include src="../../sections/lrBaseScheduleApplyToAll.xhtml"/>
+				            </ui:insert>
+							<c:forEach var="scheduleItem" items="#{lrCreateMB.employeeSchedule}" varStatus="index">
+					            <ui:insert name="lrBaseScheduleRow">
+					            	<ui:include src="../../sections/lrBaseScheduleRow.xhtml">
+					            		<ui:param name="scheduleItem" value="#{scheduleItem}" />
+					            	</ui:include>
+					            </ui:insert>
+							</c:forEach>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th class="totalsLabel"><h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']}"/>&nbsp;</th>
+								<th class="totalsValue"><h:outputText id="totalLeaveHours" value="#{lrCreateMB.totalLeaveHours}"/></th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+								<th>&nbsp;</th>
+							</tr>
+						</tfoot>					
+					</table>
+					<p class="sectionTitle" style="margin-top:25px;">Approval Authority:</p>
+		 			<div style="margin-left:10px;">
+						<h:outputLabel for="approvers" value="#{bundle['application.label.supervisor']}"/>&nbsp;
+						<h:selectOneMenu label="#{bundle['leaveRequest.label.approver']}" id="approvers" value="#{lrCreateMB.selectedApprover}">
+		 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.supervisor']}" itemValue="0"/>
+		 					<f:selectItems value="#{lrCreateMB.approvers}"/>
+		 				</h:selectOneMenu>
+		 			</div>			
+					<p class="sectionTitle" style="margin-top:25px;"><h:outputLabel for="submitterRemarks" value="#{bundle['application.label.remarks.submitter']}"/></p>
+					<h:inputTextarea id="submitterRemarks" rows="6" cols="80" value="#{lrCreateMB.submitterRemarks}" title="#{bundle['application.label.remarks.submitter']}" class="remarks"/>
+		 			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+                   	<div id="createLRFormButtonPanel" style="margin-left:8px;margin-top:8px;margin-bottom:20px;">
+                   		<h:commandButton 
+                   			id="lrCreateAmendSubmitButton" 
+                   			action="#{lrCreateMB.onSubmit}" 
+                   			value="#{bundle['application.text.reviewRequest']}" 
+                   			onclick="onCreateLRFormButtonClicked();">
+                   		</h:commandButton>&nbsp;
+ 						<h:button
+							value="#{bundle['application.text.discardRequest']}" 
+							outcome="home"
+							onclick="onCreateLRFormButtonClicked();">
+						</h:button>
+                      			
+                   	</div>
+					<h:inputHidden id="workDayCount" value="#{lrCreateMB.workDayCount}"/>
+				</h:form>				
+			</div>
+			<ui:fragment rendered="#{lrCreateMB.submitOwn}">
+				<script type="text/javascript">
+					document.getElementById("employeeName").focus();
+				</script>				
+			</ui:fragment>
+			<ui:fragment rendered="#{lrCreateMB.onBehalfOf}">
+				<script type="text/javascript">
+					document.getElementById("employeeDropDown").focus();
+				</script>				
+			</ui:fragment>
+ 			<script language="JavaScript">
+			//<![CDATA[
+				function onCreateLRFormButtonClicked() {
+					document.getElementById("createLRFormButtonPanel").style.display="none";
+				}
+			//]]>	
+			</script>				
+	    </ui:define>
+	    <ui:define name="sidebar">
+	   		<ui:include src="../../sections/sidebar-lr-create.xhtml"/>
+	    </ui:define>	    
+	</ui:composition>
+</html>

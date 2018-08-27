@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<h5 class="subsystem">REPORTS:</h5> 
+	<dl style="margin-left:20px;">
+		<dt style="font-weight:bold;color:#282E8C;font-style:italic;">Leave:</dt>
+		<dd>
+			<ul>
+				<li>
+					<h:commandLink value="#{bundle['leaveRequest.sectionTitle.report']}" 
+						action="#{homeMB.runLeaveRequestReport}"/>
+				</li>
+				<li>
+					<h:commandLink value="#{bundle['leaveRequest.timecard.report']}" 
+						action="#{homeMB.runLeaveRequestsRecon}"/>
+				</li>
+			</ul>	
+		</dd>
+	</dl>
+	<dl style="margin-top:15px;margin-left:20px;">
+		<dt style="font-weight:bold;color:#282E8C;font-style:italic;">Overtime:</dt>
+		<dd>
+			<ul>
+				<li>
+					<h:commandLink value="#{bundle['overtimeRequest.sectionTitle.report']}" 
+						action="#{homeMB.runOvertimeRequestReport}"/>
+				</li>
+				<li>
+					<h:commandLink value="#{bundle['overtimeRequest.timecard.report']}" 
+						action="#{homeMB.runOvertimeRequestsRecon}"/>
+				</li>
+			</ul>	
+		</dd>
+	</dl>
+</ui:composition>
+</body>
+</html>

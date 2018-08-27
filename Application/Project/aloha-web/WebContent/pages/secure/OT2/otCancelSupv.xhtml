@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+		<icecore:config render="false"/>
+	 	<div id="main-content">
+            <ui:insert name="otStatusChange">
+            	<ui:include src="otStatusChange.xhtml">
+            		<ui:param name="pageTitle" value="#{bundle['ot.cancel.pageTitle']}" />
+            		<ui:param name="otDetail" value="#{otCancelSupvMB.otDetail}" />
+            	</ui:include>
+            </ui:insert>
+			<h:form>
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.requestCancellationRemarks']}" /></p>
+		 		<div class="inputRemark">				
+					<h:inputTextarea id="cancellationRemarks" rows="5" cols="76" value="#{otCancelSupvMB.cancellationRemarks}" 
+						title="#{bundle['application.label.cancellationRemarks']}"/>
+		 		</div>
+				<p class="sectionTitle">
+					<h:outputText value="#{bundle['application.text.availableActions']}"/>
+				</p>
+			    <div id="otCancelAvailableActions" style="margin-left:8px;margin-top:8px;margin-bottom:20px;">
+	              	<h:commandButton action="#{otCancelSupvMB.onCancel}" value="#{bundle['application.button.label.confirm']}"	
+	              		onclick="onOTCancelFormButtonClicked();">
+	              		<f:param name="otDetailId" value="#{otCancelSupvMB.otDetail.id}"/>
+	             	</h:commandButton>&nbsp;
+	              	<h:commandButton  action="otMgrList" value="#{bundle['application.button.label.quit']}" immediate="true" 
+	              		onclick="onOTCancelFormButtonClicked();"/>
+	           	</div>
+			</h:form>	
+		</div>			
+ 		<script language="JavaScript">
+		//<![CDATA[
+			function onOTCancelFormButtonClicked() {
+			document.getElementById("otCancelAvailableActions").style.display="none";
+			}
+		//]]>	
+		</script>				
+     </ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="otSidebar.xhtml">
+            <ui:param name="otDetail" value="#{otCancelSupvMB.otDetail}" />   		
+            <ui:param name="otBalances" value="#{otCancelSupvMB.otBalances}" />
+   		</ui:include>
+    </ui:define>        
+</ui:composition>
+</html>

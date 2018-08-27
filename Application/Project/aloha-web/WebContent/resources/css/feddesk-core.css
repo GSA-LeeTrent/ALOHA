@@ -1,0 +1,160 @@
+@CHARSET "ISO-8859-1";
+* { 
+	margin: 0;
+    padding: 0;
+}
+body{
+	background: #CED5E8 url(../images/bars_background.gif) repeat-y 50% 0;
+	color: #333333; 
+    font: small Arial, Helvetica, Verdana, sans-serif;
+    text-align: center; 
+    min-width: 990px; 
+} 
+#wrapper {
+	margin: 0 auto; 
+	text-align: left; 
+	width: 990px;
+	background-color: #fff;
+}
+#main-content {
+	float:left;
+	width:78%;
+}
+#invalidUser{
+	color:red;
+	font-weight:bold;
+}	
+div.error{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+span.error {
+	color:red;
+	font-weight:bold;
+	font-style:italic;
+	font-size:medium;
+}
+label{font-weight:bold;}
+number{text-align:right;}
+
+h3.pageTitle {
+	text-align:center;
+	padding:0px;
+	color:#435997;	
+	font-size:medium;
+	font-weight:bold;   
+}
+#leaveRequestForm {margin:0;padding:0;}
+#payPeriodForm {margin:0;padding:0;}
+
+fieldset {
+    margin-top:10px;    
+    margin-bottom:10px;
+    border:none;
+}
+legend{
+	font-weight:bold;
+	color:#435997;		
+}	
+fieldset li {
+	margin-top:3px;
+	margin-left: 30px;
+	margin-bottom:3px;
+	font-size: small;
+	list-style-type: disc;
+	
+}
+fieldset li a {
+	text-decoration:none;
+	color:#435997;		
+}
+fieldset.remarks {
+	width:90%;
+	margin-top:10px;
+	padding:0;
+}
+fieldset.signature {	
+	width:90%;
+	margin-top:10px;
+	padding:0;
+}
+ul.errorMsg {
+	width:90%;
+	margin-left:0px;
+	margin-right:0px;
+	background-color:#FFF0F5;
+	border: 1px double red;
+  	margin-top:5px;
+  	margin-bottom:20px;
+  	padding:15px;	
+}
+ul.errorMsg li {
+	margin-left:25px;
+	font-size:small;
+	color:red;
+}
+div.errorMsg{
+	background-color:#FFF0F5;
+	border-style:double;
+	border-width:2px;
+	border-color:red;
+	color:red;	
+  margin-top:5px;
+  margin-bottom:20px;
+  margin-left:20px;
+  margin-right:20px;
+  padding:15px;	
+}
+
+span.errorMsg {
+	background-color:#FFF0F5;
+	border-style:double;
+	border-width:2px;
+	border-color:red;
+	margin-top:20px;
+	padding:5px;
+	font-size:medium;
+	color:red;	
+}	
+
+
+
+.label{font-weight:bold;color:#435997;}
+
+
+/*
+table.view {border: 2px solid #000;}
+table.view td{vertical-align:top;width:50%;}
+*/
+table.view tr td:first-child {width:25%;vertical-align:top;}
+table.view tr td label(color:#000;font-weight:normal;}
+
+.commentDate{font-style:italic;}
+
+li{color:#435997;}
+
+fieldset div.readOnly {
+  background-color:#D3D3D3;
+  color: #4e6a71;  
+  border: double 1px #4e6a71;
+  border: solid 1px #5c69ad;
+  margin-top:5px;
+  margin-bottom:10px;
+  margin-left:20px;
+  margin-right:20px;
+  padding:15px;
+}
+
+fieldset div.readOnly span {color:#808080;}
+fieldset div.readOnly label{color:#808080;}
+h4.confirm{background-color: #5c69ad}
+
+td.number{text-align:right;}
+a:link, a:visited   {
+	color: #282e8c;
+	text-decoration:none;
+}
+a:hover { 
+	text-decoration: underline;
+	color: #282E8C; 
+}

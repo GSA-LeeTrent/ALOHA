@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel id="leaveViewItemsPanel" header="#{panelTitle}" rendered="true"
+		style="margin-top:20px;padding:5px;font-size:small;font-family:Arial;" styleClass="topPanel">
+			
+		<div style="text-align:center;margin-bottom:15px;font-size:small;font-weight:bold;">
+			<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+				<f:param value="#{managedBean.selectedPayPeriodDateRange}" />
+			</h:outputFormat>					
+		</div>
+    	<div style="padding:0;">
+	    	<div class="roundedBox" 
+	    		style="margin-left:auto;margin-right:auto;margin-top:10px;margin-bottom:15px;padding-top:5px;padding-bottom:10px;border-radius:15px;border:1px solid #808080;background-color:#F8F8F8;">
+	    	
+	    	<ui:fragment rendered="#{managedBean.inLeaveViewItemEditMode }">
+	    		<div style="margin-top:0px;text-align:center;font-weight:bold;color:#435997;font-size:medium">
+	    			<h:outputText value="&#x2212;&#x2212;&#160;#{bundle['lr.text.editItem']}&#160;&#x2212;&#x2212;"/>
+	    		</div>
+	    	</ui:fragment>	
+	    	
+	    	<ui:fragment rendered="#{ managedBean.inLeaveViewItemAddMode }">
+			    <div style="margin-top:0px;text-align:center;font-weight:bold;color:#435997;font-size:medium">
+	    			<h:outputText value="&#x2212;&#x2212;&#160;#{bundle['lr.text.addItem']}&#160;&#x2212;&#x2212;"/>
+	    		</div>
+	    	</ui:fragment>			    	
+	    	
+	   		<!--  VALIDATION ERROR MESSAGES -->
+      		<h:messages 
+      			id="lrItemInputErrorMessage" 
+      			styleClass="errorMsg" 
+      			style="width:50%;margin-top:15px;margin-left:20px;border:5px solid red;font-weight:bold;" 
+      			globalOnly="true"/>
+	    	
+	    	<div id="leaveViewItemsInputDiv" style="display:table;margin-left:20px;margin-top:10px;font-family:Arial;font-size:small;color:#808080;font-weight:regular;">
+				<div>	
+					<div style="text-align:left;">
+						<h:outputLabel 
+							id="lrItemTypeLabel"
+							for="lrItemTypeValue" 
+							value="#{bundle['lr.label.typeOfLeave']}"/>
+					</div>
+					<div style="text-align:left;">
+						<h:selectOneMenu
+							 id="lrItemTypeValue" 
+							 styleClass="wideSelect"
+							 value="#{managedBean.selectedLeaveItem.leaveTypeKey}"
+							 style="background-color:#FFFFCC;"
+							 onclick="this.style.backgroundColor='#FFF';">
+								<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.leaveType']}" itemValue="0"/>
+								<f:selectItems value="#{leaveTypeMB.leaveTypes}"/>
+						</h:selectOneMenu>
+					</div>			    		
+	    		</div>
+				<div>	
+					<div style="text-align:left;margin-top:15px;">
+						<h:outputLabel 
+							id="lrItemHoursLabel"
+							for="lrItemHoursValue" 
+							value="#{bundle['lr.label.hoursPerDay']}"/>
+					</div>
+					<div style="text-align:left;">
+						<h:inputText
+							id="lrItemHoursValue" 
+							value="#{managedBean.selectedLeaveItem.leaveNumberOfHoursAsString}"
+							size="4" 
+							maxlength="4" 
+							style="background-color:#FFFFCC;"
+							onclick="this.style.backgroundColor='#FFF';"
+							onchange="validateLeaveItemHours(this); return false;" /> 
+							<span id="lrItemHoursErrorMsg" style="display:none;"/>
+ 						</div>			    		
+	    		</div>
+				<div>	
+					<div style="text-align:left;margin-top:15px;">
+						<h:outputLabel 
+							id="lrStartTimeLabel"
+							for="lrStartTimeValue"
+							class="desktopOnly" 
+							value="#{bundle['lr.label.startTime']}"/>
+					</div>
+					<div style="text-align:left;">
+						<h:selectOneMenu
+							 id="lrStartTimeValue" 
+							 value="#{managedBean.selectedLeaveItem.leaveStartTimeKey}"
+							 class="desktopOnly"
+							 style="background-color:#FFFFCC;">
+								<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.startTime']}" itemValue="99"/>
+								<f:selectItems value="#{timeIntervalMB.selectItems}"/>
+						</h:selectOneMenu>
+					</div>			    		
+	    		</div>		
+	    		<ui:fragment rendered="#{managedBean.inLeaveViewItemAddMode }">  
+                    <div>
+                        <div id="radioButtons"  style="width:50%;text-align:left;margin-top:15px;padding:10px;border:3px double #C9C9C9;">
+                            <div style="font-weight:bold;color:#808080;"><h:outputText value="#{bundle['lr.text.applyTo']}"/></div>
+                            <h:selectOneRadio 
+                                id="leaveItemApplyToRadioSelection"
+                                value="#{managedBean.leaveItemApplyToSelection}"
+                                layout="pageDirection" 
+                                style="color:#808080;margin-bottom:10px;">
+                                    <f:selectItem id="leaveItemApplyToSelection_1" itemLabel="#{bundle['lr.radio.item.label.applyTo.specificDate']}" itemValue="1" />
+                                    <f:selectItem id="leaveItemApplyToSelection_2" itemLabel="#{bundle['lr.radio.item.label.applyTo.entirePayPeriod']}" itemValue="2" />
+                                    <f:selectItem id="leaveItemApplyToSelection_3" itemLabel="#{bundle['lr.radio.item.label.applyTo.firstWeekOfPayPeriod']}" itemValue="3" />
+                                    <f:selectItem id="leaveItemApplyToSelection_4" itemLabel="#{bundle['lr.radio.item.label.applyTo.secondWeekOfPayPeriod']}" itemValue="4" />
+                            </h:selectOneRadio> 
+                        </div>
+                    </div>		
+                   </ui:fragment>  
+	    		<div>
+					<div style="text-align:left;margin-top:15px;">
+						<h:outputLabel 
+							id="lrItemDateLabel"
+							for="lrItemDateValue" 
+							value="#{bundle['application.label.specificDate']}"/>
+					</div>
+					<div style="text-align:left;">
+						<h:selectOneMenu 
+							id="lrItemDateValue"
+							 styleClass="wideSelect"
+							value="#{managedBean.selectedLeaveItem.leaveDateKey}"
+							style="background-color:#FFFFCC;"
+							onclick="this.style.backgroundColor='#FFF';">
+								<f:selectItem style="color:#C9C9C9;" itemLabel="#{bundle['application.label.forSpecificDateOnly']}" itemValue="0"/>
+		 						<f:selectItems value="#{managedBean.selectItemsForDaysInSelectedPayPeriod}"/>
+		 				</h:selectOneMenu>
+					</div>			    		
+				</div>                    
+	    		<div>
+	    			<div id="actionButtons" class="actionButtons" style="width:60%;text-align:left;margin-top:15px;padding:10px;border: 2px solid #A15151;">
+	    			<div style="text-align:center;">
+						<!--  ADD STUFF -->
+	    				<ui:fragment rendered="#{ managedBean.inLeaveViewItemAddMode}">
+		    				<h:commandButton
+	 							id="lrItemAddButton" 
+			 					action="#{managedBean.addLeaveViewItems}" 
+			 					style="background-color:#FFF;color:#A15151; font-weight:bold;border: 2px solid #A15151;"
+			 					value="#{bundle['application.text.addItems']}" />
+		    				<h:button
+	 							id="lrClearButton" 
+	 							style="margin-left:10px;background-color:#FFF;color:#A15151;font-weight:bold;border: 2px solid #A15151;"
+			 					onclick="onClearLRCreateFormButtonClicked();return false;" 
+			 					value="#{bundle['application.text.clearItem']}" />
+	 					</ui:fragment>
+	 					<!--  EDIT STUFF -->
+	    				<ui:fragment rendered="#{managedBean.inLeaveViewItemEditMode }">
+		    				<h:commandButton
+	 							id="lrItemEditButton" 
+	 							styleClass="submitButton" 
+			 					action="#{managedBean.editLeaveViewItem}" 
+			 					style="background-color:#FFF;color:#A15151;font-weight:bold;border: 2px solid #A15151;"
+			 					value="#{bundle['application.text.editItem']}" />
+		    				<h:commandButton
+	 							id="lrCancelEditButton" 
+	 							styleClass="submitButton" 
+			 					action="#{managedBean.cancelEditLeaveViewItem}" 
+			 					style="margin-left:10px;background-color:#FFF;color:#A15151;font-weight:bold;border: 2px solid #A15151;"
+			 					value="#{bundle['application.text.cancelEdit']}" />				 					
+	    				</ui:fragment>	
+	    				</div>	 					
+		 			</div>			 			
+	    		</div>
+	    	</div>
+
+	    	<ice:dataTable
+	  			id="leaveItemsDataTableForCreate"
+	  			styleClass="leaveItemsGrid"
+	  			rendered="#{not empty leaveViewItemList}"
+	  			value="#{leaveViewItemList}"
+                  	var="leaveViewItem"
+                 	width="100%"
+                 	cellspacing="1"
+                 	cellpadding="5">
+     
+	    	    <ice:column>
+	    	    	<f:facet name="header"><h:outputText value="#{bundle['lr.label.leaveDate']}"/></f:facet>
+	    	    	<h:outputText value="#{leaveViewItem.leaveDate}">
+	    	 			<f:convertDateTime pattern="EEE - MM/dd/yyyy"/>   	
+	    	    	</h:outputText>
+	    	    </ice:column>
+                   <ice:column>
+                   	<f:facet name="header"><h:outputText value="#{bundle['leaveRequest.label.leaveType']}"/></f:facet>
+                   		<h:outputText value="#{leaveViewItem.leaveType.label}"/>
+                   </ice:column>
+                   <ice:column>
+                   	<f:facet name="header"><h:outputText value="#{bundle['leaveRequest.label.hours']}"/></f:facet>
+                   	<h:outputText value="#{leaveViewItem.leaveNumberOfHours}">
+                   	
+                   	</h:outputText>
+                   </ice:column>
+                   <ice:column>
+                   	<f:facet name="header"><h:outputText value="#{bundle['leaveRequest.label.schedule.startTime_2']}"/></f:facet>
+                   	<h:outputText value="#{leaveViewItem.leaveStartTime}">
+                   	<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+                   	</h:outputText>                    	
+                   </ice:column>
+				<ice:column>
+                   	<f:facet name="header"><h:outputText value="#{bundle['application.text.edit']}"/></f:facet>
+ 					<h:commandLink
+						action="#{managedBean.prepareLeaveViewItemForEdit}">
+						<h:graphicImage style="border:0;" alt="#{bundle['lr.text.editThisLeaveItem']}" title="#{bundle['lr.text.editThisLeaveItem']}" 
+							url="/resources/images/readwrite.gif"/>
+                        	<f:setPropertyActionListener 
+                         		target="#{managedBean.editLeaveItemId}"
+                              	value="#{leaveViewItem.leaveViewItemId}"/>
+ 
+					</h:commandLink>
+				</ice:column>
+				<ice:column>
+                   	<f:facet name="header">Delete</f:facet>
+ 					<h:commandLink 
+						action="#{managedBean.removeNewLeaveItem}">
+						<h:graphicImage style="border:0;" alt="#{bundle['lr.text.removeThisLeaveItem']}" title="#{bundle['lr.text.removeThisLeaveItem']}" 
+							url="/resources/images/remove.gif"/>
+                        	<f:setPropertyActionListener 
+                         		target="#{managedBean.removeLeaveItemId}"
+                              	value="#{leaveViewItem.leaveViewItemId}"/>
+ 
+					</h:commandLink>
+				</ice:column>
+			    <f:facet name="footer">
+			        <h:outputFormat value="#{bundle['lr.text.totalNbrOfLeaveHrsWithParam']}">
+						<f:param value="#{managedBean.totalLeaveHours}" />
+					</h:outputFormat>		
+			    </f:facet>                   
+	    	</ice:dataTable>
+	    	</div>
+	   	</div>
+	</ace:panel>
+    <script language="JavaScript">
+	//<![CDATA[
+		function onClearLRCreateFormButtonClicked() {
+			document.getElementById("lrItemDateValue").selectedIndex = 0;
+			document.getElementById("lrItemTypeValue").selectedIndex = 0;
+			document.getElementById("lrItemHoursValue").value = '';
+			document.getElementById("lrStartTimeValue").selectedIndex = 0;
+			document.getElementById("leaveItemApplyToRadioSelection:0").checked = true;
+			document.getElementById("lrItemHoursValue").style.backgroundColor = "#FFF";
+			document.getElementById("lrItemHoursErrorMsg").style.display = "none";
+			document.getElementById("lrItemHoursErrorMsg").innerHTML = "";
+			enableAddButton();
+			enableEditButton();
+		}
+		function validateLeaveItemHours(txtObj) {
+			if ( (isFloat0to2d0to1(txtObj.value)) && (isLessThanOrEqualToTwelveHours(txtObj.value)) ) {
+				txtObj.style.backgroundColor = "white";
+				document.getElementById("lrItemHoursErrorMsg").style.display = "none";
+				document.getElementById("lrItemHoursErrorMsg").innerHTML = "";
+				enableAddButton();
+				enableEditButton();
+			} else {
+				txtObj.style.backgroundColor = "pink";
+				document.getElementById("lrItemHoursErrorMsg").style.display = "block";
+				document.getElementById("lrItemHoursErrorMsg").style.color = "red";
+				document.getElementById("lrItemHoursErrorMsg").innerHTML = "(Invalid value)";
+				disableAddButton();
+				disableEditButton();
+			}
+		}
+		
+		function enableAddButton() {
+			if (document.getElementById("lrItemAddButton")) {
+				document.getElementById("lrItemAddButton").disabled=false;
+				document.getElementById("lrItemAddButton").style.color="#A15151";
+				document.getElementById("lrItemAddButton").style.backgroundColor="#FFF";
+				document.getElementById("lrItemAddButton").style.borderColor="#A15151";			
+
+			}
+		}
+		function enableEditButton() {
+			if (document.getElementById("lrItemEditButton")) {
+				document.getElementById("lrItemEditButton").disabled=false;
+				document.getElementById("lrItemEditButton").style.color="#A15151";
+				document.getElementById("lrItemEditButton").style.backgroundColor="#FFF";
+				document.getElementById("lrItemEditButton").style.borderColor="#A15151";			
+			}
+		}
+		function disableAddButton() {
+			if (document.getElementById("lrItemAddButton")) {
+				document.getElementById("lrItemAddButton").disabled=true;
+				document.getElementById("lrItemAddButton").style.color="#000";
+				document.getElementById("lrItemAddButton").style.backgroundColor="#808080";
+				document.getElementById("lrItemAddButton").style.borderColor="#000";			
+			}
+		}
+		function disableEditButton() {
+			if (document.getElementById("lrItemEditButton")) {
+				document.getElementById("lrItemEditButton").disabled=true;
+				document.getElementById("lrItemEditButton").style.color="#000";
+				document.getElementById("lrItemEditButton").style.backgroundColor="#808080";
+				document.getElementById("lrItemEditButton").style.borderColor="#000";			
+			}
+		}
+		
+		
+		function isLessThanOrEqualToTwelveHours(stringValue) {
+			var floatValue = parseFloat(stringValue);
+			return ( floatValue <= 12.0);
+		}
+		
+		function isFloat0to2d0to1(str) {
+		    /* Verify float 3 to 5 digits, decimal max 3 digits
+		     *    if decimal point must have at least 1 decimal digit
+		     * Return boolean
+		     */
+		    str = str.replace(/^\s+|\s+$/g, '');
+		    return /^[-+]?\d{0,2}(\.\d{0,1})?$/.test(str);
+		}
+	//]]>	
+	</script>	
+
+</ui:composition>
+</body>
+</html>

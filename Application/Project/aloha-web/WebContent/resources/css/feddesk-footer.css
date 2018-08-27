@@ -1,0 +1,28 @@
+@CHARSET "ISO-8859-1";
+#footer {
+	clear: both;
+	background: url(../images/doubleline_hdr.gif) repeat-x 0 0;			
+	padding: 11px;
+	margin-top: 15px;
+	text-align: center;
+	font-size:small;
+	width: 965px; 
+}
+#footer ul {
+  display: table;
+  margin: 0 auto;
+}	
+#footer li {
+  display: table-cell;
+  position: relative;
+  width: 5em; 
+}
+#footer a:link, a:visited {
+	color: #282e8c;
+	text-decoration:none;
+}
+#footer a:hover { 
+	text-decoration: underline;
+	color: #282E8C; 
+	color:#435997;	
+}

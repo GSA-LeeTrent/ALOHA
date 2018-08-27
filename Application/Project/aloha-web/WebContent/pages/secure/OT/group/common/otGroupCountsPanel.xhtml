@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ace="http://www.icefaces.org/icefaces/components">
+<body>
+<ui:composition>
+	<ace:panel id="otGroupCountsPanel" header="Group Overtime Counts:" rendered="true"
+		style="width:90%;margin-top:20px;padding:5px;font-size:small;font-family:Arial;">
+	    <div style="padding:10px;">
+	    
+           	<ace:dataTable id="otGroupCountsDataTable"
+                        value="#{otRequestTypeGroupList}"
+                        var="otRequestTypeGroup"
+                        rows="0">
+                
+                <ace:column id="otRequestTypeNameLabel" headerText="#{bundle['ot.group.counts.label.type']}" style="text-align:right;">
+                    <h:outputText id="otRequestTypeNameValue" value="#{otRequestTypeGroup.name}"/>
+                </ace:column>
+                
+                <ace:column id="otRequestTypeCountLabel" headerText="#{bundle['ot.group.counts.label.count']}" style="text-align:right;">
+                    <h:outputText id="otRequestTypeCountValue" value="#{otRequestTypeGroup.count}"/>
+                </ace:column>
+
+                <ace:column id="otRequestTypeHoursLabel" headerText="#{bundle['ot.group.counts.label.hours']}" style="text-align:right;">
+                    <h:outputText id="otRequestTypeHoursValue" value="#{otRequestTypeGroup.nbrOfHours}"/>
+                </ace:column>
+
+            </ace:dataTable>	    
+	    
+		</div>
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

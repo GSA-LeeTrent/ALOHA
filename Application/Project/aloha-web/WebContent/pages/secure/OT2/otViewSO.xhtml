@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+	 	<div id="main-content">
+            <ui:insert name="otView">
+            	<ui:include src="otView.xhtml">
+            		<ui:param name="otDetail" value="#{otViewSOMB.otDetail}" />
+            	</ui:include>
+            </ui:insert>
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+			<div class="availableActions">
+           		<h:form>
+          			<ui:fragment rendered="#{ otViewSOMB.otDetail.modifiableBySubmitOwn }">
+						<h:commandLink value="#{bundle['application.button.label.modify']}" action="otModifyIndivReqSO">
+							<f:param name="otDetailId" value="#{otViewSOMB.otDetail.id}"/>
+						</h:commandLink>					
+					</ui:fragment>&nbsp;					
+					<ui:fragment rendered="#{ otViewSOMB.otDetail.cancellableBySubmitOwn }">
+						<h:commandLink value="#{bundle['ot.link.label.cancel']}" action="otCancelSO"> 
+							<f:param name="otDetailId" value="#{otViewSOMB.otDetail.id}"/>
+						</h:commandLink>&nbsp;						
+					</ui:fragment>		
+	        		<h:commandLink value="#{bundle['application.link.text.returnToList']}" action="otListSO" immediate="true" />&nbsp;
+	        		<h:commandLink value="#{bundle['application.button.label.home']}" action="home" immediate="true" />
+				</h:form>                   		
+           	</div>
+		</div>			
+     </ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="otSidebar.xhtml">
+            <ui:param name="otDetail" value="#{otViewSOMB.otDetail}" />   		
+            <ui:param name="otBalances" value="#{otViewSOMB.otBalances}" />
+   		</ui:include>
+    </ui:define>        
+</ui:composition>
+</html>

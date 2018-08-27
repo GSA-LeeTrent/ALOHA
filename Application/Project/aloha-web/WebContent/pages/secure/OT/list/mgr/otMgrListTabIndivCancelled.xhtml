@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"     
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps"> 
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel id="otMgrListTabIndivCancelledPanel" header="Cancelled Individual Requests:" style="font-size:small;" rendered="true">		
+		 <div style="padding:10px;">
+
+			<div style="margin-bottom:20px;padding:15px;color:#606060;background-color:#F8F8F8;border:1px double #9FA3AE;">
+				Individual requests that were cancelled by you or by the person who submitted the request ...
+			</div>	
+
+			<ui:fragment rendered="#{ otMgrListMB.cancelledIndivRequests.data.rowCount > 0 }">
+
+				<ice-cc:autoSortTable id="otMgrListTabIndivCancelledTableBean" 
+					bean="#{otMgrListMB.cancelledIndivRequests}"
+					style="width:97%;"
+					showDataPager="true"
+					showRowControls="true">
+
+					<!--  COMMON COLUMNS FOR INDIVIDUALS -->
+		            <ui:insert name="otMgrListIndivCommonCols">
+		            	<ui:include src="common/otMgrListIndivCommonCols.xhtml"/>
+		            </ui:insert>
+
+		            <!--  AVAILABLE ACTIONS (SPECIFIC) -->
+					<ice-cc:column title="#{bundle['ot.v2.list.availableActions']}" name="availableActions" sortable="false">		            
+						<ul>
+						
+							<!--  VIEW -->
+							<li style="margin-left:0;list-style:none;">	
+		                        <ace:linkButton	id="otMgrListTabIndivApprovedPanelViewLinkButton"
+                                            	value="#{bundle['application.link.text.view']}"
+                                            	action="otViewSupv"
+                                            	style="white-space:nowrap;">
+                             		<f:param name="otDetailId" value="#{row.id}"/>
+                   				</ace:linkButton>							
+							</li>
+	
+						</ul>
+						
+					 </ice-cc:column>
+
+				</ice-cc:autoSortTable>		
+
+			</ui:fragment>
+
+			<ui:fragment rendered="#{ otMgrListMB.cancelledIndivRequests.data.rowCount eq 0}">
+		            <ui:insert name="otMgrListNoDataFound">
+		            	<ui:include src="common/otMgrListNoDataFound.xhtml"/>
+		            </ui:insert>	
+			</ui:fragment>
+
+		</div>
+	</ace:panel>			
+</ui:composition>
+</body>
+</html>

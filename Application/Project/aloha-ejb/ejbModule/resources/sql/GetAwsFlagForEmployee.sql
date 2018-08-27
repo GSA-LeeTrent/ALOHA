@@ -1,0 +1,1 @@
+select aws_ind from usr_feddesk_required.etams_user_profile where user_id = ?

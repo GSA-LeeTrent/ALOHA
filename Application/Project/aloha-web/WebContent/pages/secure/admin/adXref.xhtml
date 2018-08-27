@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   template="/pages/templates/template-1Col.xhtml">
+     
+  <ui:define name="content"> 
+  	<p class="sectionTitle"><h:outputText value="#{bundle['adXref.title']}" class="sectionTitle"/></p>
+  	<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+    <h:form prependId="false">
+    	<fieldset style="width:50%;border-style:solid;border-width:thin;padding:10px;">
+    		<legend><h:outputLabel value="#{bundle['adXref.search']}"></h:outputLabel></legend>
+			<div style="padding-left:10px;">
+				<h:outputLabel value="#{bundle['adXref.loginName']}"></h:outputLabel>:&#160;<h:inputText id="searchLoginName" value="#{adXrefMB.searchLoginName}"/>
+				&#160;<h:commandButton id="searchAdXref" tabindex="2" styleClass="submitButton" 
+					action="#{adXrefMB.search}" value="#{bundle['adXref.search']}"/>
+			</div>
+    	</fieldset>
+      		<h:button id="addAdXref" outcome="editAdXref" value="#{bundle['application.add']}" label="#{bundle['application.add']}" />
+      <h:dataTable var="adxItem" value="#{adXrefMB.users}" class="Datatable" rowClasses="weekDayRow,weekEndRow">
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['adXref.loginName']}"></h:outputText>
+			</f:facet>
+      		<h:outputText value="#{adxItem.loginName}"></h:outputText>
+      	</h:column>
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['adXref.etamsUserId']}"></h:outputText>
+			</f:facet>
+      		<h:outputText value="#{adxItem.userId}"></h:outputText>
+      	</h:column>
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['leaveRequest.label.firstname']}"></h:outputText>
+			</f:facet>      	
+      		<h:outputText value="#{adxItem.alohaUser.firstName}"></h:outputText>
+      	</h:column>
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['leaveRequest.label.lastname']}"></h:outputText>
+			</f:facet>       	
+      		<h:outputText value="#{adxItem.alohaUser.lastName}"></h:outputText>
+      	</h:column>      	
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['leaveRequest.label.middlename']}"></h:outputText>
+			</f:facet>       	
+      		<h:outputText value="#{adxItem.alohaUser.middleName}"></h:outputText>
+      	</h:column>      
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['adXref.emailAddress']}"></h:outputText>
+			</f:facet> 
+      		<h:outputText value="#{adxItem.alohaUser.emailAddress}"></h:outputText>
+      	</h:column>
+     	
+      	<h:column>
+      		<h:button id="editAdXref#{adxItem.loginName}" outcome="editAdXref" image="/resources/images/readwrite.gif">
+      			<f:param name="editLoginName" value="#{adxItem.loginName}"></f:param>
+      		</h:button>
+      	</h:column>
+      	<h:column>
+			<h:commandButton id="deleteAdXref" tabindex="2" styleClass="submitButton" 
+				action="#{adXrefMB.delete}" value="#{bundle['adXref.search']}" image="/resources/images/remove.gif"
+				onclick="return confirm('#{bundle['adXref.confirmDelete1']} #{adxItem.loginName} #{bundle['adXref.confirmDelete2']}')">
+				<f:setPropertyActionListener target="#{adXrefMB.selectedRow}" value="#{adxItem.loginName}" />
+			</h:commandButton>
+      	</h:column> 
+      </h:dataTable>
+	<div class="buttonPanel">	
+		<h:commandLink  rendered="#{userMB.loggedIn}" action="home" value="#{bundle['header.label.home']}" /><br/><br/>
+	</div>
+    </h:form>        
+  </ui:define>
+    
+</ui:composition>

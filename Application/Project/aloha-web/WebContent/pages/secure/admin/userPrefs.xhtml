@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   template="/pages/templates/template-1Col.xhtml">
+     
+  <ui:define name="content"> 
+  	<p class="sectionTitle"><h:outputText value="#{bundle['userPref.title']}" class="sectionTitle"/></p>
+    <h:form>
+      <div align="center">
+      <h:dataTable var="upItem" value="#{userPrefMB.managedStaff}" class="Datatable" 
+        border="10" frame="border" rowClasses="weekDayRow,weekEndRow">
+      	<h:column>
+      		<f:facet name="header">
+				<h:outputText value="#{bundle['userPref.name']}"></h:outputText>
+			</f:facet>
+      		<h:outputText value="#{upItem.fullName}" ></h:outputText>
+      	</h:column>
+      	<h:column>
+      	    <f:facet name="header">
+				<h:outputText value="#{bundle['userPref.defaultApprover.header']}"></h:outputText>
+			</f:facet>
+      		<h:selectOneMenu id="ddDefaultSupv" value="#{userPrefMB.userPrefs[upItem.loginName].defaultApproverUserId}" class="weekDayRow">
+ 	     		<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.approver']}" itemValue="" />
+      			<f:selectItems value="#{userPrefMB.siTeamApprovers[upItem.teamId]}"/>
+      		</h:selectOneMenu>
+      	</h:column>	
+      	<h:column>
+      	    <f:facet name="header">
+				<h:outputText value="#{bundle['userPref.defaultTimekeeper.header']}"></h:outputText>
+			</f:facet>
+			<h:selectOneMenu id="ddPrimaryTK" value="#{userPrefMB.userPrefs[upItem.loginName].defaultTimekeeperUserId}" class="weekDayRow">
+			    <f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.timekeeper']}" itemValue="" />
+      			<f:selectItems value="#{userPrefMB.siTeamTimekeepers[upItem.teamId]}"/>
+			</h:selectOneMenu>
+		</h:column>	
+      </h:dataTable>
+      	<h:commandButton id="Save" tabindex="2" styleClass="submitButton" 
+				 						action="#{userPrefMB.save}" value="#{bundle['application.save']}"></h:commandButton>
+		<h:button outcome="home" value="#{bundle['header.label.home']}" />		 						
+		</div>
+    </h:form>        
+  </ui:define>    
+</ui:composition>

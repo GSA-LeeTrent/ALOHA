@@ -1,0 +1,52 @@
+@CHARSET "ISO-8859-1";
+
+@media all and (max-width: 600px) {
+
+
+/* added for create leave request notice formatting */
+div#wizardNoticep3 {
+	height:auto;
+	/* width:90%; */
+	width: 95%;
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #614A9F;
+}
+
+div#wizardNoticep4 {
+
+	height:auto;
+	width: 95%; 
+	/* width:90%; */
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #205493;
+
+}
+div#wizardNoticeMessagep4, div#wizardNoticeMessagep3 {
+	
+	width: 70%;
+}
+
+#wizardNoticep4 > div.createLeaveReqNoticeImage > img {
+	/* max-width: 140%; */
+	max-width: 95%;
+}
+
+#wizardNoticep3 > div.createLeaveReqNoticeImage > img {
+	/* max-width: 140%; */
+	max-width: 95%;
+}
+
+
+
+} /* end mobile media query */
+
+
+
+
+/*1*/

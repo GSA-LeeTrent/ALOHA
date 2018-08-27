@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-1Col-r.xhtml">
+	    <ui:define name="content">
+	 		<div id="main-content" style="width:100%;">
+				<div style="width:60%;margin-top:10px;margin-bottom:20px;margin-left:auto;margin-right:auto;padding:20px;background-color:#DFE5F3;border:3px double #435997;">
+					<h3 style="text-align:center;color:#435997;">OVERTIME NOTICE FOR EMPLOYEES AND SUPERVISORS</h3>
+					<p style="margin-top:10px;color:#435997;">
+					In accordance with the GSA 6010.4 OAD P Time and Leave Administration handbook and 5 U.S.C. Administrative Personnel, Pay Administration, supervisors should generally try to avoid or keep overtime to a minimum. This applies to 1) officially ordered and approved, and 2) suffered or permitted overtime for all employees.		
+					</p>
+					<p style="margin-top:10px;color:#435997;">
+					Below are some overtime guidelines for Employees and Supervisors.	
+					</p>					
+					<p style="margin-top:10px;color:#435997;">
+					<b>Employees: </b>You are prohibited from working overtime without the prior approval of your supervisor. All employees are hereby directed to obtain advance approval from your supervisor prior to working any overtime. All employees are required to record the amount of any overtime worked and to give that record to the employee's supervisor. 
+					</p>
+					<p style="margin-top:10px;color:#435997;">
+					<b>Supervisors: </b>This employee has requested approval for overtime or comp time. <b>YOU</b>, as the approving official, must ensure that the employee is informed that he/she is not authorized to start working requested hours until the request has been approved. 
+					</p>
+					<p style="margin-top:10px;color:#435997;">
+					<b>Emergencies: </b>In emergencies when it is impossible to get advance authorization, overtime may be permitted but only when it involves public health or safety or the requirement is so urgent as to make it clear that overtime would be approved. Such emergency overtime should be requested and approved as soon as possible after it is worked.  		
+					</p>				
+					
+					<div align="center" style="margin-top:20px;">
+						<h:form>
+							<c:if test="#{userMB.showLeaveReconWizard}">
+														
+							<h:commandButton action="LR/recon/lrReconWizard.xhtml?faces-redirect=true" value="#{bundle['application.button.label.ok']}" >
+								<f:param name="#{constantsMB.otPolicyAcknowledgedParamName}" value="TRUE"/>
+							</h:commandButton >
+							</c:if>
+							<c:if test="#{!userMB.showLeaveReconWizard}">
+							<h:commandButton action="home" value="#{bundle['application.button.label.ok']}">
+								<f:param name="#{constantsMB.otPolicyAcknowledgedParamName}" value="TRUE"/>
+							</h:commandButton>
+							</c:if>
+
+						</h:form>
+						
+						
+					</div>
+				</div>	
+	 		</div>
+	    </ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core">
+            
+	<ui:composition>
+	<h:form>
+		<table>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrEmpName" value="#{bundle['application.label.employee']}" ></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrEmpName" value="#{lRViewDtlMB.lrd.leaveHeader.employee.fullName}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrStatus" value="#{bundle['application.text.status']}" ></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrStatus" value="#{lRViewDtlMB.lrStatus}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrSubmitter" value="#{bundle['application.label.submitter']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrSubmitter" value="#{lRViewDtlMB.lrSubmitter}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrApprover" value="#{bundle['application.label.supervisor']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrApprover" value="#{lRViewDtlMB.lrApprover}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			
+			<!--  
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrSubCmnt" value="#{bundle['application.label.remarks.submitter']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrSubCmnt" value="#{lRViewDtlMB.lrSubmitterComments}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrAprvrCmnt" value="#{bundle['application.label.remarks.supervisor']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrAprvrCmnt" value="#{lRViewDtlMB.lrApproverComments}"  style="vertical-align:top;"></h:outputText>
+				</td>
+			</tr>
+			-->
+
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="lrAllComments" value="#{bundle['application.label.previousRemarks']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="lrAllComments" value="#{lRViewDtlMB.lrAllComments}"  style="vertical-align:top;"></h:outputText>
+				</td>
+			</tr>	
+	
+			
+			
+		</table>
+		<h:dataTable value="#{lRViewDtlMB.lriList}" var="lrvd" border="1" cellpadding="5">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['ot.list.th.type']}" />
+				</f:facet>
+				<h:outputText value="#{lrvd.leaveType.primaryCode}" />
+				<h:outputText value="-#{lrvd.leaveType.secondaryCode}" rendered="#{lrvd.leaveType.secondaryCode > 0}"/>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['leaveRequest.label.date']}" />
+				</f:facet>
+				<h:outputText value="#{lrvd.leaveDate}" >
+				<f:convertDateTime pattern="MM/dd/yyyy"/>
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['leaveRequest.label.schedule.startTime_2']}" />
+				</f:facet>
+				<h:outputText value="#{lrvd.startTime}"  style="text-align:right;float:right;" >
+				<f:convertDateTime pattern="hh:mm a" timeZone="CST"/>
+				</h:outputText>
+			</h:column>				 
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['leaveRequest.label.hours']}" />
+				</f:facet>
+				<h:outputText value="#{lrvd.leaveHours}" style="text-align:right;float:right;" />
+			</h:column>			
+		</h:dataTable>
+	</h:form>		
+	</ui:composition>
+
+</html>

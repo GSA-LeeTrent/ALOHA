@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-1Col.xhtml">
+<ui:define name="content">
+	<div id="main-content" style="width:100%;">
+		<fieldset class="list" style="border:1px solid #5C69AD;">
+			<legend><h:outputText value="#{bundle['ot.list.supervisor.legend']}"/></legend>
+			<c:if test="#{not empty otListSupvMB.confirmMsg}">
+				<div id="confirmMsg" class="confirmMsg">
+					<h4><h:outputText value="#{bundle['application.label.confirmation']}"/></h4>
+					<ul>
+						<li style="margin-left:0px;">
+							<h:outputText value="#{otListSupvMB.confirmMsg}"/>
+						</li>
+					</ul>
+					<div>
+						<h:outputLink onclick="document.getElementById('confirmMsg').style.display='none';return false;">
+							<h:outputText value="#{bundle['application.close']}"/>
+						</h:outputLink>
+					</div>
+				</div>
+			</c:if>
+			<div style="margin-top:10px;margin-left:10px;">
+				<span style="font-style:italic;font-weight:bold;font-decoration:underline;">Check to view details:</span>
+				<form>
+					<ul style="margin-left:10px;margin-top:5px;">
+						<li style="list-style-type:none;margin-left:5px;color:#000;">
+							<h:selectBooleanCheckbox id="submittedListCheckbox" value="#{otListSupvMB.showSubmittedList}"
+								onclick="onListSelected('submittedListCheckbox', 'submittedListDiv');"/>
+							<h:outputFormat escape="false" value="#{bundle['ot.list.supvervisor.checkbox.label.submitted']}">
+								<f:param value="#{otListSupvMB.submittedListCount}" />
+							</h:outputFormat>					
+						</li>
+						<li style="list-style-type:none;margin-left:5px;color:#000;">
+							<h:selectBooleanCheckbox id="receivedListCheckbox" value="#{otListSupvMB.showReceivedList}"  
+								onclick="onListSelected('receivedListCheckbox', 'receivedListDiv');"/>
+							<h:outputFormat escape="false" value="#{bundle['ot.list.supvervisor.checkbox.label.received']}">
+								<f:param value="#{otListSupvMB.receivedListCount}" />
+							</h:outputFormat>					
+						</li>
+						<li style="list-style-type:none;margin-left:5px;color:#000;">
+							<h:selectBooleanCheckbox id="approvedListCheckbox" value="#{otListSupvMB.showApprovedList}"  
+								onclick="onListSelected('approvedListCheckbox', 'approvedListDiv');"/>
+							<h:outputFormat escape="false" value="#{bundle['ot.list.supvervisor.checkbox.label.approved']}">
+								<f:param value="#{otListSupvMB.approvedListCount}" />
+							</h:outputFormat>					
+						</li>
+						<li style="list-style-type:none;margin-left:5px;color:#000;">
+							<h:selectBooleanCheckbox id="deniedListCheckbox" value="#{otListSupvMB.showDeniedList}" 
+								onclick="onListSelected('deniedListCheckbox', 'deniedListDiv');"/>
+							<h:outputFormat escape="false" value="#{bundle['ot.list.supvervisor.checkbox.label.denied']}">
+								<f:param value="#{otListSupvMB.deniedListCount}" />
+							</h:outputFormat>												
+						</li>
+						<li style="list-style-type:none;margin-left:5px;color:#000;">
+							<h:selectBooleanCheckbox id="cancelledListCheckbox" value="#{otListSupvMB.showCancelledList}" 
+								onclick="onListSelected('cancelledListCheckbox', 'cancelledListDiv');"/>
+							<h:outputFormat escape="false" value="#{bundle['ot.list.supvervisor.checkbox.label.cancelled']}">
+								<f:param value="#{otListSupvMB.cancelledListCount}" />
+							</h:outputFormat>												
+						</li>
+					</ul>
+				</form>
+			</div>
+			<div id="submittedListDiv" style="#{otListSupvMB.submittedListDisplay}">
+			 	<h:dataTable styleClass="otDataTable list" captionClass="supervisor" rowClasses="odd,even" 
+			 		value="#{otListSupvMB.submittedList}" var="otSubmittedDetail" rendered="#{not empty otListSupvMB.submittedList}"> 
+					<f:facet name="caption">
+						<h:outputText value="#{bundle['ot.list.supervisor.caption.submitted']}"/>
+		           	</f:facet>	
+		            <ui:insert name="otListRowContent">
+		            	<ui:include src="otListRowContent.xhtml">
+		           			<ui:param name="otDetail" value="#{otSubmittedDetail}" />
+		            	</ui:include>
+		            </ui:insert>		           		 		
+			 		<h:column>
+		  				<f:facet name="header">
+							<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+		               	</f:facet>					
+		               	<h:form>		
+							<h:commandLink value="#{bundle['application.link.text.review']}" action="otReviewSupv">
+								<f:param name="otDetailId" value="#{otSubmittedDetail.id}"/>
+							</h:commandLink>	
+						</h:form>
+					</h:column>				 			 	
+			 	</h:dataTable>
+				<c:if test="#{empty otListSupvMB.submittedList}">
+		            <ui:insert name="otListEmpty">
+		            	<ui:include src="otListEmpty.xhtml">
+		            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.supervisor.caption.submitted']}" />
+		            	</ui:include>
+		            </ui:insert>
+				</c:if>
+			</div>
+			<div id="receivedListDiv" style="#{otListSupvMB.receivedListDisplay}">			
+			 	<h:dataTable styleClass="otDataTable list" rowClasses="odd,even" 
+			 		value="#{otListSupvMB.receivedList}" var="otReceivedDetail"	rendered="#{not empty otListSupvMB.receivedList}"> 
+					<f:facet name="caption">
+						<h:outputText value="#{bundle['ot.list.supervisor.caption.received']}"/>
+		           	</f:facet>		 		
+		            <ui:insert name="otListRowContent">
+		            	<ui:include src="otListRowContent.xhtml">
+		           			<ui:param name="otDetail" value="#{otReceivedDetail}" />
+		            	</ui:include>
+		            </ui:insert>		           		 		
+			 		<h:column>
+		  				<f:facet name="header">
+							<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+		               	</f:facet>					
+		               	<h:form>	
+		               		<ul>
+			               		<li style="margin-left:0;list-style:none;">
+									<h:commandLink value="#{bundle['ot.supervisor.link.approve']}" action="otApproveSupv">
+										<f:param name="otDetailId" value="#{otReceivedDetail.id}"/>
+									</h:commandLink>
+								</li>
+								<li style="margin-left:0;list-style:none;">
+									<h:commandLink value="#{bundle['ot.supervisor.link.deny']}" action="otDenySupv"
+										rendered="#{otReceivedDetail.deniableBySupervisor}">
+										<f:param name="otDetailId" value="#{otReceivedDetail.id}"/>
+									</h:commandLink>
+								</li>
+		               			<li style="margin-left:0;list-style:none;">
+									<h:commandLink value="#{bundle['ot.link.label.cancel']}" action="otCancelSupv" 
+										rendered="#{otReceivedDetail.cancellableBySupervisor}">
+										<f:param name="otDetailId" value="#{otReceivedDetail.id}"/>
+									</h:commandLink>	
+		               			</li> 								
+							</ul>	
+						</h:form>
+					</h:column>				 			 	
+			 	</h:dataTable>
+				<c:if test="#{empty otListSupvMB.receivedList}">
+		            <ui:insert name="otListEmpty">
+		            	<ui:include src="otListEmpty.xhtml">
+		            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.supervisor.caption.received']}" />
+		            	</ui:include>
+		            </ui:insert>
+				</c:if>
+			</div>
+			<div id="approvedListDiv" style="#{otListSupvMB.approvedListDisplay}">			
+			 	<h:dataTable styleClass="otDataTable list" rowClasses="odd,even" 
+			 		value="#{otListSupvMB.approvedList}" var="otApprovedDetail"	rendered="#{not empty otListSupvMB.approvedList}"> 
+					<f:facet name="caption">
+						<h:outputText value="#{bundle['ot.list.supervisor.caption.approved']}"/>
+		           	</f:facet>		 		
+		            <ui:insert name="otListRowContent">
+		            	<ui:include src="otListRowContent.xhtml">
+		           			<ui:param name="otDetail" value="#{otApprovedDetail}" />
+		            	</ui:include>
+		            </ui:insert>		           		 		
+			 		<h:column>
+		  				<f:facet name="header">
+							<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+		               	</f:facet>					
+		               	<h:form>		
+		               		<ul>
+			               		<li style="margin-left:0;list-style:none;">
+									<h:commandLink value="#{bundle['application.link.text.view']}" action="otViewSupv">
+										<f:param name="otDetailId" value="#{otApprovedDetail.id}"/>
+									</h:commandLink>
+								</li>	
+		               			<li style="margin-left:0;list-style:none;">
+									<h:commandLink value="#{bundle['ot.link.label.cancel']}" action="otCancelSupv" 
+										rendered="#{otApprovedDetail.cancellableBySupervisor}">
+										<f:param name="otDetailId" value="#{otApprovedDetail.id}"/>
+									</h:commandLink>	
+		               			</li> 								
+							</ul>	
+						</h:form>
+					</h:column>				 			 	
+			 	</h:dataTable>
+				<c:if test="#{empty otListSupvMB.approvedList}">
+		            <ui:insert name="otListEmpty">
+		            	<ui:include src="otListEmpty.xhtml">
+		            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.supervisor.caption.approved']}" />
+		            	</ui:include>
+		            </ui:insert>
+				</c:if>
+			</div>
+			<div id="deniedListDiv"  style="#{otListSupvMB.deniedListDisplay}">					
+			 	<h:dataTable styleClass="otDataTable list" rowClasses="odd,even" 
+			 		value="#{otListSupvMB.deniedList}" var="otDeniedDetail" rendered="#{not empty otListSupvMB.deniedList}"> 
+					<f:facet name="caption">
+						<h:outputText value="#{bundle['ot.list.supervisor.caption.denied']}"/>
+		           	</f:facet>	
+		            <ui:insert name="otListRowContent">
+		            	<ui:include src="otListRowContent.xhtml">
+		           			<ui:param name="otDetail" value="#{otDeniedDetail}" />
+		            	</ui:include>
+		            </ui:insert>		           		 		
+			 		<h:column>
+		  				<f:facet name="header">
+							<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+		               	</f:facet>					
+		               	<h:form>		
+							<h:commandLink value="#{bundle['application.link.text.view']}" action="otViewSupv">
+								<f:param name="otDetailId" value="#{otDeniedDetail.id}"/>
+							</h:commandLink>	
+						</h:form>
+					</h:column>				 			 	
+			 	</h:dataTable>
+				<c:if test="#{empty otListSupvMB.deniedList}">
+		            <ui:insert name="otListEmpty">
+		            	<ui:include src="otListEmpty.xhtml">
+		            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.supervisor.caption.denied']}" />
+		            	</ui:include>
+		            </ui:insert>
+				</c:if>
+			</div>
+			<div id="cancelledListDiv" style="#{otListSupvMB.cancelledListDisplay}">					
+			 	<h:dataTable styleClass="otDataTable list" rowClasses="odd,even" 
+			 		value="#{otListSupvMB.cancelledList}" var="otCancelledDetail" rendered="#{not empty otListSupvMB.cancelledList}"> 
+					<f:facet name="caption">
+						<h:outputText value="#{bundle['ot.list.supervisor.caption.cancelled']}"/>
+		           	</f:facet>	
+		            <ui:insert name="otListRowContent">
+		            	<ui:include src="otListRowContent.xhtml">
+		           			<ui:param name="otDetail" value="#{otCancelledDetail}" />
+		            	</ui:include>
+		            </ui:insert>		           		 		
+			 		<h:column>
+		  				<f:facet name="header">
+							<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+		               	</f:facet>					
+		               	<h:form>		
+							<h:commandLink value="#{bundle['application.link.text.view']}" action="otViewSupv">
+								<f:param name="otDetailId" value="#{otCancelledDetail.id}"/>
+							</h:commandLink>	
+						</h:form>
+					</h:column>				 			 	
+			 	</h:dataTable>
+				<c:if test="#{empty otListSupvMB.cancelledList}">
+		            <ui:insert name="otListEmpty">
+		            	<ui:include src="otListEmpty.xhtml">
+		            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.supervisor.caption.cancelled']}" />
+		            	</ui:include>
+		            </ui:insert>
+				</c:if>
+			</div>
+	   	</fieldset>
+	   	<div style="width:100%;text-align:center;margin-top:20px;margin-bottom:20px;">
+    		<h:form>
+        		<h:commandLink action="home" value="#{bundle['application.button.label.home']}"/>
+			</h:form>
+       	</div>
+	</div>			
+	<script language="JavaScript">
+		//<![CDATA[
+		function onListSelected(checkboxId, listId) {
+			if ( document.getElementById(checkboxId).checked ) {
+				document.getElementById(listId).style.display="block";
+			} else {
+				document.getElementById(listId).style.display="none";
+			}
+		}		           
+		//]]>	
+	</script>			           
+</ui:define>
+</ui:composition>
+</html>

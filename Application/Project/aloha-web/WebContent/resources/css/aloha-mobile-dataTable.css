@@ -1,0 +1,353 @@
+@CHARSET "ISO-8859-1";
+
+@media all and (max-width: 600px) {
+
+caption.search{
+	font-weight: bold;
+	text-align: left;
+	color:#435997;
+}	
+table.Datatable {      
+	margin-top:10px;
+	border-collapse:collapse;
+	margin-left:8px;
+	/*border-bottom: 10px solid red;*/
+	/*margin-left:auto;margin-right:auto;*/
+	/*border: 3px solid #5c69ad;*/
+}
+table.thin {
+	border: 3px solid #5c69ad;
+}
+
+table.Datatable tr {   
+        padding-bottom: 5px;
+       }
+
+
+table.Datatable td {      
+	font-size: 0.75em;
+	font-size:small;
+	border: 2px solid #fff;
+	/*padding:5px 5px 5px 5px;*/
+	padding:1px;
+}
+table.Datatable th a {      
+	color: #fff;
+	text-decoration: underline;
+}
+table.Datatable td a {
+	text-decoration: underline
+}			
+table.Datatable tr.oddRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.evenRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.weekEndRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+	color:#808080;
+}
+table.Datatable tr.holidayRow {	
+	background-color: #E4F3F5;
+	border-bottom: 2px solid #fff;
+	color:#4A95A0;
+}
+table.Datatable tr.duplicateHolidayRow {	
+	background-color: #4A95A0;
+	border-bottom: 2px solid #fff;
+	color:#E4F3F5;
+}
+
+table.Datatable tr.weekEndRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+	/*color:#A2A6B3;*/
+	color:#445A9B;
+}
+table.Datatable tr.weekDayRow {	
+	background-color: #e7ebf7;
+	color:#4B61A1;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.duplicateWeekDayRow {	
+	/*background-color: #9DAAD3;
+	color:#334789;*/
+	background-color: #4B61A1;
+	color:#E7EBF7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.duplicateWeekEndRow {	
+	background-color: #445A9B;
+	color:#D0D8EF;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.applyToAllRow {	
+	background-color:#9FA8D6;
+	color:#FFF;	
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.applyToAllRow td {	
+	text-align:center;
+}
+table.Datatable tr.applyToAllRow a {	
+	font-weight:bold;
+	font-size:small;
+	color: #5c69ad;
+}
+table.Datatable tr.workDayRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.nonWorkDayRow {	
+	background-color: lightgray;
+	border-bottom: 2px solid #fff;
+	color:#808080;
+}
+
+table.Datatable th, table.Datatable tr.headerRow {
+	background-color: #5c69ad;
+	color: #fff;
+	/*font-size: 0.75em;	*/
+	font-size:small;
+	line-height: 100%;
+	/*padding: 5px 5px 5px 5px;*/
+	/* padding: 2px 2px 2px 2px; */
+	padding:1px;
+	border: 2px solid #fff;
+	text-align: center;
+	font-weight:normal;
+	
+}
+table.Datatable th.totalsLabel {text-align:right;}
+table.Datatable th.totalsValue {text-align:right;}
+table.Datatable caption	{
+	text-align:center;
+	font-weight:bold;
+	color:#000;
+}
+table.Datatable.td.holiday{text-align:center;}
+
+td.changeReportColumn {
+	border-style: none none solid none;
+	border-width: 2px;
+	border-color: black;
+	padding: 0px
+}
+
+table.sidebar{
+	/*background-color:yellow;*/
+	/*border: 1px solid #000;*/
+	margin-left:auto;
+	margin-right:auto;
+}
+table.sidebar {      
+	/*margin-top:10px;*/
+	margin-top:10px;
+	width: 90%; 
+	_width: 90%;
+	border-collapse:collapse;
+}
+
+table.sidebar caption{
+	text-align: center;
+	font-weight:bold;
+	color:#435997;		
+}	
+table.sidebar tr.oddRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.sidebar tr.evenRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.sidebar td{
+	font-size: 0.75em;
+	border: 2px solid #fff;
+	padding:5px 5px 5px 10px;
+}
+table.sidebar th{
+	background-color: #5c69ad;
+	color: #fff;
+	font-size: 0.75em;
+	line-height: 100%;
+	padding: 5px 5px 5px 13px;
+	border: 2px solid #fff;
+	text-align: left;
+}
+table.dataTableView {      
+	border: 1px solid #000;
+}
+table.dataTableView tr.oddRow {	
+	background-color: #fff;
+	border-bottom: 1px solid #red;	
+}
+table.dataTableView tr.evenRow {	
+	background-color:lightgray;
+	border-bottom: 1px solid #red;
+}
+table.dataTableView th {
+	font-size:small;
+	background-color:#A9A9A9;
+	color: #fff;
+	padding-left:2px;
+	padding-right:2px;
+	text-align: left;
+}
+table.dataTableView td {      
+	font-size:small;
+	padding-left:2px;
+	padding-right:2px;
+}
+table.dataTableView th a {      
+	color: #fff;
+	text-decoration: underline;
+}
+table.dataTableView td a {
+	text-decoration: underline
+}			
+table.dataTableView  th.totalsLabel {text-align:right;}
+table.dataTableView  th.totalsValue {text-align:center;}
+table.dataTableView  caption	{
+	text-align: center;
+	font-weight:bold;
+	color:#435997;		
+}
+
+
+/* added for data tables */	
+		/* Force table to not be like tables anymore */
+	table.Datatable, 
+	table.Datatable thead, 
+	table.Datatable tbody, 
+	table.Datatable th, 
+	table.Datatable td, 
+	table.Datatable tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	table.Datatable thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	table.Datatable tr { border: 1px solid #ccc; }
+	
+	table.Datatable td { 
+		/* Behave  like a "row" */
+		border: none;
+		/*border-bottom: 1px solid #eee;*/ 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	table.Datatable td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+		Label the data for creating a leave request
+	*/
+	/*skip first row*/
+	table.dataTableLR td:nth-of-type(1):before { content: " "; }
+	table.dataTableLR td:nth-of-type(2):before { content: "Date"; }
+	table.dataTableLR td:nth-of-type(3):before { content: "Day"; }
+	table.dataTableLR td:nth-of-type(4):before { content: "Work Hours"; }
+	table.dataTableLR td:nth-of-type(5):before { content: "Leave Description"; }
+	table.dataTableLR td:nth-of-type(6):before { content: "Leave Hours"; }
+	table.dataTableLR td:nth-of-type(7):before { content: "Start Time"; }
+	table.dataTableLR td:nth-of-type(8):before { content: "Copy"; }
+	table.dataTableLR td:nth-of-type(9):before { content: "Erase"; }
+	
+	
+	/*
+		Label the data for admin interface
+	*/
+	/*skip first row*/
+	table.admin td:nth-of-type(1):before { content: "Login Name"; }
+	table.admin td:nth-of-type(2):before { content: "ETAM User Id"; }
+	table.admin td:nth-of-type(3):before { content: "First Name"; }
+	table.admin td:nth-of-type(4):before { content: "Last Name"; }
+	table.admin td:nth-of-type(5):before { content: "M"; }
+	table.admin td:nth-of-type(6):before { content: "Email Address"; }
+	table.admin td:nth-of-type(7):before { content: " "; }
+	table.admin td:nth-of-type(8):before { content: " "; }
+	
+	/*
+		Label the data for leave request admendment
+	*/
+	/*skip first row*/
+	table.approvedLeave td:nth-of-type(1):before { content: "+/-"; }
+	table.approvedLeave td:nth-of-type(2):before { content: "Date"; }
+	table.approvedLeave td:nth-of-type(3):before { content: "Day"; }
+	table.approvedLeave td:nth-of-type(4):before { content: "Work Hours"; }
+	table.approvedLeave td:nth-of-type(5):before { content: "Leave Description"; }
+	table.approvedLeave td:nth-of-type(6):before { content: "Leave Hours"; }
+	table.approvedLeave td:nth-of-type(7):before { content: "Start Time"; }
+	table.approvedLeave td:nth-of-type(8):before { content: "Copy"; }
+	table.approvedLeave td:nth-of-type(9):before { content: "Erase"; }	
+	
+	
+	
+	.leaveTypeCode {
+		width: 100%;
+	}
+	
+	
+	/* added 3/22/2013 for new LRList  */
+	
+/* hide first and third columns */
+/* previous lrList specifying by iceDatTbl 
+table.iceDatTbl>tbody>tr>td:nth-child(1),table.iceDatTbl>thead>tr>th:nth-child(1) { display:none;}
+	table.iceDatTbl>tbody>tr>td:nth-child(3), table.iceDatTbl>thead>tr>th:nth-child(3){ display:none;}
+	
+	table.iceDatTbl a {
+	
+		text-decoration:underline;
+	}
+
+	table.iceDatTbl li a {
+	
+		text-decoration:underline;
+		font-size: large;
+		line-height: 2;
+	}
+*/
+
+/* modified to use form with specific class */
+	div.lrListForm>form table.iceDatTbl>tbody>tr>td:nth-child(1), div.lrListForm>form table.iceDatTbl>thead>tr>th:nth-child(1) { display:none;}
+	div.lrListForm>form table.iceDatTbl>tbody>tr>td:nth-child(3), div.lrListForm>form table.iceDatTbl>thead>tr>th:nth-child(3){ display:none;}
+	
+	div.lrListForm>form table.iceDatTbl a {
+	
+		text-decoration:underline;
+	}
+
+	div.lrListForm>form table.iceDatTbl li a {
+	
+		text-decoration:underline;
+		font-size: large;
+		line-height: 2;
+	}
+
+
+
+/*504*/
+
+}
+
+
+

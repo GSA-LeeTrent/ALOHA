@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-1Col-r.xhtml">
+	    <ui:define name="content">
+	 		<div id="main-content" style="padding:5px;">
+				<p class="sectionTitle" style="text-align:left;font-size:large;"><h:outputText value="#{bundle['header.label.help']}"/></p>
+	 			<div style="margin-top:10px;margin-bottom:10px;">
+	 				<h:outputLink value="https://finance3.gsa.gov/misc/aloha/help/ALOHA_User_Manual.pdf">ALOHA Leave Request User Guide</h:outputLink>
+	 				<br/><br/>
+	 				<h:outputLink value="https://finance3.gsa.gov/misc/aloha/help/ALOHA_OT_User_Manual.pdf">ALOHA Overtime User Guide</h:outputLink>
+	 			</div>
+	 		</div>
+	    </ui:define>
+	</ui:composition>
+</html>

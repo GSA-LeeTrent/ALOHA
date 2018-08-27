@@ -1,0 +1,88 @@
+@CHARSET "ISO-8859-1";
+@media all and (max-width: 600px) {
+
+
+table.sideBySide {
+/*
+	margin-left:0px;
+	border-collapse:seperate;
+	border-spacing:1px;
+	border-bottom: 7px solid #5c69ad;
+*/	
+	width:90%;
+	margin-left:0px;
+	border-collapse:collapse;
+}
+table.sideBySide caption	{
+	font-weight: bold;
+	padding: 1px 1px 1px 1px;
+	padding: 10px 0px 5px 10px;
+	padding: 2px 2px 2px 2px;	
+	padding: 3px 3px 3px 3px;	
+	padding: 3px 3px 3px 3px;	
+	padding: 5px 0px 3px 5px;	
+	text-align: center;
+	color:#000;
+}
+table.sideBySide  tr.odd {
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.sideBySide  tr.even {
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.sideBySide th {
+	background-color: #5c69ad;
+	color: #fff;
+	/*font-size: 0.75em;	*/
+	font-size:small;
+	line-height: 90%;
+	padding: 5px 5px 5px 13px;
+	padding: 2px 2px 2px 2px;
+	padding: 3px 3px 3px 3px;
+	padding: 3px 3px 3px 7px;		
+	border: 2px solid #fff;
+	text-align: left;
+	white-space:nowrap;
+	vertical-align:text-top;
+	font-weight:normal;
+}
+table.sideBySide td {
+	font-size: 0.75em;
+	font-size:small;
+	border: 2px solid #fff;
+	padding:1px 1px 1px 1px;	
+	padding:5px 10px 5px 10px;
+	padding: 2px 2px 2px 2px;	
+	padding: 3px 3px 3px 3px;
+	white-space:normal;
+	vertical-align:text-top;
+	padding:3px 6px 3px 6px;	
+}
+table.sideBySide th.number, table.sideBySide td.number {
+	text-align:right;	
+}	
+table.sideBySide caption {
+	font-weight: bold;
+	padding: 10px 0px 5px 10px;
+	text-align: center;
+}
+
+/* hide start time columns  working 3/27/2013 (assuming change from 7 to 8 works)*/
+	table.sideBySide>tbody>tr>td:nth-child(5), table.sideBySide>tbody>tr>th:nth-child(5){ display:none;}
+	table.sideBySide>tbody>tr>td:nth-child(8), table.sideBySide>tbody>tr>th:nth-child(8){ display:none;}
+
+/* put solid border on 7th column */
+/*table.sideBySide>tbody>tr>td:nth-child(7), table.sideBySide>tbody>tr>th:nth-child(7) {border-right:solid #496A77 5px; } */
+
+.mobileOnly {
+	position:static;
+	left: auto; 
+}
+
+.desktopOnly { 
+	position:absolute;
+	left:-999em; 
+}
+}

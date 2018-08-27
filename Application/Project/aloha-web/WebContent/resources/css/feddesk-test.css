@@ -1,0 +1,95 @@
+@CHARSET "ISO-8859-1";
+
+/*
+div.readOnly {
+	border: solid 1px #5c69ad;
+	margin-top:5px;
+	margin-bottom:10px;
+	margin-left:20px;
+	margin-right:20px;
+	padding:15px;
+	background-color:#CED5E8;
+}
+
+table.inner {
+  	position: relative;
+  	top: -4px;
+  	left: -4px;
+  	background: #fff;
+  	margin-top:auto;
+  	margin-bottom:auto;
+  	margin-left:auto;
+  	margin-right:auto;
+  	border: 2px solid #FFF;
+}  	
+fieldset.readOnly {
+    margin-top:10px;    
+    margin-bottom:10px;
+    border:none;
+}
+fieldset.readOnly legend{
+	font-size:small;color:#999;		
+}
+*/
+
+.remarks{padding-bottom:20px;}
+
+div.buttonPanel{
+	clear:both;
+	width:90%;
+	margin-top:5px;
+	margin-bottom:15px;
+	text-align:left;
+}
+div.buttonPanel input {
+	margin-left:2px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+textarea {
+	margin-left:20px;margin-right:auto;border:1px solid #navy;
+}
+/*
+p.sectionTitle {
+	clear:both;
+	width:90%;
+	margin-top:20px;
+	display: block; 
+    font-weight: bold;
+	font-size:medium;    
+	color:#435997;
+	text-align:center;	 
+}
+*/
+p.subSectionTitle {
+	clear:both;
+	width:90%;
+	margin-top:10px;
+	display: block; 
+    font-weight: bold;
+	font-size:small;    
+	color:#435997;
+	text-align:center;	 
+}
+div.form {
+  width:90%;
+  color: #5c69ad;
+  background-color:#FFF;  
+  border: double 1px #4e6a71;
+  border: solid 1px #5c69ad;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+ul.confirm li {font-weight:bold;}
+
+.leaveTypeDropDown {width:300px;}
+
+a.insertRow:link {text-align:center;text-decoration:none;font-size:x-large;font-weight:bold;color:#4B61A1;}
+a.insertRow:active {text-align:center;text-decoration:none;font-size:x-large;font-weight:bold;color:#4B61A1;}
+a.insertRow:visited {text-align:center;text-decoration:none;font-size:x-large;font-weight:bold;color:#4B61A1}
+a.insertRow:hover {text-align:center;text-decoration:none;font-size:x-large;font-weight:bold;color:#4B61A1;}
+
+a.collapseRow:link  {text-decoration:none;font-size:x-large;font-weight:bold;color:#5C69AD;}
+a.collapseRow:active  {text-decoration:none;font-size:x-large;font-weight:bold;color:#5C69AD;}
+a.collapseRow:visited  {text-decoration:none;font-size:x-large;font-weight:bold;color:#5C69AD;}
+a.collapseRow:hover {text-decoration:none;font-size:x-large;font-weight:bold;color:#5C69AD}

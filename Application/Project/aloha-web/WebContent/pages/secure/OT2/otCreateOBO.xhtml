@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+		<icecore:config render="false"/>
+	 	<div id="main-content">
+			<h3 style="text-align:center;"><h:outputText value="#{bundle['ot.create.pageTitle']}"/></h3>
+			<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+			<p class="sectionTitle"><h:outputText value="#{bundle['ot.create.sectionTitle.new']}"/></p>		
+			<h:form id="otEmployeeForm" prependId="false" rendered="#{not otCreateOBOMB.employeeSelected}">			
+				<table class="formTable">
+					<tr>
+						<td><h:outputLabel for="submitterName01" value="#{bundle['application.label.submitter']}"/></td>
+						<td><h:outputText id="submitterName01" value="#{otCreateOBOMB.submitter.fullName}"/></td>
+						<td><h:outputLabel for="employees" value="#{bundle['ot.all.label.employee']}"/></td>
+						<td>
+							<h:selectOneMenu id="employees" value="#{otCreateOBOMB.selectedEmployee}" 
+									label="#{bundle['application.label.employee']}">
+			 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.employee']}" itemValue="0"/>
+			 					<f:selectItems value="#{otCreateOBOMB.employees}"/>
+			 				</h:selectOneMenu>&nbsp;
+ 							<h:commandButton id="employeeSubmitButton" styleClass="submitButton" 
+ 								value="#{bundle['leaveRequest.button.label.submit']}" 
+			 					action="#{otCreateOBOMB.onEmployeeSelected}">
+			 					<f:param name="#{constantsMB.initOtOboCreate}" value="TRUE"/>
+			 				</h:commandButton>	
+						</td>
+					</tr>
+				</table>		
+			</h:form>	
+			<h:form id="otPayPeriodAndSupervisorForm" prependId="false" rendered="#{otCreateOBOMB.employeeSelected}">
+				<table class="formTable">
+					<tr>
+						<td><h:outputLabel for="submitterName02" value="#{bundle['application.label.submitter']}"/></td>
+						<td><h:outputText id="submitterName02" value="#{otCreateOBOMB.submitter.fullName}"/></td>
+						<td><h:outputLabel for="employeeName" value="#{bundle['ot.all.label.employee']}"/></td>
+						<td><h:outputText id="employeeName" value="#{otCreateOBOMB.employee.fullName}" /></td>
+					</tr>					
+					<tr>
+						<td><h:outputLabel for="approvers" value="#{bundle['application.label.supervisor']}"/></td>
+						<td>
+							<h:selectOneMenu label="#{bundle['leaveRequest.label.approver']}" id="approvers" 
+								value="#{otCreateOBOMB.selectedApprover}">
+			 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.supervisor']}" itemValue="0"/>
+			 					<f:selectItems value="#{otCreateOBOMB.approvers}"/>
+			 				</h:selectOneMenu>
+						</td>						
+						<td><h:outputLabel for="payPeriods" value="#{bundle['leaveRequest.label.payPeriod']}"/></td>
+						<td>
+							<h:selectOneMenu id="payPeriods"  value="#{otCreateOBOMB.selectedPayPeriod}"
+								onchange="onSelectedPayPeriod();return false;">
+			 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+			 					<f:selectItems value="#{otPayPeriodMB.otLimitedPayPeriods}"/>
+ 							</h:selectOneMenu>
+		 				</td>									
+					</tr>
+					<tr>
+						<td><h:outputLabel for="otTypes" value="#{bundle['application.label.type']}"/></td>					
+						<td>
+							<h:selectOneMenu id="otTypes" value="#{otCreateOBOMB.selectedType}" >
+			 					<f:selectItem itemLabel="#{bundle['ot.dropDown.prompt.type']}" itemValue="#{otCreateOBOMB.unselectedType}"/>
+			 					<f:selectItems value="#{otTypesMB.otTypes}"/>
+			 				</h:selectOneMenu>
+						</td>						
+						<td colspan="2">&nbsp;</td>
+					</tr>					
+				</table>
+				<div style="width:90%;"><ul id="otTaskErrorList" class="errorMsg" style="display:none;"></ul></div>
+				<p class="sectionTitle"><h:outputText value="#{bundle['ot.create.sectionTitle.taskList']}"/></p>
+				<table class="otDataTable">
+					<caption id="otTaskListCaption">
+						<h:outputText value="#{bundle['ot.prompt.payPeriod']}" rendered="#{not otCreateOBOMB.payPeriodSelected}"/>
+						<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}" rendered="#{otCreateOBOMB.payPeriodSelected}">
+							<f:param value="#{otCreateOBOMB.selectedPayPeriodValue}" />
+						</h:outputFormat>										
+					</caption>
+		            <ui:insert name="otTaskScheduleHeader">
+		            	<ui:include src="../../sections/otTaskScheduleHeader.xhtml"/>
+		            </ui:insert>
+					<tbody>
+						<c:forEach var="otTask" items="#{otCreateOBOMB.taskList}" varStatus="loopStatus">
+				            <ui:insert name="lrBaseScheduleRow">
+				            	<ui:include src="../../sections/otTaskScheduleRow.xhtml"/>
+				            </ui:insert>
+						</c:forEach>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th class="totalsLabel"><h:outputText value="#{bundle['ot.create.taskList.totalHours']}"/>&nbsp;</th>
+							<th class="totalsValue" id="totalOvertimeHours"><h:outputText value="#{otCreateOBOMB.totalOvertimeHours}"/></th>
+							<th>&nbsp;</th>
+						</tr>
+					</tfoot>					
+				</table>
+				<div  style="margin-top:10px;text-align:center;">
+           			<input type="button" title="#{bundle['ot.create.button.title.addTask']}" 
+           			value="#{bundle['ot.create.button.value.addTask']}" onclick="addTaskRow();"/>
+         		</div>				
+				<p class="sectionTitle"><h:outputText value="#{bundle['ot.create.sectionTitle.submitterRemarks']}"/></p>
+		 		<div style="width:87%;margin:10px;padding-top:20px;padding-bottom:20px;background-color:#e7ebf7;border:solid 1px #B0B3B9;">				
+					<h:inputTextarea id="submitterRemarks" rows="5" cols="76" value="#{otCreateOBOMB.submitterRemarks}" 
+						title="#{bundle['leaveRequest.sectionTitle.remarks']}"/>
+		 		</div>
+				<p class="sectionTitle"><h:outputText value="#{bundle['ot.all.sectionTitle.availableActions']}"/></p>
+			    <div id="otCreateAvailableActions" style="margin-left:8px;margin-top:8px;margin-bottom:20px;">
+                   	<h:commandButton id="otCreateSubmitButton" action="#{otCreateOBOMB.onSubmit}" 
+                   		value="#{bundle['application.button.label.submit']}" 
+                   		onclick="onCreateOTFormButtonClicked();">
+						<f:param name="#{constantsMB.initOtOboCreate}" value="TRUE"/>                   		
+                   	</h:commandButton>&nbsp;
+                   	<h:commandButton  action="home" value="#{bundle['application.button.label.quit']}"
+                   		immediate="true" onclick="onCreateOTFormButtonClicked();"/>
+             	</div>
+				<h:inputHidden id="taskListSize" value="#{otCreateOBOMB.taskListSize}"/>
+			</h:form>
+ 		</div>
+     </ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="otCreateOBOSidebar.xhtml"/>
+    </ui:define>     
+</ui:composition>
+</html>

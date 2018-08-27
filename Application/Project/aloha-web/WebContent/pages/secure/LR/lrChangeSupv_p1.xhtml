@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+
+	<ui:fragment rendered="#{lrChangeSupvMB.pageOne}">
+
+		<!--  BEGIN: CHANGE SUPERVISOR DIV -->
+		<div style="width:90%;margin-top:20px;padding-bottom:20px;;border-radius:15px;border:5px solid #634DA3;background-color:#F1EEFA;">
+			<div style="margin-top:10px;text-align:center;font-weight:bold;color:#634DA3;font-size:large">--&#160;#{bundle['application.text.makeChanges']}&#160;--</div>
+	      	
+	      	<!--  VALIDATION ERROR MESSAGES -->
+	      	<h:messages styleClass="errorMsg" style="width:80%;margin-top:15px;margin-left:auto;margin-right:auto;border:5px solid red;font-weight:bold;" globalOnly="true"></h:messages>
+
+	      	<!--  CHANGE SUPERVISOR PANEL -->
+			<ace:panel id="lrChangeSupervisorPanel" header="#{bundle['lr.changeSupervisor.panel.name']}" rendered="true"
+				style="width:90%;margin-top:20px;margin-left:auto;margin-right:auto;padding:5px;font-size:small;font-family:Arial;">
+			    <div style="padding:0px;">
+			    	<h:panelGrid columns="2" cellspacing="10">
+			    		<h:outputLabel for="currentSupervisor" value="#{bundle['lr.changeSupervisor.dropDown.label.currentSupervisor']}"/>
+			    		<h:outputText id="currentSupervisor" value="#{lrChangeSupvMB.leaveDetail.approver.fullName}"/>
+		 			</h:panelGrid>
+			    	<h:panelGrid columns="2" cellspacing="10" style="border:2px solid red;">
+						<h:outputLabel for="possibleSupervisors" value="#{bundle['lr.changeSupervisor.dropDown.label.newSupervisor']}"/>
+						<h:selectOneMenu id="possibleSupervisors" value="#{lrChangeSupvMB.selectedSupervisor}">
+		 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.supervisor']}" itemValue="0"/>
+		 					<f:selectItems value="#{lrChangeSupvMB.supervisors}"/>
+		 				</h:selectOneMenu>
+		 			</h:panelGrid>			 			
+				</div>					
+			</ace:panel>	
+			<!--  END: CHANGE SUPERVISOR DIV -->	
+				
+			<!--  BEGIN: SUPERVISOR REMARKS PANEL -->
+			<ace:panel id="lrChangeSupervisorRemarksPanel" header="#{bundle['lr.changeSupervisorRemarks.panel.name']}" rendered="true"
+				style="width:90%;margin-top:20px;margin-left:auto;margin-right:auto;padding:5px;font-size:small;font-family:Arial;">
+	  				<div style="padding:10px;">
+					<h:inputTextarea id="otChangeSupervisorRemarksTextArea" 
+						rows="5" cols="70" value="#{lrChangeSupvMB.changeSupervisorRemarks}" 
+						style="display:block;margin-left:auto;margin-right:auto;;background-color:#F0F0F0;"  
+						title="#{bundle['lr.changeSupervisorRemarks.panel.name']}"/>	
+				</div>
+			</ace:panel>   	
+			<!-- END: CHANGE SUPERVISOR REMARKS PANEL -->
+		</div>	
+		<!--  END: CHANGE SUPERVISOR DIV -->	
+				
+	   	<!--  BEGIN: AVAILABLE ACTIONS PANEL -->
+		<ace:panel id="lrChangeSupervisorAvailableActionsPanelPageOne" header="#{bundle['application.text.availableActions']}" 
+			style="width:90%;margin-top:20px;margin-bottom:20px;padding:5px;font-size:small;font-family:Arial;">
+	 		<div style="padding-bottom:25px;">
+	  			<ul style="list-style:none;margin:0px;padding:0px;">	
+					<li style="float:left;list-style:none;margin:0px;padding:0px;">
+	                  	<h:commandButton 
+	                  		id="lrChangeSupervisorButtonReviewChanges" 
+	                  		action="#{lrChangeSupvMB.onReviewChanges}" 
+	                  		value="#{bundle['application.label.reviewChanges']}"/> 
+					</li>	                       
+					<li style="float:left;list-style:none;margin:0px;margin-left:15px;padding:0px;">		
+						<h:button
+							value="#{bundle['application.label.discardChanges']}" 
+							outcome="lrListSubmitOwn"
+							rendered="#{lrChangeSupvMB.inSubmitOwnMode}">
+						</h:button>
+						
+						<h:button 
+							value="#{bundle['application.label.discardChanges']}" 
+							outcome="lrListOnBehalfOf"
+							rendered="#{lrChangeSupvMB.inOnBehalfOfMode}">
+						</h:button>							
+					</li>	
+				</ul>
+			</div>
+		</ace:panel>
+		<!--  END: AVAILABLE ACTIONS PANEL -->
+
+	</ui:fragment> <!-- END (if page 1) -->
+
+</ui:composition>
+</body>
+</html>

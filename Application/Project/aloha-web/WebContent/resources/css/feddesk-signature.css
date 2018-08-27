@@ -1,0 +1,28 @@
+@CHARSET "ISO-8859-1";
+    
+table.signature {
+    width:100%;
+    border-collapse:collapse;
+}
+table.signature caption{
+    text-align:left;
+    font-weight:bold;
+    
+}
+table.signature {
+    margin-left:10px;
+}
+table.signature td {
+    text-align:left;
+    width:50%;
+    font-weight:bold;
+}
+#employeeSignature {
+  font-family: "Script MT Bold";
+  font-size:large;
+  margin-left:10px;
+}
+#supervisorSignature {
+  font-family: "Script MT Bold";
+  font-size:large;
+}

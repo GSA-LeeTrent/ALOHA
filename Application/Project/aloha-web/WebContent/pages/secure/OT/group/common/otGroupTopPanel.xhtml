@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ace="http://www.icefaces.org/icefaces/components">
+<body>
+<ui:composition>
+	<ace:panel id="otGroupTopPanel" header="&nbsp;&nbsp;#{managedBean.topPanelHeaderText}" rendered="true"
+		style="width:90%;margin-top:20px;padding:5px;font-size:small;font-family:Arial;">
+	    <div style="padding:10px;">
+		 	<table id="otGroupTopPanelTable" class="formTable" style="font-family:Arial;font-size:small;">
+				<tr>
+					<td width="15%"><h:outputLabel for="otGroupPayPeriod" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="otGroupPayPeriod" value="#{otGroup.payPeriod.shortLabel}" /></td>
+					<td width="15%"><h:outputLabel for="otGroupStatus" value="#{bundle['application.text.status']}"/></td>					
+					<td><h:outputText id="otGroupStatus" value="#{otGroup.status.name}" /></td>
+				</tr>
+				<tr>
+					<td><h:outputLabel for="otGroupSubmitterName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="otGroupSubmitterName" value="#{otGroup.submitter.fullName}"/></td>
+					
+					<ui:fragment rendered="#{readOnly}">
+						<ui:fragment rendered="#{empty otGroup.receiver}">
+							<td><h:outputLabel for="otGroupReceiverNameEmpty" value="#{bundle['application.label.receiver']}"/></td>
+							<td><h:outputText id="otGroupReceiverNameEmpty" value="#{bundle['application.label.unassigned']}" /></td>
+						</ui:fragment>
+						<ui:fragment rendered="#{not empty otGroup.receiver}">	
+							<td><h:outputLabel for="otGroupReceiverName" value="#{bundle['application.label.receiver']}"/></td>
+							<td><h:outputText id="otGroupReceiverName" value="#{otGroup.receiver.fullName}" /></td>
+						</ui:fragment>								
+					</ui:fragment>
+						
+					<ui:fragment rendered="#{not readOnly}">
+						<td><h:outputLabel for="otGroupPossibleReceivers" value="#{bundle['application.label.receiver']}"/></td>
+						<td>
+							<h:selectOneMenu id="otGroupPossibleReceivers" value="#{managedBean.selectedReceiver}" 
+								label="#{bundle['application.label.receiver']}">
+		 							<f:selectItem itemLabel="#{bundle['ot.group.dropDown.prompt.receiver']}" itemValue="0"/>
+						 		<f:selectItems value="#{managedBean.receivers}"/>
+						 	</h:selectOneMenu>						
+						</td>
+					</ui:fragment>		
+				</tr>		
+			</table> 			
+	    </div>
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>gov.gsa.ocfo.aloha.web.messages</base-name>
+			<var>bundle</var>
+		</resource-bundle>
+		<message-bundle>gov.gsa.ocfo.aloha.web.errors</message-bundle>
+		<message-bundle>resources.application</message-bundle>
+	</application>
+
+	<!--
+	<lifecycle>
+		<phase-listener>gov.gsa.ocfo.aloha.web.security.SecurityListener</phase-listener>
+	</lifecycle>
+	-->
+	
+	<lifecycle>
+		<phase-listener id="nocache">gov.gsa.ocfo.aloha.web.listener.CacheControlPhaseListener</phase-listener>
+	</lifecycle>
+
+	<factory>
+		<exception-handler-factory>gov.gsa.ocfo.aloha.web.handler.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>serverError</from-outcome>
+			<to-view-id>/pages/errors/serverError.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>userError</from-outcome>
+			<to-view-id>/pages/errors/userError.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>unauthorized</from-outcome>
+			<to-view-id>/pages/errors/unauthorized.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>viewExpired</from-outcome>
+			<to-view-id>/pages/errors/viewExpired.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/pages/public/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/pages/secure/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>help</from-outcome>
+			<to-view-id>/pages/public/help.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>sitemap</from-outcome>
+			<to-view-id>/pages/public/sitemap.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>contactUs</from-outcome>
+			<to-view-id>/pages/public/contactUs.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>accessibility</from-outcome>
+			<to-view-id>/pages/public/accessibility.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>logoutSuccess</from-outcome>
+			<to-view-id>/pages/public/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCreate</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreate.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/home.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCreate</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreate.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrCreate.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCreatePending</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreatePending.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrCreate.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCreateConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreateConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrAmend.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrAmendPending</from-outcome>
+			<to-view-id>/pages/secure/LR/lrAmendPending.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrAmend.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrAmendConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrAmendConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrApprove.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrApprovePending</from-outcome>
+			<to-view-id>/pages/secure/LR/lrApprovePending.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrApprovePending.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrApproveConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrApproveConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrApprove.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrApproveConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrAmendConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrCancel.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCancelPending</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCancelPending.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrCancel.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrCancelConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCancelConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrWithdraw.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrWithdrawPending</from-outcome>
+			<to-view-id>/pages/secure/LR/lrWithdrawPending.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/secure/LR/lrWithdraw.xhtml</from-view-id>
+		<navigation-case>
+			<description></description>
+			<from-outcome>lrWithdrawConfirm</from-outcome>
+			<to-view-id>/pages/secure/LR/lrWithdrawConfirm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/secure/admin/adXref.xhtml</display-name>
+		<from-view-id>/pages/secure/admin/adXref.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>editAdXref</from-outcome>
+			<to-view-id>/pages/secure/admin/editAdXref.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>listAdXref</from-outcome>
+			<to-view-id>/pages/secure/admin/adXref.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>listUserPrefs</from-outcome>
+			<to-view-id>/pages/secure/admin/userPrefs.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otListSupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otListSupv.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otViewSO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otViewSO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otViewOBO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otViewOBO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otViewSupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otViewSupv.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otCreateSO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otCreateSO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otCreateOBO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otCreateOBO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otReviewSupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otReviewSupv.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otCancelSO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otCancelSO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otCancelOBO</from-outcome>
+			<to-view-id>/pages/secure/OT2/otCancelOBO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otCancelSupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otCancelSupv.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otDenySupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otDenySupv.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otApproveSupv</from-outcome>
+			<to-view-id>/pages/secure/OT2/otApproveSupv.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/secure/home.xhtml</display-name>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReport</from-outcome>
+			<to-view-id>/pages/secure/OT/reportOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/secure/home.xhtml</display-name>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReconciliation</from-outcome>
+			<to-view-id>/pages/secure/OT/reconOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<display-name>pages/public/sitemap.xhtml</display-name>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReconciliation</from-outcome>
+			<to-view-id>/pages/secure/OT/reconOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/pages/public/sitemap.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReport</from-outcome>
+			<to-view-id>/pages/secure/OT/reportOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otModifyIndivReqSO</from-outcome>
+			<to-view-id>/pages/secure/OT/modify/otModifyIndivReqSO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otModifyIndivReqOBO</from-outcome>
+			<to-view-id>/pages/secure/OT/modify/otModifyIndivReqOBO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otModifyIndivReqMgr</from-outcome>
+			<to-view-id>/pages/secure/OT/modify/otModifyIndivReqMgr.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otListSO</from-outcome>
+			<to-view-id>/pages/secure/OT/list/otIndivListSO.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otListOBO</from-outcome>
+			<to-view-id>/pages/secure/OT/list/otIndivListOBO.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otMgrList</from-outcome>
+			<to-view-id>/pages/secure/OT/list/mgr/otMgrList.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupView</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupView.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupSubmit</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupSubmit.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupReview</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupReview.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupReceive</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupReceive.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupFinalize</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupFinalize.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>otGroupCancel</from-outcome>
+			<to-view-id>/pages/secure/OT/group/otGroupCancel.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReport</from-outcome>
+			<to-view-id>/pages/secure/OT/reportOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>runOvertimeRequestReconciliation</from-outcome>
+			<to-view-id>/pages/secure/OT/reconOT.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>runLeaveRequestReconciliation</from-outcome>
+			<to-view-id>/pages/secure/LR/reconLR.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>runLeaveRequestReport</from-outcome>
+			<to-view-id>/pages/secure/LR/reportLR.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrListSubmitOwn</from-outcome>
+			<to-view-id>/pages/secure/LR/lrList.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>1</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrListOnBehalfOf</from-outcome>
+			<to-view-id>/pages/secure/LR/lrList.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>2</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrListManagement</from-outcome>
+			<to-view-id>/pages/secure/LR/lrList.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>3</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrChangeSupervisor</from-outcome>
+			<to-view-id>/pages/secure/LR/lrChangeSupv.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>#{lrListMB.mode}</value>
+				</view-param>
+				<view-param>
+					<name>leaveDetailId</name>
+					<value>#{row.detailId}</value>
+				</view-param>				
+			</redirect>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrChangeSupervisorFromViewPage</from-outcome>
+			<to-view-id>/pages/secure/LR/lrChangeSupv.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>#{lrViewMB.mode}</value>
+				</view-param>
+				<view-param>
+					<name>leaveDetailId</name>
+					<value>#{lrViewMB.leaveDetail.id}</value>
+				</view-param>				
+			</redirect>
+		</navigation-case>
+	</navigation-rule>		
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrView</from-outcome>
+			<to-view-id>/pages/secure/LR/lrView.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>#{lrListMB.mode}</value>
+				</view-param>
+				<view-param>
+					<name>leaveDetailId</name>
+					<value>#{row.detailId}</value>
+				</view-param>				
+			</redirect>
+		</navigation-case>
+	</navigation-rule>		
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrCreateV2SubmitOwn</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreateV2.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>1</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrCreateV2OnBehalfOf</from-outcome>
+			<to-view-id>/pages/secure/LR/lrCreateV2.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>2</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrAmendV2FromListPage</from-outcome>
+			<to-view-id>/pages/secure/LR/lrAmendV2.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>#{lrListMB.mode}</value>
+				</view-param>
+				<view-param>
+					<name>leaveDetailId</name>
+					<value>#{row.detailId}</value>
+				</view-param>				
+			</redirect>
+		</navigation-case>
+	</navigation-rule>	
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrAmendV2FromViewPage</from-outcome>
+			<to-view-id>/pages/secure/LR/lrAmendV2.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>LR_MODE</name>
+					<value>#{lrViewMB.mode}</value>
+				</view-param>
+				<view-param>
+					<name>leaveDetailId</name>
+					<value>#{lrViewMB.leaveDetail.id}</value>
+				</view-param>				
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrVarianceReport</from-outcome>
+			<to-view-id>/pages/secure/LR/lrVarianceReport.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>		
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>lrReconWizard</from-outcome>
+			<to-view-id>/pages/secure/LR/recon/lrReconWizard.xhtml</to-view-id>
+			<redirect include-view-params="true">
+				<view-param>
+					<name>otPolicyAcknowledged</name>
+					<value>TRUE</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"> 
+	<head><title>IGNORED</title></head>
+<body>
+	<ui:composition>
+       <ice:panelTabSet selectedIndex="#{otMgrListTabSetIndivMB.selectedIndex}" 
+       		tabChangeListener="#{otMgrListTabSetIndivMB.processTabChange}">
+			<ice:panelTab label="Incoming">
+				<ui:insert name="otMgrListTabIndivIncoming">
+	            	<ui:include src="otMgrListTabIndivIncoming.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>   
+			<ice:panelTab label="Approved">
+				<ui:insert name="otMgrListTabIndivApproved">
+	            	<ui:include src="otMgrListTabIndivApproved.xhtml"/>
+	            </ui:insert>
+			</ice:panelTab>   
+			<ice:panelTab label="Denied">
+				<ui:insert name="otMgrListTabIndivDenied">
+	            	<ui:include src="otMgrListTabIndivDenied.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>    
+			<ice:panelTab label="Cancelled">
+				<ui:insert name="otMgrListTabIndivCancelled">
+	            	<ui:include src="otMgrListTabIndivCancelled.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>                                         
+		</ice:panelTabSet>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<icecore:config render="false"/>
+	<h4 style="text-align:center;">
+		<h:outputFormat value="#{bundle['ot.sectionTitle.request']}">
+			<f:param value="#{otDetail.requestId}" />
+		</h:outputFormat>
+	</h4>		
+	<p class="sectionTitle"><h:outputText value="#{bundle['ot.review.sectionTitle.individual']}"/></p>		
+	<table class="formTable">
+		<tr>
+			<td><h:outputLabel for="submitterName" value="#{bundle['application.label.submitter']}"/></td>
+			<td><h:outputText id="submitterName" value="#{otDetail.submitter.fullName}"/></td>
+			<td><h:outputLabel for="employeeName" value="#{bundle['ot.all.label.employee']}"/></td>
+			<td><h:outputText id="employeeName" value="#{otDetail.header.employee.fullName}" /></td>
+		</tr>					
+		<tr>
+			<td><h:outputLabel for="supervisorName" value="#{bundle['application.label.supervisor']}"/></td>
+			<td><h:outputText id="supervisorName" value="#{otDetail.supervisor.fullName}"/></td>
+			<td><h:outputLabel for="payPeriod" value="#{bundle['leaveRequest.label.payPeriod']}"/></td>
+			<td><h:outputText id="payPeriod" value="#{otDetail.header.payPeriod.shortLabel}" /></td>
+		</tr>
+		<tr>
+			<td><h:outputLabel for="otType" value="#{bundle['application.label.type']}"/></td>					
+			<td><h:outputText id="otType" value="#{otDetail.header.type.label}" /></td>
+			<td><h:outputLabel for="otStatus" value="#{bundle['application.text.status']}"/></td>					
+			<td><h:outputText id="otStatus" value="#{otDetail.status.name}" /></td>
+		</tr>
+	</table>
+	<p class="sectionTitle"><h:outputText value="#{bundle['ot.review.sectionTitle.submitterRemarks']}" /></p>
+	<div class="remarks">
+		<ul style="margin-left:20px;">
+			<c:if test="#{not empty otDetail.submitterRemarks}">
+				<c:forEach var="submitterRemark" items="#{otDetail.submitterRemarks}">
+					<li><h:outputText value="#{submitterRemark.text}"/></li>
+				</c:forEach>
+			</c:if>
+			<c:if test="#{empty otDetail.submitterRemarks}">
+				<li><h:outputText value="#{bundle['application.remark.noDataFound']}"/></li>
+			</c:if>
+		</ul>
+	</div>
+	<p class="sectionTitle"><h:outputText value="#{bundle['ot.review.sectionTitle.overtimeTasks']}"/></p>
+	<table class="otDataTable" style="width:80%;margin-left:8px;">
+		<caption>
+			<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+				<f:param value="#{otDetail.header.payPeriod.shortLabel}" />
+			</h:outputFormat>					
+		</caption>
+		<thead>
+			<tr>
+				<th><h:outputText value="#{bundle['ot.list.th.taskDesc']}"/></th>
+				<th><h:outputText escape="false" value="#{bundle['ot.list.th.nbrOfHours']}"/></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="otItem" items="#{otDetail.items}" varStatus="loopStatus">
+				<c:if test="#{loopStatus.odd}">
+					<tr class="odd">
+						<td><h:outputText value="#{otItem.taskDescription}"/></td>
+						<td><h:outputText value="#{otItem.estimatedHours}"/></td>
+					</tr>
+				</c:if>
+				<c:if test="#{loopStatus.even}">
+					<tr class="even">
+						<td><h:outputText value="#{otItem.taskDescription}"/></td>
+						<td><h:outputText value="#{otItem.estimatedHours}"/></td>
+					</tr>
+				</c:if>
+			</c:forEach>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th class="totalsLabel"><h:outputText value="#{bundle['ot.create.taskList.totalHours']}"/>&nbsp;</th>
+				<th class="totalsValue"><h:outputText value="#{otDetail.estimatedTotalHours}"/></th>
+			</tr>
+		</tfoot>					
+	</table>
+	<p class="sectionTitle"><h:outputText value="#{bundle['application.label.supervisorRemarks']}" /></p>
+	<div class="remarks">
+		<ul style="margin-left:20px;">
+			<c:if test="#{not empty otDetail.supervisorRemarks}">
+				<c:forEach var="supervisorRemark" items="#{otDetail.supervisorRemarks}">
+					<li><h:outputText value="#{supervisorRemark.text}"/></li>
+				</c:forEach>
+			</c:if>
+			<c:if test="#{empty otDetail.supervisorRemarks}">
+				<li><h:outputText value="#{bundle['application.remark.noDataFound']}"/></li>
+			</c:if>
+		</ul>
+	</div>
+</ui:composition>
+</body>
+</html>

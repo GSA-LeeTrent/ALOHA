@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<h5 class="subsystem">MY TEAM:</h5> 
+	<c:if test="#{userMB.user.onBehalfOf}">
+		<dl style="margin-top:-5px;margin-left:20px;">
+			<dt style="font-weight:bold;color:#282E8C;font-style:italic;">Leave:</dt>
+			<dd>
+				<ul>
+					<li>
+						<h:commandLink value="#{bundle['home.link.text.lrNewOnBehalfOf']}" action="#{lrCreateMB.initCreate}"
+							rendered="#{userMB.user.onBehalfOf}">
+							<f:param name="#{lrModeMB.modeKey}" value="#{lrModeMB.onBehalfOfMode}"/>
+						</h:commandLink>
+					</li>
+					<li>
+						<h:commandLink value="#{bundle['home.link.text.lrChangeOnBehalfOf']}" action="#{lrListMB.initList}">
+							<f:param name="LR_MODE" value="#{lrModeMB.onBehalfOfMode}"/>
+						</h:commandLink>
+					</li>
+				</ul>	
+			</dd>
+		</dl>
+		<dl style="margin-top:10px;margin-left:20px;font-style:italic;">
+			<dt style="font-weight:bold;color:#282E8C;">Overtime:</dt>
+			<dd>
+				<ul>
+					<li>
+						<h:commandLink value="#{bundle['home.link.text.otNewOnBehalfOf']}" action="otCreateOBO" 
+							rendered="#{userMB.user.onBehalfOf}"/>
+					</li>			
+					<li>
+						<h:commandLink value="#{bundle['home.link.text.ot.onBehalfOf.viewModify']}" action="otListOBO"
+							rendered="#{userMB.user.onBehalfOf}"/>
+					</li>		
+				</ul>	
+			</dd>
+		</dl>
+	</c:if>
+	<c:if test="#{userMB.user.onBehalfOf}">	
+		<dl style="margin-top:10px;margin-left:20px;font-style:italic;">
+			<dt style="font-weight:bold;color:#282E8C;">Preferences:</dt>
+			<dd>
+				<ul>
+					<li>
+						<h:link outcome="listUserPrefs" value="#{bundle['teamUserPref.title']}"></h:link>
+					</li>								
+				</ul>	
+			</dd>
+		</dl>
+	</c:if>
+</ui:composition>
+</body>
+</html>

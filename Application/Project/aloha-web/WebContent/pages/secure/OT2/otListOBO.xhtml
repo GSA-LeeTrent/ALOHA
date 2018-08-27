@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+<ui:define name="content">
+	<div id="main-content">
+		<c:if test="#{not empty otListOBOMB.confirmMsg}">
+			<div id="confirmMsg" class="confirmMsg">
+				<h4><h:outputText value="#{bundle['application.label.confirmation']}"/></h4>
+				<ul>
+					<li>
+						<h:outputText value="#{otListOBOMB.confirmMsg}"/>
+					</li>
+				</ul>
+				<div>
+					<a href="#" onclick="document.getElementById('confirmMsg').style.display='none';return false;">Close</a>
+				</div>
+			</div>
+		</c:if>
+	 	<h:dataTable styleClass="otDataTable list" rowClasses="odd,even" value="#{otListOBOMB.otDetaiList}" 
+	 		var="otDetailOBO" rendered="#{not empty otListOBOMB.otDetaiList}"> 
+			<f:facet name="caption">
+				<h:outputText value="#{bundle['ot.list.caption.obo']}"/>
+           	</f:facet>		 		
+            <ui:insert name="otListRowContent">
+            	<ui:include src="otListRowContent.xhtml">
+           			<ui:param name="otDetail" value="#{otDetailOBO}" />
+            	</ui:include>
+            </ui:insert>		           		 		
+	 		<h:column>
+  				<f:facet name="header">
+					<h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/>
+               	</f:facet>					
+               	<h:form>	
+               		<ul>
+               			<li style="margin-left:0;list-style:none;">
+							<h:commandLink value="#{bundle['application.link.text.view']}" action="otViewOBO">
+								<f:param name="otDetailId" value="#{otDetailOBO.id}"/>
+							</h:commandLink>	
+               			</li>
+               			<li style="margin-left:0;margin-top:5px;list-style:none;">
+							<h:commandLink value="#{bundle['ot.link.label.cancel']}" action="otCancelOBO" 
+								rendered="#{otDetailOBO.cancellableByOnBehalfOf}">
+								<f:param name="otDetailId" value="#{otDetailOBO.id}"/>
+							</h:commandLink>	
+               			</li>               			
+               		</ul>	
+				</h:form>
+			</h:column>				 			 	
+	 	</h:dataTable>
+		<c:if test="#{empty otListOBOMB.otDetaiList}">
+            <ui:insert name="otListEmpty">
+            	<ui:include src="otListEmpty.xhtml">
+            		<ui:param name="otEmptyListCaption" value="#{bundle['ot.list.caption.obo']}" />
+            	</ui:include>
+            </ui:insert>
+		</c:if>		
+		<div class="availableActions" style="text-align:center;margin-top:15px;">
+    		<h:form>
+	   			<h:commandLink value="#{bundle['ot.list.link.createAnotherRequest']}" action="#{otCreateOBOMB.initCreate}" 
+	   				rendered="#{userMB.user.onBehalfOf}"/>
+        		&nbsp;<h:commandLink action="home" value="#{bundle['application.button.label.home']}"/>
+			</h:form>
+		</div>	   
+	</div>				
+</ui:define>
+</ui:composition>
+</html>

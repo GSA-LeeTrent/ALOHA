@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-1Col-r.xhtml">
+	    <ui:define name="content">
+	 		<div id="main-content">
+	 			<p class="sectionTitle"><h:outputText value="#{bundle['footer.label.sitemap']}"/></p>
+	 			<h:form>
+	 			<table width="50%" align="center" class="formTable">
+	 				<tr><td>
+	 						<h:commandLink  action="help" >
+						     	<h:outputText value="#{bundle['header.label.help']}"/>
+					    	</h:commandLink>
+					</td></tr>
+	 					<c:if test="#{!userMB.loggedIn}">
+	 						<tr><td>
+	 							<h:commandLink action="login">
+			     				<h:outputText value="#{bundle['header.label.login']}"/>
+			    				</h:commandLink>
+	 						</td></tr>
+	 					</c:if>
+	 					<c:if test="#{userMB.loggedIn}">
+	 						<tr><td>
+				    			<h:commandLink action="#{userMB.logout}" value="#{bundle['header.label.logout']}" />
+	 						</td></tr>
+	 						<c:if test="#{userMB.submitOwn or userMB.approver or userMB.onBehalfOf}">
+		 						<tr><td>
+		 							<h:commandLink value="#{bundle['leaveRequest.sectionTitle.report']}" 
+									action="#{homeMB.runLeaveRequestReport}"/>
+		 						</td></tr>
+		 						<!--  
+		 						<tr><td>
+		 							<h:commandLink value="#{bundle['leaveRequest.timecard.report']}" 
+									action="#{homeMB.runLeaveRequestsRecon}"/>
+		 						</td></tr>
+		 						-->
+		 						<tr><td>
+		 							<h:commandLink value="#{bundle['overtimeRequest.sectionTitle.report']}" 
+									action="#{homeMB.runOvertimeRequestReport}"/>
+		 						</td></tr>
+								<!--  
+		 						<tr><td>
+		 							<h:commandLink value="#{bundle['overtimeRequest.timecard.report']}" 
+									action="#{homeMB.runOvertimeRequestsRecon}"/>
+		 						</td></tr>
+		 						-->
+		 					</c:if>
+		 					
+		 					<!--  
+		 					<c:if test="#{userMB.user.facilityCoordinator}">
+		 						<tr><td>
+									<h:link 
+										value="#{bundle['home.link.text.lr.report.variance']}" 
+										outcome="lrVarianceReport"
+										rendered="#{userMB.user.facilityCoordinator}">
+									</h:link>									
+		 						</td></tr>
+		 					</c:if>
+		 					-->
+		 					
+		 					<!--  
+		 					<c:if test="#{userMB.submitOwn}">
+		 						<tr><td>
+									<h:link 
+										value="#{bundle['home.link.text.createLeaveRequest']}" 
+										outcome="lrCreateV2SubmitOwn"
+										rendered="#{userMB.user.submitOwn}">
+									</h:link>									
+		 						</td></tr>
+		 						<tr><td>
+									<h:link 
+										value="#{bundle['home.link.text.viewModifyLeaveRequests']}" 
+										outcome="lrListSubmitOwn"
+										rendered="#{userMB.user.submitOwn}">
+									</h:link>
+		 						</td></tr>
+		 						<tr><td>
+									<h:commandLink  value="#{bundle['home.link.text.createOvertimeRequest']}" 
+										action="#{otCreateSOMB.initCreate}"	rendered="#{userMB.user.submitOwn}"/>
+		 						</td></tr>
+		 						<tr><td>
+									<h:commandLink tabindex="14" value="#{bundle['home.link.text.ot.submitOwn.viewModify']}" action="otListSO"
+							rendered="#{userMB.user.submitOwn}"/>
+		 						</td></tr>
+	 						</c:if>
+	 						-->
+	 						
+	 						<!--  
+		 					<c:if test="#{userMB.onBehalfOf}">
+		 						<tr><td>
+									<h:link 
+										value="#{bundle['home.link.text.lrNewOnBehalfOf']}" 
+										outcome="lrCreateV2OnBehalfOf"
+										rendered="#{userMB.user.onBehalfOf}">
+									</h:link>									
+		 						</td></tr>
+		 						<tr><td>									
+									<h:link 
+										value="#{bundle['home.link.text.lrChangeOnBehalfOf']}" 
+										outcome="lrListOnBehalfOf"
+										rendered="#{userMB.user.onBehalfOf}">
+									</h:link>
+								</td></tr>
+		 						<tr><td>
+									<h:commandLink value="#{bundle['home.link.text.otNewOnBehalfOf']}" action="#{otCreateOBOMB.initCreate}" 
+										rendered="#{userMB.user.onBehalfOf}"/>
+								</td></tr>
+		 						<tr><td>
+									<h:commandLink tabindex="24" value="#{bundle['home.link.text.ot.onBehalfOf.viewModify']}" action="otListOBO"
+							rendered="#{userMB.user.onBehalfOf}"/>
+								</td></tr>
+	 						</c:if>
+	 						-->
+	 						
+	 						<!--  
+		 					<c:if test="#{userMB.approver}">
+		 						<tr><td>
+									<h:link 
+										tabindex="41" 
+										value="#{bundle['home.link.text.manageLeaveRequests']}" 
+										outcome="lrListManagement"
+										rendered="#{userMB.user.approver}">
+									</h:link>									
+		 						</td></tr>
+		 						<tr><td>
+									<h:commandLink tabindex="42" value="#{bundle['home.link.text.manageOvertimeRequests']}" action="otMgrList"
+							rendered="#{userMB.user.approver}"/>
+		 						</td></tr>
+	 						</c:if>
+	 						-->
+	 						
+	 						<!--  
+	 						<c:if test="#{userMB.approver or userMB.onBehalfOf}">
+	 							<tr><td>
+	 								<h:commandLink action="listUserPrefs" value="#{bundle['teamUserPref.title']}"></h:commandLink>
+	 							</td></tr>
+	 						</c:if>
+	 						-->
+	 						
+	 						<!--  
+	 						<c:if test="#{userMB.alohaAdmin}">
+	 							<tr><td>
+	 								<h:commandLink action="listAdXref" value="#{bundle['adXref.menu.link']}"></h:commandLink>
+	 							</td></tr>
+	 						</c:if>
+							-->
+							
+	 					</c:if>
+	 			</table>
+	 			</h:form>
+	 		</div>
+	    </ui:define>
+	</ui:composition>
+</html>

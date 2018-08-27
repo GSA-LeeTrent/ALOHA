@@ -1,0 +1,102 @@
+@CHARSET "ISO-8859-1";
+
+
+div.mainPanel {
+	
+}
+
+div.topPanel {
+	width: 90%;
+	
+	
+}
+
+
+
+
+div.panelItem {
+width:50%;	
+}
+
+div.roundedBox {
+	width: 90%;
+	
+}
+
+div.leftSideItem {
+	float:left;width:50%;
+}
+
+
+div.rightSideItem {
+	float:right;width:50%;
+}
+
+/*something broke here*/
+
+div.paddedDiv {
+	padding:10px;	
+}
+
+div.allRemarksDiv {
+	width:90%;
+	margin-top:20px;
+	padding:5px;
+	font-size:small;
+	font-family:Arial;
+}
+
+/* added for new create leave request */
+/* added for create leave request notice formatting */
+div#createLeaveReqNoticep3 {
+	height:85px;
+	width:90%;
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #614A9F;
+}
+
+div#createLeaveReqNoticep4 {
+
+	height:90px;
+	width:90%;
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #00A600;
+
+}
+
+div.createLeaveReqNoticeImage {
+	float:left;
+	width:18%;
+}
+
+div.createLeaveReqNoticeMessage {
+	float:right;
+	width:82%;
+	margin-top:10px;
+
+}
+
+div#createLeaveReqNoticeMessagep3, div#createLeaveReqNoticeMessagep3MobileExtra {
+	
+	color:#614A9F;
+}
+
+div#createLeaveReqNoticeMessagep4, div#createLeaveReqNoticeMessagep4MobileExtra {
+	
+	color:#00A600;
+}
+
+/*div#actionButtons {
+	width: 40%;
+}*/
+
+div.actionButtons {
+	width: 40%;
+}
+/*108*/

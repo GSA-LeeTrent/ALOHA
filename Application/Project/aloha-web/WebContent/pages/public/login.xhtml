@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+        <ui:composition template="/pages/templates/template-1Col.xhtml">
+        	<ui:define name="html-head">
+				<style type="text/css" media="screen"> 
+					#main-content {
+						float:none;
+						width:100%;
+					}
+					h3 {
+						color:#7D8CA5;
+						color:#435997;	
+						font-size:16px;
+						font-style:italic;
+					}
+					.box {
+					  width: 25em;
+					  background: url(${facesContext.externalContext.requestContextPath}/resources/images/bottom-left.gif) no-repeat left bottom;
+					  margin-left:auto;
+					  margin-right:auto;
+					  margin-bottom:15px;
+				
+					}
+					.box-outer {
+						background: url(${facesContext.externalContext.requestContextPath}/resources/images/bottom-right.gif) no-repeat right bottom;
+						padding-bottom: 1px;
+					}
+					.box-inner {
+						background: url(${facesContext.externalContext.requestContextPath}/resources/images/top-left.gif) no-repeat left top;
+					}
+					.box h3 {
+						background: url(${facesContext.externalContext.requestContextPath}/resources/images/top-right.gif) no-repeat right top;
+						padding-top: 10px;
+					}
+					.box h3, .box p {
+						padding-left: 25px;
+						padding-right: 1em;
+					}
+					table {
+					  margin-left:auto;
+					  margin-right:auto;
+					  margin-top:10px;
+					  margin-bottom:10px;
+					}
+					table td {
+						padding:3px;
+					}
+					label {
+						color:#7D8CA5;
+						color:#435997;	
+						font-weight:bold;
+					}
+					input.submitButton {
+						padding:2px;
+						color:#435997;	
+						font-weight:bold;
+					}
+				</style>        	
+        	</ui:define>
+       		<ui:define name="title">#{bundle['login.page.title']}</ui:define>
+			<ui:define name="content">
+		 		 <div id="main-content">
+		 		 	<div class="error" ><h:outputText class="error" value="#{param['errorMsg']}"/></div>
+					<table>
+						<tr>
+						<td rowspan="2">
+							
+							<div class="box">
+								<div class="box-outer">
+									<div class="box-inner">
+										<h3 style="text-align:center;">Login using ENT or SSO</h3>
+										<br/>
+										<h:outputLabel>
+											<h:outputText escape="false" id="GSAwarning"
+												value="#{bundle['loginForm.GSAwarning']}" />
+										</h:outputLabel>
+										<br/><br/>
+									</div>
+								</div>
+							</div>
+
+						</td>
+						<td>
+							<div class="box">
+								<div class="box-outer">
+									<div class="box-inner">
+										<h3 style="text-align:center;"><h:outputText escape="false" value="#{bundle['loginForm.title']}"/></h3>
+										<form action="j_security_check" method="post">
+											<table>
+												<tr>
+													<td colspan="2">
+													<h:outputText id="invalidUser" value="#{param['loginError']}"/>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<h:outputLabel>
+															<h:outputText id="loginNameLabel" tabindex="1" value="#{bundle['loginForm.loginName']}"/>
+														</h:outputLabel>
+													</td>
+													<td>
+														<input type="text" name="j_username" id="userName" tabindex="1" style="width:150px"/>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<h:outputLabel>
+															<h:outputText id="passwordLabel" value="#{bundle['loginForm.password']}"/>
+														</h:outputLabel>
+													</td>
+													<td>
+														<input type="password" name="j_password" tabindex="2" style="width:150px"/>
+													</td>
+												</tr>
+
+												<!-- <tr>
+													<td style="text-align:center" colspan="2">
+														<h:outputLabel>
+															<h:outputText id="checkLabel" value="#{bundle['loginForm.warningCheck']}"/>
+														</h:outputLabel>
+														<input type="checkbox" name="j_checkbox"/>
+													</td>
+												</tr> -->
+												<tr>
+													<td colspan="2" align="center">
+														<input type="submit" tabindex="3" style="submitButton" value="Submit"/>
+													</td>
+												</tr>
+											</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="box">
+								<div class="box-outer">
+									<div class="box-inner">
+									<h:form>
+									<h3 style="text-align:center;">
+									 <h:commandLink action="#{constantsMB.ssoRedirect}">
+			     				<h:outputText value="#{bundle['application.loginSSO']}"/>
+			    				</h:commandLink>
+									</h3>
+										 							
+									</h:form>
+									<br/>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				 </div>
+				<script type="text/javascript">
+					document.getElementById("userName").focus();
+				</script>				 
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

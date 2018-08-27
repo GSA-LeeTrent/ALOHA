@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.1/weblogic-web-app.xsd">
+    <wls:weblogic-version>10.3.3</wls:weblogic-version>
+    <wls:context-root>aloha</wls:context-root>
+    <wls:security-role-assignment>
+		<wls:role-name>everyone</wls:role-name>
+		<wls:principal-name>everyone</wls:principal-name>
+	</wls:security-role-assignment>
+    <wls:jsp-descriptor>
+        <wls:keepgenerated>true</wls:keepgenerated>
+        <wls:working-dir>C:\softwaredev\aloha_using_icefaces_3.2\workspaces\aloha-ws-wizard\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\base_domain\work\aloha-web</wls:working-dir>
+        <wls:debug>true</wls:debug>
+    </wls:jsp-descriptor>      
+</wls:weblogic-web-app>

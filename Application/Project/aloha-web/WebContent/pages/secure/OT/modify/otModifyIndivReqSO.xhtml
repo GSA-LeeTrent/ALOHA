@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+	 	<div id="main-content">
+            <ui:insert name="otModifyIndivReqCommon">
+            	<ui:include src="otModifyIndivReqCommon.xhtml">
+            		<ui:param name="pageTitle" value="#{bundle['ot.pageTitle.modify']}"/>
+            		<ui:param name="otDetail" value="#{otModifyIndivReqSOMB.otDetail}"/>
+            		<ui:param name="managedBean" value="#{otModifyIndivReqSOMB}"/>
+            	</ui:include>
+            </ui:insert>
+			<h:form>
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.submitterModificationRemarks']}"/></p>
+		 		<div class="inputRemark">				
+					<h:inputTextarea id="supervisorRemarks" rows="5" cols="76" value="#{otModifyIndivReqSOMB.modificationRemarks}" 
+						title="#{bundle['application.label.submitterModificationRemarks']}"/>
+		 		</div>
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+			    <div id="otModifyAvailableActions" style="margin-left:8px;margin-top:8px;margin-bottom:20px;">
+	              	<ui:fragment rendered="#{ (userMB.submitOwn) and (otModifyIndivReqSOMB.otDetail.modifiableBySubmitOwn) }">
+		              	<h:commandButton action="#{otModifyIndivReqSOMB.onModify}" value="#{bundle['application.button.label.modify']}" 
+		              		style="width:80px;"/>
+	              	</ui:fragment>
+	              	<h:commandButton action="otListSO" value="#{bundle['application.button.label.discard']}" immediate="true" 
+	              		style="width:80px;"/>
+	           	</div>
+			</h:form>	
+		</div>			
+     </ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="../sidebar/otIndivReqSidebar.xhtml">
+            <ui:param name="otDetail" value="#{otModifyIndivReqSOMB.otDetail}"/>   		
+            <ui:param name="otBalances" value="#{otModifyIndivReqSOMB.otBalances}"/>
+   		</ui:include>
+    </ui:define>        
+</ui:composition>
+</html>

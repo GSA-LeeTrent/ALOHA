@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel 	
+		id="lrItemsPanelV2_#{suffix}" header="#{panelTitle}" rendered="true"
+		styleClass="topPanel"
+		style="margin-top:20px;padding:5px;font-size:small;font-family:Arial;">
+		<div style="text-align:center;margin-bottom:15px;font-size:small;font-weight:bold;">Pay Period (#{payPeriodDateRange})</div>
+	    <div style="padding:0;">
+			<ice:dataTable
+	  			styleClass="leaveItemsGrid"
+	  			id="lrItemsDataTableV2_#{suffix}"
+				value="#{lrItemList}"	  			
+               	var="lrItem"
+               	width="100%"
+               	cellspacing="1"
+               	cellpadding="5">
+     
+				<ice:column>
+    	    		<f:facet name="header">Leave Date</f:facet>
+	    	    	<h:outputText value="#{lrItem.leaveDate}">
+	    	 			<f:convertDateTime pattern="EEE - MM/dd/yyyy"/>   	
+	    	    	</h:outputText>
+	    	    </ice:column>
+	    	    
+				<ice:column>
+		         	<f:facet name="header">Leave Type</f:facet>
+	         		<h:outputText value="#{lrItem.leaveType.label}"/>
+		     	</ice:column>
+		         
+          		<ice:column>
+              		<f:facet name="header">Hours</f:facet>
+             		<h:outputText value="#{lrItem.leaveHours}"/>
+              	</ice:column>
+                   
+            	<ice:column>
+              		<f:facet name="header">Start Time</f:facet>
+                   	<h:outputText value="#{lrItem.startTime}">
+                   		<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+                   	</h:outputText>                    	
+           		</ice:column>
+
+			    <f:facet name="footer">
+			        <h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']} #{totalLeaveHours}" />
+			    </f:facet>                    
+                   
+	    	</ice:dataTable>				
+	   	</div>
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

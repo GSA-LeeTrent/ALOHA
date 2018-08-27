@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:form>
+	<h:outputLabel value="#{bundle['userPref.defaultApprover']}"></h:outputLabel>
+	<h:selectOneMenu id="approvers" tabindex="1" value="#{userPrefMB.selectedApprover}">
+		<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.approver']}" itemValue="0"/>
+		<f:selectItems value="#{userPrefMB.approvers}"/>
+	</h:selectOneMenu><br/>
+	<h:commandButton id="Save" tabindex="2" styleClass="submitButton" 
+				 						action="#{userPrefMB.save}" value="#{bundle['application.save']}"></h:commandButton> 
+				 						<input type="button" onclick="javascript:document.getElementById('spanUserPref').style.display='none';" value="#{bundle['application.close']}" />	
+  </h:form>
+</ui:composition>
+   		

@@ -1,0 +1,64 @@
+#sidebar{
+	float:right;	
+	width:22%;
+	margin-bottom:15px;
+}
+.top-sidebar-box { 
+	float:right;
+	background: url(../images/contact_box_flag.gif) no-repeat 0 0 #d0d8ef;
+	font-size:small;
+	margin:0;
+	width:202px; 
+	padding: 3px;		
+	color:#5C69AD;
+
+}
+.sidebar-box {
+	clear:both;
+	float:right;
+	background-color:#D0D8EF;
+	font-size:small;
+	width:202px;
+	padding: 3px;
+	color:#5C69AD;
+	
+}
+.whiteBorder { 
+	border:1px solid #FFFFFF;
+	padding: 5px 5px 5px 9px;
+	width: 186px;
+	height:200px;	
+}
+div.leaveHistory { 
+	border:1px solid #FFFFFF;
+	padding: 5px 5px 5px 9px;
+	width: 186px;
+	padding-bottom:10px;
+}
+div.leaveBalance { 
+	border:1px solid #FFFFFF;
+	padding: 5px 5px 5px 9px;
+	width: 186px;
+	padding-bottom:10px;
+}
+div.otBalance { 
+	border:1px solid #FFFFFF;
+	padding: 5px 5px 5px 9px;
+	width: 186px;
+	padding-bottom:10px;
+}
+h5 {
+	font-size: small;
+}
+.top-sidebar-box ul, .sidebar-box ul {
+	margin-top:10px;
+	margin-left:10px;
+}
+.top-sidebar-box li, .sidebar-box li {
+	margin-left:10px;
+}
+.top-sidebar-box a, .sidebar-box a {
+	font-size:small;
+}
+
+div.sidebarDisclaimer{width:80%;font-size:x-small;margin-top:5px;margin-left:auto;margin-right:auto;}

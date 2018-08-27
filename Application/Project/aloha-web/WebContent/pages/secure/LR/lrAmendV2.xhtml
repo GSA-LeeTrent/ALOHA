@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-leave-r.xhtml">
+	<ui:define name="content">
+		<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+	 	<div id="main-content">
+			<h:form prependId="false">
+
+				<!-- PAGE TITLE (all pages)-->
+				<h3 class="pageTitle"><h:outputText value="#{bundle['leaveRequest.amend.pageTitle']}"/></h3>
+
+				<!-- Page 1 -->
+				<ui:fragment rendered="#{lrAmendV2MB.pageOne}">
+				  	<ui:insert name="lrAmendV2_p1">
+				        <ui:include src="lrAmendV2_p1.xhtml"/>
+				 	</ui:insert>
+				</ui:fragment>
+				
+				<!-- Page 2 -->
+				<ui:fragment rendered="#{lrAmendV2MB.pageTwo}">
+				  	<ui:insert name="lrAmendV2_p2">
+				        <ui:include src="lrAmendV2_p2.xhtml"/>
+				 	</ui:insert>
+				</ui:fragment>		
+				
+				<!-- Page 3 -->
+				<ui:fragment rendered="#{lrAmendV2MB.pageThree}">
+				  	<ui:insert name="lrAmendV2_p3">
+				        <ui:include src="lrAmendV2_p3.xhtml"/>
+				 	</ui:insert>
+				</ui:fragment>							
+
+			</h:form>	
+		</div>			
+     </ui:define>
+     
+     <ui:define name="sidebar">
+   		<ui:include src="common/lrSidebar.xhtml">
+            <ui:param name="leaveDetail" value="#{lrAmendV2MB.approvedLeaveDetail}" />
+            <ui:param name="leaveBalances" value="#{lrAmendV2MB.leaveBalances}" /> 		
+   		</ui:include>
+    </ui:define>    
+</ui:composition>
+</html>

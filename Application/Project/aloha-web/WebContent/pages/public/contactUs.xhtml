@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-1Col-r.xhtml">
+	    <ui:define name="content">
+	 		<div id="main-content">
+	 			<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 			<p class="sectionTitle"><h:outputText value="#{bundle['footer.label.contactUs']}"/>
+	 			<br/><br/><h:outputText value="#{bundle['contactUs.header.line1']}"/><br/>
+	 			<h:outputText value="#{bundle['contactUs.header.line2']}" /><br/>
+	 			<!--  
+	 			<a href="https://mail.google.com/a/gsa.gov/?extsrc=mailto&amp;url=mailto:aloha-support@gsa.gov" target="_blank" >
+		 			<h:outputText value="#{bundle['contactUs.header.line3']}"/>
+	 			</a>
+	 			-->
+				<br/>
+	 			</p>
+	 			<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+	 			</div>
+				<div id="formDiv" style="padding:10px;">
+	 			<h:form rendered="#{contactUsMB.confirmationMsg == null}"  prependId="false">
+
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							  <h:outputLabel id="olFrom" for="From" value="#{bundle['contactUs.from']}"/>*&nbsp;
+	 							</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							  <h:inputText id="From" readonly="#{contactUsMB.emailAvailable}" disabled="#{contactUsMB.emailAvailable}" required="true" size="40" title="#{bundle['contactUs.from']}" value="#{contactUsMB.from}"></h:inputText>
+	 							</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							  <h:message for="From" errorStyle="color:red" />	 						
+	 							</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							   <h:outputLabel id="olSubject" for="Subject" value="#{bundle['contactUs.subject']}"/>*
+	 							</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							   <h:inputText id="Subject" style="width:85%;" required="true" size="80" title="#{bundle['contactUs.subject']}" value="#{contactUsMB.subject}" ></h:inputText>
+	 							</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							    <h:message for="Subject" errorStyle="color:red" />
+	 							</div>	 						
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 								<h:outputLabel id="olMessage" for="Message" value="#{bundle['contactUs.message']}"/>*
+								</div>
+	 							<div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							   <h:inputTextarea id="Message" style="width:85%;margin-left:0px;" required="true" cols="80" rows="7" title="#{bundle['contactUs.message']}" value="#{contactUsMB.body}" ></h:inputTextarea>
+	 							 </div>
+	 							 <div style="padding:5px 0px 5px 0px; margin-left:8px;">
+	 							    <h:message for="Message" errorStyle="color:red" />
+	 							 </div>
+
+					    		<div>
+								   <h:commandButton id="btnSend" action="#{contactUsMB.sendMail}" value="#{bundle['contactUs.sendMessage']}"></h:commandButton>
+							 </div>
+	 			</h:form>
+	 			</div>
+				<h:outputText id="otConfirmMsg" value="#{contactUsMB.confirmationMsg}" rendered="#{contactUsMB.confirmationMsg != null}"></h:outputText>
+	 		</div>
+	    </ui:define>
+	</ui:composition>
+</html>

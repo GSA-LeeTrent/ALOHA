@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="aloha-pu" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>aloha-ds</jta-data-source>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveSubmitterComment</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.AlohaUser</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.AlohaUserPref</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.EtamsAdXref</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveDetail</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveHeader</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveHistory</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveItem</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveStatusTransition</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveStatus</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveType</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.leave.LeaveApproverComment</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTActorType</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTDetail</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTDetailHistory</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTDetailRemark</class>		
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTDetailSubmitterRemark</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTDetailSupervisorRemark</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTEntityType</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroup</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupHistory</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupRemark</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupStatus</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupStatusTrans</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupSubmitterRemark</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTGroupSupervisorRemark</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTHeader</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTIndivStatus</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTIndivStatusTrans</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTItem</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTPayPeriod</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTSalaryGrade</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTStatus</class>
+		<class>gov.gsa.ocfo.aloha.model.entity.overtime.OTStatusTrans</class>
+		<properties>
+			<property name="eclipselink.target-server" value="WebLogic_10" />
+			<property name="eclipselink.logging.logger" value="DefaultLogger"/>
+			<property name="eclipselink.logging.level" value="WARNING"/>
+			<property name="eclipselink.cache.shared.default" value="false"/>
+		</properties>
+	</persistence-unit>
+</persistence>

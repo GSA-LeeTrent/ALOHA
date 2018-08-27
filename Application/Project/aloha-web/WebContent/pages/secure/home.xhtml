@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-2Col-Rsidebar-r.xhtml">
+	<ui:define name="content">
+		<div id="main-content">
+		
+			<div id="welcome">
+				<h:outputText value="#{bundle['home.msg.welcome']}"/>&nbsp;
+				<h:outputText value="#{userMB.user.firstName}"/>&nbsp;
+				<h:outputText value="#{userMB.user.lastName}"/>
+				<h:outputText value="#{bundle['home.msg.exclamation']}"/>
+			</div>
+			
+			<h:panelGrid id="noPermissions" columns="1" rendered="#{ (not userMB.user.submitOwn) and (not userMB.user.approver) and (not userMB.user.onBehalfOf) }" value="#{bundle['home.msg.noPermissions']}">
+				<h:outputText value="#{bundle['home.msg.noPermissions']}"/>				
+			</h:panelGrid>
+			
+			<h:form prependId="false">
+				<ul id="homeTabs" style="width:100%;border-bottom:0px;">
+
+					<!--  
+					<c:if test="#{userMB.user.submitOwn}">
+						<li>
+							<h:outputLink id="tabMyRequests" tabindex="10" class="#{homeMB.cssClassForMyRequestsTab}" value="#" onclick="onTabMyRequestsSelected();">
+								<h:outputText value="#{bundle['home.tab.label.myRequests']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>
+					-->
+					
+					<!-- 
+					<c:if test="#{userMB.user.onBehalfOf}">
+						<li>
+							<h:outputLink id="tabMyTeam" tabindex="20" class="#{homeMB.cssClassForMyTeamTab}" value="#" onclick="onTabMyTeamSelected();">
+								<h:outputText value="#{bundle['home.tab.label.myTeam']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>
+					-->
+					
+					<!--
+					<c:if test="#{userMB.user.submitOwn or userMB.user.onBehalfOf or userMB.user.approver}">
+						<li>
+							<h:outputLink id="tabReports" tabindex="30" class="#{homeMB.cssClassForReportsTab}" value="#" onclick="onTabReportsSelected();">
+								<h:outputText value="#{bundle['home.tab.label.reports']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>
+					-->
+					
+					<c:if test="#{userMB.user.submitOwn or userMB.user.onBehalfOf or userMB.user.approver}">
+						<li>
+							<h:outputLink id="tabReports" tabindex="30" class="#{homeMB.cssClassForReportsTab}" value="#">
+								<h:outputText value="#{bundle['home.tab.label.reports']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>					
+					
+					<!--
+					<c:if test="#{userMB.user.approver}">
+						<li>
+							<h:outputLink id="tabManagement" tabindex="40" class="#{homeMB.cssClassForManagementTab}" value="#" onclick="onTabManagementSelected();">
+								<h:outputText value="#{bundle['home.tab.label.management']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>
+					-->
+					
+					<!--
+					<c:if test="#{userMB.user.alohaAdmin}">
+						<li>
+							<h:outputLink id="tabAdmin" tabindex="50" class="#{homeMB.cssClassForAdminTab}" value="#" onclick="onTabAdminSelected();">
+								<h:outputText value="#{bundle['home.tab.label.admin']}"/>
+							</h:outputLink>	
+						</li>
+					</c:if>						
+					-->
+					
+				</ul>
+			</h:form>
+			<h:form>
+
+					<!--  
+					<c:if test="#{userMB.user.submitOwn}">
+						<ui:insert name="homeMyRequests">
+							<ui:include src="../sections/homeMyRequests.xhtml"/>
+						</ui:insert>
+					</c:if>
+					-->
+					
+					<!--
+					<c:if test="#{userMB.user.onBehalfOf}">
+						<ui:insert name="homeMyTeam">
+							<ui:include src="../sections/homeMyTeam.xhtml"/>
+						</ui:insert>
+					</c:if>
+					-->
+					
+					<c:if test="#{userMB.user.submitOwn or userMB.user.onBehalfOf or userMB.user.approver}">
+						<ui:insert name="homeMyReports">
+							<ui:include src="../sections/homeReports.xhtml"/>
+						</ui:insert>
+					</c:if>
+
+					<!--  
+					<c:if test="#{userMB.user.approver}">
+						<ui:insert name="homeManagement">
+							<ui:include src="../sections/homeManagement.xhtml"/>
+						</ui:insert>
+					</c:if>
+					-->
+					
+					<!--  
+					<c:if test="#{userMB.user.alohaAdmin}">						
+						<ui:insert name="homeAdmin">
+							<ui:include src="../sections/homeAdmin.xhtml"/>
+						</ui:insert>
+					</c:if>
+					-->	
+
+			</h:form>
+			<div style="text-align:right;margin-right:30px;"><h:outputText style="font-size:small;font-style:italic;color:#A9A9A9;" value="#{bundle['application.version.number']}"/></div>
+		</div>		 				
+    </ui:define>
+	<ui:define name="sidebar">
+		<ui:include src="../sections/sidebar.xhtml"/>
+	</ui:define>        
+</ui:composition>
+</html>

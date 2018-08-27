@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/pages/templates/template-leave-r.xhtml">
+	<ui:define name="content">
+ 		<div id="main-content">
+			<h3 style="text-align:center;">Manage Leave Request</h3>
+			<h2 class="formTitle">Approve/Deny:</h2>
+			<c:if test="#{not lrApproveMB.validationErrors}">
+				<ul class="message">
+					<h:outputText value="Below you will find the following for your review:"/>
+					<li><h:outputText value="The approved leave request which is in effect"/></li>
+					<li><h:outputText value="A pending leave request amendment, subject to approval"/></li>
+				</ul>	
+			</c:if>		
+			<div style="width:90%;margin-top:20px;">
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+			</div>
+			<p class="sectionTitle">
+				<h:outputText value="Leave Request Amendment" rendered="#{lrApproveMB.submittedLeaveDetail.pendingAmendment}"/>						
+			</p>
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrApproveMB.submittedLeaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrApproveMB.submittedLeaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="submitterFullName" value="#{lrApproveMB.submittedLeaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrApproveMB.submittedLeaveDetail.payPeriodDateRange}"/></td>								
+				</tr>		
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approverFullName" value="#{bundle['application.label.supervisor']}"/></td>
+					<td><h:outputText id="approverFullName" value="#{lrApproveMB.submittedLeaveDetail.approver.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatus" value="#{lrApproveMB.submittedLeaveDetail.leaveStatus.label}"/></td>								
+				</tr>	
+			</table>
+			
+			<!-- 					
+			<c:if test="#{not empty lrApproveMB.submittedLeaveDetail.submitterComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.submitterRemarks02']}" /></p>
+				<div class="remarks">
+					<c:forEach var="submitterComment" items="#{lrApproveMB.submittedLeaveDetail.submitterComments}">
+						<h:outputText value="#{submitterComment.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>
+						<h:outputText value="#{submitterComment.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+				</div>
+			</c:if>	
+			<c:if test="#{not empty lrApproveMB.submittedLeaveDetail.approverComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.supervisorRemarks']}"/></p>
+				<div class="remarks">
+					<c:forEach var="approverRemark" items="#{lrApproveMB.submittedLeaveDetail.approverComments}">
+						<h:outputText value="#{approverRemark.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>										
+						<h:outputText value="#{approverRemark.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+			
+				</div>
+			</c:if>		
+			 -->	
+			 
+			<!-- ALL REMARKS  -->
+			<h:form>
+				<ui:insert name="lrAllRemarksPanel">
+					<ui:include src="common/lrAllRemarks.xhtml">
+						<ui:param name="lrAllRemarksList" value="#{lrApproveMB.submittedLeaveDetail.leaveHeader.allRemarks}" />
+					</ui:include>
+				</ui:insert>	   
+			</h:form>			 
+					
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="Amendment Details:"/></p>			
+			<table class="sideBySide" cellspacing="0">
+				<caption>
+					<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+						<f:param value="#{lrApproveMB.submittedLeaveDetail.payPeriodDateRange}" />
+					</h:outputFormat>					
+				</caption>
+	            <ui:insert name="sideBySideHeader">
+	            	<ui:include src="../../sections/lrSideBySideHeader.xhtml"/>
+	            </ui:insert>
+				<c:forEach var="sideBySideItem" items="#{lrApproveMB.sideBySideItems}" varStatus="status">
+		            <ui:insert name="sideBySideItems">
+		            	<ui:include src="../../sections/lrSideBySideItems.xhtml"/>
+		            </ui:insert>
+				</c:forEach>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#9FA8D6;"><h:outputText value="#{bundle['application.label.total']}"/></th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#9FA8D6;">
+						<h:outputText value="#{lrApproveMB.approvedLeaveDetail.totalLeaveHours}"/>
+					</th>
+					<th style="background-color:#9FA8D6;">&nbsp;</th>
+					<th class="number" style="padding: 4px 10px;font-weight:bold;vertical-align:middle;background-color:#94BFCF;"><h:outputText value="#{bundle['application.label.total']}"/></th>
+					<th class="number" style="font-weight:bold;vertical-align:middle;background-color:#94BFCF;"><h:outputText value="#{lrApproveMB.submittedLeaveDetail.totalLeaveHours}"/></th>
+					<th style="background-color:#94BFCF;">&nbsp;</th>
+				</tr>
+			</table>
+			<h:form prependId="false">
+				<p class="sectionTitle" style="margin-top:25px;"><h:outputText value="#{bundle['application.label.remarks.supervisor']}"/></p>
+	 			<div style="width:87%;margin:10px;padding-top:20px;padding-bottom:20px;background-color:#e7ebf7;border:solid 1px #B0B3B9;">				
+					<h:inputTextarea id="approverRemarks" rows="5" cols="76" value="#{lrApproveMB.approverRemarks}" title="#{bundle['leaveRequest.sectionTitle.remarks']}" class="remarks"/>
+	 			</div>
+				<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>	 			
+
+				<div class="availableActions">
+             		<h:commandButton 
+             			id="lrApproveAmendApproveButton" 
+             			action="#{lrApproveMB.onApprove}" 
+             			value="#{bundle['leaveRequest.approver.button.label.approve']}"
+             			onclick="onLRApproverFormButtonClicked();">
+             		</h:commandButton>&nbsp;
+                 	<h:commandButton 
+                 		id="lrApproveAmendDenyButton" 
+                 		action="#{lrApproveMB.onDeny}"	
+                 		value="#{bundle['leaveRequest.approver.button.label.deny']}"
+             			onclick="onLRApproverFormButtonClicked();">
+             		</h:commandButton>&nbsp;
+					<h:button
+						id="lrApproveAmendDiscardButton" 
+						value="#{bundle['application.button.text.discard']}" 
+						outcome="lrListManagement"
+						onclick="onLRApproverFormButtonClicked();">
+					</h:button> 		             			
+           		</div>           		
+           		
+			</h:form>
+		</div>
+		<script language="JavaScript">
+			function onLRApproverFormButtonClicked() {
+				document.getElementById("lrApproveAmendApproveButton").style.display="none";
+				document.getElementById("lrApproveAmendDenyButton").style.display="none";
+				document.getElementById("lrApproveAmendDiscardButton").style.display="none";					
+			}
+		</script>				
+    </ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="../../sections/sidebar-lr-approve.xhtml"/>
+    </ui:define>    
+</ui:composition>
+</html>

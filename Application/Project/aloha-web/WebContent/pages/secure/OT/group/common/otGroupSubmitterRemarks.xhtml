@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel id="otGroupSubmitterRemarksPanel" header="&nbsp;&nbsp;#{bundle['application.label.ot.group.remarks.submitter']}" rendered="true"
+		style="width:90%;margin-top:20px;padding:5px;font-size:small;font-family:Arial;">
+	    <div style="padding:0px;">
+			<ui:fragment rendered="#{not empty otGroupSubmitterRemarks}">
+				<ul>
+					<ui:repeat value="#{otGroupSubmitterRemarks}" var="submiterRemark">
+					  <li style="margin-left:25px;"><h:outputText value="#{submiterRemark.text}}"/></li>
+					</ui:repeat>
+				</ul>
+			</ui:fragment>
+			<ui:fragment rendered="#{empty otGroupSubmitterRemarks}">
+				<ul>
+					<li style="margin-left:25px;"><h:outputText value="#{bundle['application.noDataFound']}"/></li>
+				</ul>		
+			</ui:fragment>			
+		</div>
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

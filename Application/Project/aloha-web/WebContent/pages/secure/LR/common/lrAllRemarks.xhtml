@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:ace="http://www.icefaces.org/icefaces/components">
+<body>
+<ui:composition>
+	<ace:panel id="lrAllRemarksPanel" header="#{bundle['application.text.previousRemarks']}"
+		style="font-size:small;font-family:Arial;" styleClass="allRemarksDiv">
+	    <div class="paddedDiv" id="remarksTableDiv">
+	    	<ui:fragment rendered="#{not empty lrAllRemarksList}">
+	           	<ace:dataTable id="lrAllRemarksDataTable"
+	                        value="#{lrAllRemarksList}"
+	                        var="lrRemark"
+	                        rows="0">
+	                
+	                <ace:column id="lrRemarkDateLabel" headerText="#{bundle['leaveRequest.label.date']}" style="vertical-align:top;">
+	                    <h:outputText id="lrRemarkDateValue" value="#{lrRemark.remarkDate}">
+	                    	<f:convertDateTime pattern="MM/dd/yyyy"/>
+	                    </h:outputText>
+	                </ace:column>
+	                
+	                <ace:column id="lrRemarkAuthorLabel" headerText="#{bundle['application.text.author']}" style="vertical-align:top;">
+	                    <h:outputText id="lrRemarkAuthorValue" value="#{lrRemark.actor.fullName}"/>
+	                </ace:column>
+	
+	                <ace:column id="lrRemarkEventLabel" headerText="#{bundle['application.text.event']}" style="vertical-align:top;">
+	                    <h:outputText id="lrRemarkEventValuePopulated" value="#{lrRemark.eventDescription}" rendered="#{not empty lrRemark.eventDescription}"/>
+	                    <h:outputText id="lrRemarkEventValueEmpty" value=" " rendered="#{empty lrRemark.eventDescription}"/>
+	                </ace:column>
+	
+	                <ace:column id="lrRemarkTextLabel" headerText="#{bundle['application.text.remark']}" style="vertical-align:top;">
+						<div style="margin:0;padding:0;text-align:left;">	                    
+	                    	<h:outputText id="lrRemarkTextValue" value="#{lrRemark.remark}"/>
+	                    </div>
+	                </ace:column>
+	            </ace:dataTable>	 
+           </ui:fragment>   
+			<ui:fragment rendered="#{empty lrAllRemarksList}">
+				<ul>
+					<li style="margin-left:25px;"><h:outputText value="#{bundle['application.noDataFound']}"/></li>
+				</ul>		
+			</ui:fragment>	
+		</div>
+	</ace:panel>
+</ui:composition>
+</body>
+</html>

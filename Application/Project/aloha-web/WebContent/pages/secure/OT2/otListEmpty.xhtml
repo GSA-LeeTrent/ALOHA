@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<table class="otDataTable list">
+		<caption class="supervisor"><h:outputText value="#{otEmptyListCaption}"/></caption>
+		<thead>
+			<tr>
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.payPeriod']}"/></th>
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.type']}"/></th>								
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.submitter']}"/></th>
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.employee']}"/></th>
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.status']}"/></th>
+				<th scope="col"><h:outputText value="#{bundle['ot.list.th.supervisor']}"/></th>
+				<th scope="col"><h:outputText escape="false" value="#{bundle['ot.list.th.nbrOfHours']}"/></th>
+				<th scope="col"><h:outputText escape="false" value="#{bundle['ot.list.th.availableActions']}"/></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="odd">
+			<td colspan="8"><h:outputText value="#{bundle['application.noDataFound']}"/></td>
+			</tr>
+		</tbody>
+	</table>
+</ui:composition>
+</body>
+</html>

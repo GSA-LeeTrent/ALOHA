@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+          
+	<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	                template="/pages/templates/template-lrReports.xhtml">
+		              
+	    <ui:define name="content">
+	 		<icecore:config render="false"/>
+	 		<div id="main-content" style="width:100%;">
+			<h:outputScript library="javascript" name="ShowHide.js" target="head" />  
+				<p class="sectionTitle"><h:outputText value="#{bundle['leaveRequest.sectionTitle.report']}"/></p>
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+				<div class="form">
+					<h:form id="payPeriodForm" prependId="false">
+						<table class="formTable">
+							<tr>
+								<td width="15%" rowspan="2">
+									<h:outputLabel for="emps" value="#{bundle['leaveRequest.recon.employees']}"/>
+								</td>
+								<td width="35%" rowspan="2">
+									<h:selectManyListbox id="emps" value="#{leaveRequestReportMB.selectedEmployees}" size="6">
+										<f:selectItems value="#{leaveRequestReportMB.employees}"/>
+									</h:selectManyListbox>
+								</td>
+								<td width="15%"><h:outputLabel for="payPeriodsFrom" value="#{bundle['leaveRequest.label.payPeriodFrom']}"/></td>
+								<td width="35%">
+									<h:selectOneMenu id="payPeriodsFrom" tabindex="1" value="#{leaveRequestReportMB.selectedFromPayPeriod}">
+					 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+					 					<f:selectItems value="#{payPeriodMB.payPeriods}"/>
+		 							</h:selectOneMenu>&nbsp;
+		 						</td>		 						
+							</tr>
+							<tr>
+
+								<td width="15%"><h:outputLabel for="payPeriodsTo" value="#{bundle['leaveRequest.label.payPeriodTo']}"/></td>
+								<td width="35%">
+									<h:selectOneMenu id="payPeriodsTo" tabindex="1" value="#{leaveRequestReportMB.selectedToPayPeriod}">
+					 					<f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+					 					<f:selectItems value="#{payPeriodMB.payPeriods}"/>
+		 							</h:selectOneMenu>&nbsp;
+		 						</td>		 						
+							</tr>
+							<tr>
+								<td width="15%">
+									<h:outputLabel for="priLeaveTypes" value="#{bundle['leaveRequest.recon.primary']}"/>
+									<br/>
+									<h:outputLabel for="priLeaveTypes" value="#{bundle['leaveRequest.label.schedule.leaveType']}"/>									
+								</td>
+								<td width="35%">
+									<h:selectManyListbox id="priLeaveTypes" value="#{leaveRequestReportMB.selectedPriLeaveTypes}" size="6">
+										<f:selectItems value="#{leaveRequestReportMB.priLeaveTypes}"/>
+									</h:selectManyListbox>							
+								</td>
+								<td width="15%">
+									<h:outputLabel for="secLeaveTypes" 
+									value="#{bundle['leaveRequest.recon.secondary']}"/>
+									<br/>
+									<h:outputLabel for="priLeaveTypes" value="#{bundle['leaveRequest.label.schedule.leaveType']}"/>									
+								</td>
+								<td width="35%">
+									<h:selectManyListbox id="secLeaveTypes" value="#{leaveRequestReportMB.selectedSecLeaveTypes}" size="6">
+										<f:selectItems value="#{leaveRequestReportMB.secLeaveTypes}"/>
+									</h:selectManyListbox>
+
+		 						</td>		 						
+							</tr>
+							<tr>
+								<td width="15%">
+									<h:outputLabel for="status" value="#{bundle['leaveRequest.approver.list.header.status']}"/>
+								</td>
+								<td width="35%">
+									<h:selectManyListbox id="status" value="#{leaveRequestReportMB.selectedLeaveStatuses}" size="6">
+										<f:selectItems value="#{leaveRequestReportMB.leaveStatuses}"/>
+									</h:selectManyListbox>								
+								</td>
+								<td width="15%">
+								</td>
+								<td width="35%">
+		 						</td>		 						
+							</tr>							
+							<tr>
+								<td colspan="4" align="center">
+		 							<h:commandButton id="runRecon" tabindex="2" styleClass="submitButton" 
+				 						action="#{leaveRequestReportMB.onSelectFilters}" value="#{bundle['leaveRequest.button.runReport']}"/>
+				 						<h:button type="reset" value="#{bundle['application.reset']}"></h:button>
+							</td>
+							</tr>
+						</table>
+						<h:outputText value="#{bundle['application.noDataFound']}" rendered="#{leaveRequestReportMB.noDataFound}"/>
+					</h:form>
+				</div>
+
+				<h:form id="leaveRequestReportForm" prependId="false" rendered="#{!leaveRequestReportMB.noDataFound and fn:length(leaveRequestReportMB.rptLR) > 0}">
+					<h:dataTable var="lrrItem" value="#{leaveRequestReportMB.rptLR}" class="Datatable" style="margin-left:auto; margin-right:auto;margin-bottom:20px;" 
+					rowClasses="weekDayRow,weekEndRow" frame="border" border="3">
+						<f:facet name="caption">
+							<h:commandLink id="exportRpt" tabindex="2" styleClass="submitButton" action="#{leaveRequestReportMB.exportRpt2}" value="#{bundle['leaveRequest.link.exportToExcel']}"/>
+						</f:facet>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.form.title']}" action="#{leaveRequestReportMB.sortByLRId}"/>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortLRIdAscending and leaveRequestReportMB.sortBy == 'LRId'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortLRIdAscending and leaveRequestReportMB.sortBy == 'LRId'}"></h:graphicImage>															
+							</f:facet>
+							<h:commandLink id="lrdid" value="#{lrrItem.lrHeaderId}-#{lrrItem.lrdSeq}" 
+							onclick="ShowContent('xlrdetail1');">
+								<f:param name="strlrdid" value="#{lrrItem.lrDetailId}"></f:param>
+								<f:ajax execute="lrdid" event="action" render=":leaveRequestReportForm:lrdetail" listener="#{lRViewDtlMB.getLeaveRecord}" />
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.lastname']}" action="#{leaveRequestReportMB.sortByLastName}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortLastNameAscending and leaveRequestReportMB.sortBy == 'LastName'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortLastNameAscending and leaveRequestReportMB.sortBy == 'LastName'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.empLName}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.firstname']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.empFName}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.middlename']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.empMName}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['application.label.FAT']}" action="#{leaveRequestReportMB.sortByFATCode}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortFATCodeAscending and leaveRequestReportMB.sortBy == 'FATCode'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortFATCodeAscending and leaveRequestReportMB.sortBy == 'FATCode'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.fatCode}"></h:outputText>						
+						</h:column>						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.year']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.year}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.payperiod']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.payPeriod}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.date']}" action="#{leaveRequestReportMB.sortByDate}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortDateAscending and leaveRequestReportMB.sortBy == 'Date'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortDateAscending and leaveRequestReportMB.sortBy == 'Date'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveDt}">
+								<f:convertDateTime pattern="MM/dd/yyyy" type="date" />
+							</h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.label.schedule.startTime_2']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveStartTime}">
+								<f:convertDateTime pattern="HH:mm a" timeZone="CST"/>
+							</h:outputText>						
+						</h:column>						
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.schedule.leaveType']}-#{bundle['leaveRequest.recon.primary']}" action="#{leaveRequestReportMB.sortByLeaveType}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortLeaveTypeAscending and leaveRequestReportMB.sortBy == 'LeaveType'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortLeaveTypeAscending and leaveRequestReportMB.sortBy == 'LeaveType'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.primaryLeaveType}"></h:outputText>						
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink value="#{bundle['leaveRequest.label.schedule.leaveType']}-#{bundle['leaveRequest.recon.secondary']}" action="#{leaveRequestReportMB.sortBySecondaryLeaveType}"></h:commandLink>
+								<h:graphicImage url="/resources/images/asc.gif" width="20" rendered="#{!leaveRequestReportMB.sortSecondaryLeaveTypeAscending and leaveRequestReportMB.sortBy == 'SecondaryLeaveType'}"></h:graphicImage>
+								<h:graphicImage url="/resources/images/desc.gif" width="20" rendered="#{leaveRequestReportMB.sortSecondaryLeaveTypeAscending and leaveRequestReportMB.sortBy == 'SecondaryLeaveType'}"></h:graphicImage>								
+							</f:facet>
+							<h:outputText value="#{lrrItem.secondaryLeaveType}"></h:outputText>						
+						</h:column>						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['leaveRequest.approver.list.header.status']}"/>
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveStatus}"/>						
+						</h:column>						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle['application.title']}"></h:outputText><br/>
+								<h:outputText value="#{bundle['leaveRequest.label.hours']}"></h:outputText>
+							</f:facet>
+							<h:outputText value="#{lrrItem.leaveHrsAloha}"></h:outputText>						
+						</h:column>
+
+						
+					</h:dataTable>
+					
+					<h:panelGroup id="xlrdetail1"  
+					   style="z-index:999;display:none;position:absolute;background-color: white;padding: 5px;">
+						<h:panelGroup id="lrdetail">
+						<ui:include src="lrViewById.xhtml"></ui:include>
+						<a onmouseover="HideContent('xlrdetail1'); return true;"
+   						href="javascript:HideContent('xlrdetail1')">
+						[hide]</a>
+						</h:panelGroup>					
+					</h:panelGroup>
+					<div class="buttonPanel">	
+						<h:commandLink  rendered="#{userMB.loggedIn}" action="home" value="#{bundle['header.label.home']}" /><br/><br/>
+					</div>
+				</h:form>				
+			</div>
+	    </ui:define>
+	</ui:composition>
+</html>

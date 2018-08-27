@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/pages/templates/template-leave-r.xhtml">
+	<ui:define name="content">
+ 		<div id="main-content">
+	 		<h3 style="text-align:center;">Manage Leave Request</h3>
+			<h2 class="formTitle">
+				<h:outputText value="#{bundle['application.text.pending.approval']}" rendered="#{lrApproveMB.approved}"/>
+				<h:outputText value="#{bundle['application.text.pending.denial']}" rendered="#{not lrApproveMB.approved}"/>
+			</h2>
+			<ul class="message">
+				<c:choose>
+					<c:when test="#{lrApproveMB.approved}">
+						<h:outputText value="#{bundle['leaveRequest.amendment.approve.pending1']}"
+							rendered="#{ (lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.pendingAmendment) }"/>
+						<h:outputText value="#{bundle['leaveRequest.withdraw.approve.pending1']}"
+							rendered="#{ (lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.pendingWithdrawal) }"/>
+						<h:outputText value="#{bundle['leaveRequest.new.approve.pending1']}"
+							rendered="#{ (lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.submitted) }"/>
+						<li><h:outputText value="#{bundle['leaveRequest.approve.msg.approval.pending2']}"/></li>
+						<li><h:outputText value="#{bundle['leaveRequest.approve.msg.approval.pending3']}"/></li>
+						<li><h:outputText escape="false" value="#{bundle['application.msg.otherwiseCancel']}"/></li>						
+					</c:when>
+					<c:otherwise>
+						<h:outputText value="#{bundle['leaveRequest.amendment.deny.pending1']}"
+							rendered="#{ (not lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.pendingAmendment) }"/>
+						<h:outputText value="#{bundle['leaveRequest.withdraw.deny.pending1']}"
+							rendered="#{ (not lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.pendingWithdrawal) }"/>
+						<h:outputText value="#{bundle['leaveRequest.new.deny.pending1']}"
+							rendered="#{ (not lrApproveMB.approved) and (lrApproveMB.submittedLeaveDetail.submitted) }"/>
+						<li><h:outputText value="#{bundle['leaveRequest.deny.msg.denial.pending2']}"/></li>
+						<li><h:outputText value="#{bundle['leaveRequest.deny.msg.denial.pending3']}"/></li>
+						<li><h:outputText value="#{bundle['leaveRequest.deny.msg.denial.pending4']}"/></li>
+					</c:otherwise>
+				</c:choose>
+	 		</ul>
+			<p class="sectionTitle">
+				<h:outputText value="#{bundle['leaveRequest.view.submitted']}" rendered="#{lrApproveMB.submittedLeaveDetail.submitted}"/>
+				<h:outputText value="#{bundle['leaveRequest.view.cancelled']}" rendered="#{lrApproveMB.submittedLeaveDetail.cancelled}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.approved']}" rendered="#{lrApproveMB.submittedLeaveDetail.approved}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.denied']}" rendered="#{lrApproveMB.submittedLeaveDetail.denied}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.pendAmend']}" rendered="#{lrApproveMB.submittedLeaveDetail.pendingAmendment}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.pendWithdraw']}" rendered="#{lrApproveMB.submittedLeaveDetail.pendingWithdrawal}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.amended']}" rendered="#{lrApproveMB.submittedLeaveDetail.amended}"/>						
+				<h:outputText value="#{bundle['leaveRequest.view.withdrawn']}" rendered="#{lrApproveMB.submittedLeaveDetail.withdrawn}"/>						
+			</p>
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrApproveMB.submittedLeaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrApproveMB.submittedLeaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="submitterFullName" value="#{lrApproveMB.submittedLeaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="payPeriod" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrApproveMB.submittedLeaveDetail.payPeriodDateRange}"/></td>								
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approverFullName" value="#{bundle['application.label.supervisor']}"/></td>
+					<td><h:outputText id="approverFullName" value="#{lrApproveMB.submittedLeaveDetail.approver.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatusPending" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatusPending" value="#{lrApproveMB.leaveStatusLabel}"/></td>								
+				</tr>	
+			</table>
+			
+			<!-- 
+			<c:if test="#{not empty lrApproveMB.submittedLeaveDetail.submitterComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.submitterRemarks02']}" /></p>
+				<div class="remarks">
+					<c:forEach var="submitterComment" items="#{lrApproveMB.submittedLeaveDetail.submitterComments}">
+						<h:outputText value="#{submitterComment.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>
+						<h:outputText value="#{submitterComment.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+				</div>
+			</c:if>	
+			-->
+			
+			<!-- ALL REMARKS  -->
+			<h:form>
+				<ui:insert name="lrAllRemarksPanel">
+					<ui:include src="common/lrAllRemarks.xhtml">
+						<ui:param name="lrAllRemarksList" value="#{lrApproveMB.submittedLeaveDetail.leaveHeader.allRemarks}" />
+					</ui:include>
+				</ui:insert>	   
+			</h:form>			
+			
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['leaveRequest.label.requstedTimeOff']}"/></p>			
+			<table class="dataTableView">
+				<caption>
+					<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+						<f:param value="#{lrApproveMB.submittedLeaveDetail.payPeriodDateRange}" />
+					</h:outputFormat>					
+				</caption>
+				<thead>
+					<tr>
+						<th><h:outputText value="#{bundle['leaveRequest.label.schedule.date']}"/></th>
+						<th><h:outputText value="#{bundle['leaveRequest.label.schedule.dayOfWeek']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.leaveDesc']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.leaveHours']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.startTime']}"/></th>
+					</tr>
+				</thead>
+				<tbody>	
+					<c:forEach var="leaveItem" items="#{lrApproveMB.submittedLeaveDetail.leaveItems}" varStatus="status">
+						<c:choose>
+							<c:when test="#{ status.index % 2 == 0 }">
+								<tr class="even">
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+									<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+									<td>
+										<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+											<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+										</h:outputText>
+										<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+									</td>										
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr class="odd">
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+									<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+									<td>
+										<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+											<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+										</h:outputText>
+										<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+									</td>										
+								</tr>											
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</tbody>
+				<tfoot>	
+					<tr>
+						<th colspan="3" class="number"><h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']}"/>&nbsp;</th>
+						<th class="number">
+							<h:outputText value="#{lrApproveMB.submittedLeaveDetail.totalLeaveHours}"/></th>
+							<th>&nbsp;</th>
+					</tr>
+				</tfoot>						
+			</table>			
+			<c:if test="#{not empty lrApproveMB.approverRemarks}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.supervisorRemarks']}"/></p>
+				<div class="remarks">
+					<h:outputText value="#{lrApproveMB.approverRemarks}"/>			
+				</div>
+			</c:if>	
+       		<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+       		<div id="lrApprovePendingButtonPanel" class="buttonPanel">
+				<h:form prependId="false">
+	       			<h:commandButton 
+	       				id="lraPendingFormConfirmApprovalButton" 
+	       				rendered="#{lrApproveMB.approved}"
+	       				action="#{lrApproveMB.onConfirm}"  
+	       				value="#{bundle['application.text.confirmApproval']}"
+	           			onclick="onLRApproveButtonClicked();">
+	           		</h:commandButton>
+	       			<h:commandButton 
+	       				id="lraPendingFormConfirmDenialButton" 
+	       				rendered="#{not lrApproveMB.approved}"
+	       				action="#{lrApproveMB.onConfirm}"  
+	       				value="#{bundle['application.text.confirmDenial']}"
+	           			onclick="onLRApproveButtonClicked();">
+	           		</h:commandButton>
+	           		&nbsp; 	           		
+	           		<h:commandButton 
+	           			id="lraPendingFormMakeRevisionsButton" 
+	           			action="#{lrApproveMB.onChange}" 
+	           			value="#{bundle['application.text.makeRevisions']}"
+	           			onclick="onLRApproveButtonClicked();">
+	           		</h:commandButton>&nbsp; 
+					<h:button
+						id="lraPendingFormDiscardChangesButton" 
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListManagement"
+						onclick="onLRApproveButtonClicked();">
+					</h:button> 
+				</h:form>   
+			</div>
+		</div>
+		<script language="JavaScript">
+			function onLRApproveButtonClicked() {
+				document.getElementById("lrApprovePendingButtonPanel").style.display="none";
+			}
+		</script>				
+    </ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="../../sections/sidebar-lr-approve.xhtml"/>
+    </ui:define>       
+</ui:composition>
+</html>

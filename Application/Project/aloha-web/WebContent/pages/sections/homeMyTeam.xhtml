@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<div id="sectionMyTeam" class="homeSection" style="#{homeMB.myTeamSectionDisplay}">		
+		<div class="homePanel left">
+			<div class="whiteBorder2"> 
+			<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.leave']}"/></h5>
+				<ul>
+					<li>
+						<h:link 
+							tabindex="21" 
+							value="#{bundle['home.link.text.lrNewOnBehalfOf']}" 
+							outcome="lrCreateV2OnBehalfOf"
+							rendered="#{userMB.user.onBehalfOf}">
+						</h:link>
+					</li>						
+					<li>
+						<h:link 
+							tabindex="22" 
+							value="#{bundle['home.link.text.lrChangeOnBehalfOf']}" 
+							outcome="lrListOnBehalfOf"
+							rendered="#{userMB.user.onBehalfOf}">
+						</h:link>
+					</li>
+				</ul>	
+			</div>
+			<div class="whiteBorder2"> 
+			<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.preferences']}"/></h5>
+				<ul>
+					<li>
+						<h:link outcome="listUserPrefs" value="#{bundle['teamUserPref.title']}"></h:link>
+					</li>
+				</ul>	
+			</div>
+		</div>
+		<div class="homePanel right">
+			<div class="whiteBorder2"> 
+				<h5 class="subsystem"><h:outputText value="#{bundle['home.panel.label.overtime']}"/></h5>
+				<ul>
+					<li>
+						<h:commandLink tabindex="23" value="#{bundle['home.link.text.otNewOnBehalfOf']}" action="#{otCreateOBOMB.initCreate}" 
+							rendered="#{userMB.user.onBehalfOf}"/>
+					</li>			
+					<li>
+						<h:commandLink tabindex="24" value="#{bundle['home.link.text.ot.onBehalfOf.viewModify']}" action="otListOBO"
+							rendered="#{userMB.user.onBehalfOf}"/>
+					</li>		
+				</ul>	
+			</div>
+		</div>
+	</div>
+</ui:composition>
+</body>
+</html>

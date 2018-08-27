@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+     	<style type="text/css">
+			.ui-datatable-odd {background-color:#F0F0F0 !important;}
+     	</style>
+		<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>	 	
+	 	<div id="main-content">
+			<h:form>
+
+				<!-- PAGE TITLE -->
+				<h3 class="pageTitle"><h:outputText value="#{bundle['ot.group.pageTitle.review']}"/></h3>
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+
+				<!--  TOP PANEL -->
+	            <ui:insert name="otGroupTopPanel">
+	            	<ui:include src="common/otGroupTopPanel.xhtml">
+	            		<ui:param name="readOnly"  value="#{constantsMB.boolTrue}" />
+	            		<ui:param name="otGroup" value="#{otGroupViewMB.otGroup}" />
+	   		            <ui:param name="managedBean" value="#{otGroupViewMB}" />
+	            	</ui:include>
+	            </ui:insert>
+	          
+ 				<!--  GROUP SUBMITTER REMARKS -->
+	            <ui:insert name="otGroupSubmitterRemarks">
+	            	<ui:include src="common/otGroupSubmitterRemarks.xhtml">
+	            		<ui:param name="otGroupSubmitterRemarks" value="#{otGroupViewMB.otGroup.submitterRemarks}" />
+	            	</ui:include>
+		      	</ui:insert>       
+	                      
+				<!-- GROUP COUNTS PANEL -->
+	            <ui:insert name="otGroupCountsPanel">
+	            	<ui:include src="common/otGroupCountsPanel.xhtml">
+	            		<ui:param name="otRequestTypeGroupList" value="#{otGroupViewMB.otGroup.requestTypeGroupList}" />
+	            	</ui:include>
+	            </ui:insert>     	            
+	                      
+				<!--  GROUP OT SUMMARY -->
+	            <ui:insert name="otGroupSummaryTable">
+	            	<ui:include src="common/otGroupSummaryTable.xhtml">
+	            		<ui:param name="salaryGradeGroupList" value="#{otGroupViewMB.otGroup.salaryGradeGroupList}" />
+	            	</ui:include>
+	            </ui:insert>                     
+	                      	                      
+				<!--  INDIVIDUAL OT DETAILS -->
+	            <ui:insert name="otGroupIndivTable">
+	            	<ui:include src="common/otGroupIndivTable.xhtml">
+	            		<ui:param name="readOnly" value="#{constantsMB.boolTrue}" />
+	            		<ui:param name="otIndivDetailList" value="#{otGroupViewMB.otGroup.allEmployees}" />
+	            	</ui:include>
+	            </ui:insert>		          	   
+		      					
+           	<!--  AVAILABLE ACTIONS -->
+			<ace:panel id="otGroupViewAvailableActionsPanel" header="#{bundle['application.text.availableActions']}" rendered="true"
+				style="width:90%;margin-top:20px;margin-bottom:20px;padding:5px;font-size:small;font-family:Arial;">
+    				<div style="padding-bottom:25px;">
+	    				<ul style="list-style:none;margin:0px;padding:0px;">	
+	    					<ui:fragment rendered="#{otGroupViewMB.otGroup.reviewable}">
+			                 	<li style="float:left;list-style:none;margin:0px;padding:0px;">
+			                 		<ace:linkButton	
+			                  			id="otGroupReviewLinkButtonApproveDeny"
+			                         	value="Approve/Deny"
+			                         	style="white-space:nowrap;font-weight:bold;"
+			                          	action="otGroupFinalize">
+			                          	<f:param name="otGroupId" value="#{otGroupViewMB.otGroup.id}"/>
+			              			</ace:linkButton>
+		                  		</li>	   	
+	            			</ui:fragment>
+	    					<ui:fragment rendered="#{otGroupViewMB.otGroup.reviewable}">
+			                 	<li style="float:left;list-style:none;margin:0px;padding:0px;">
+			                 		<ace:linkButton	
+			                  			id="otGroupReviewLinkButtonReceiveConsolidate"
+			                         	value="Receive/Consolidate"
+			                         	style="white-space:nowrap;font-weight:bold;"
+			                          	action="otGroupReceive">
+			                          	<f:param name="otGroupId" value="#{otGroupViewMB.otGroup.id}"/>
+			              			</ace:linkButton>
+		                  		</li>	                   		 	
+	            			</ui:fragment>	
+	            			<li style="float:left;list-style:none;margin:0px;padding:0px;">			
+		                    	<ace:linkButton	
+		                    		id="otGroupReviewLinkButtonReturnToList"
+			                		value="#{bundle['application.link.text.returnToList']}"
+		                          	action="otMgrList"
+		                      		immediate="true"
+		                  			style="white-space:nowrap;font-family:Arial;color:red;font-weight:bold;text-decoration:underline;"/>	
+	                  		</li>			 	            			            				
+						</ul>		
+					</div>
+				</ace:panel>	            				
+			</h:form>	
+		</div>			
+     </ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="common/otGroupSidebar.xhtml">
+            <ui:param name="otGroup" value="#{otGroupViewMB.otGroup}" />   		
+   		</ui:include>
+    </ui:define>        
+</ui:composition>
+</html>

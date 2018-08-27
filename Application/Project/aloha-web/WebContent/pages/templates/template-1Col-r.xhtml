@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Cache-Control" content="no-cache"/>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="-1"/>
+        
+        <meta name="viewport" content="width=device-width" />
+
+		<ui:include src="../templates/template-css-links.xhtml" />
+		<ui:include src="../templates/template-css-links-mobile.xhtml" />
+
+        <script language="javascript" src="#{facesContext.externalContext.requestContextPath}/resources/javascript/LeaveRequest.js"/>
+        <script language="javascript" src="#{facesContext.externalContext.requestContextPath}/resources/javascript/Overtime.js"/> 
+        <title><ui:insert name="title">#{bundle['application.title']}</ui:insert></title>
+		<ui:insert name="html-head"></ui:insert>        
+    </h:head>
+    <h:body>
+    <h:panelGroup id="bodyGroup">
+		<div id="wrapper">
+            <ui:insert name="header">
+            	<ui:include src="../sections/header.xhtml"/>
+            </ui:insert>
+       		<ui:insert name="content">template:content</ui:insert>
+            <ui:insert name="sidebar"/>       		
+            <ui:insert name="footer">
+            	<ui:include src="../sections/footer.xhtml"/>
+            </ui:insert>
+		</div> 
+		</h:panelGroup>
+	</h:body>
+</html>

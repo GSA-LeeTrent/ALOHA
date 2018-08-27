@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+
+	<ui:fragment rendered="#{lrChangeSupvMB.pageTwo}">
+	
+		<!--  BEGIN: CONFIRM CHANGE SUPERVISOR DIV -->
+		<div style="width:90%;margin-top:20px;margin-bottom:20px;padding-bottom:20px;border-radius:15px;border:3px solid #634DA3;background-color:#F1EEFA;">
+			<div style="margin-top:10px;text-align:center;font-weight:bold;color:#4D66A2;">
+				<h:outputFormat id="lrChangeSupervisorPendingChangeTableCaption" value="#{bundle['lr.changeSupervisor.tableCaption.pendingChange']}">
+					<f:param value="#{lrChangeSupvMB.leaveDetail.leaveRequestId}" />
+				</h:outputFormat>
+			</div>
+
+			<div style="width:90%;margin-left:auto;margin-right:auto;margin-top:20px;margin-bottom:15px;padding-bottom:20px;border-radius:15px;border:1px solid #634DA3;background-color:#FFFEF7;">
+		 			<table cellspacing="10" style=";margin-left:auto;margin-right:auto;color:#4D66A2;">
+		 				<tr>
+							<th style="vertical-align:top;text-align:right;white-space:nowrap;">#{bundle['lr.changeSupervisor.dropDown.label.currentSupervisor']}</th>		 				
+							<td><h:outputText id="currentSupervisor_PageTwo" value="#{lrChangeSupvMB.leaveDetail.approver.fullName}"/></td>
+		 				</tr>
+		 				<tr>
+							<th style="vertical-align:top;text-align:right;white-space:nowrap;">#{bundle['lr.changeSupervisor.dropDown.label.newSupervisor']}</th>		 				
+							<td><h:outputText id="selectedSupervisor_PageTwo" value="#{lrChangeSupvMB.newSupervisor.fullName}"/></td>
+		 				</tr>		 				
+		 				<tr>
+							<th style="vertical-align:top;text-align:right;white-space:nowrap;">#{bundle['leaveRequest.sectionTitle.remarks']}</th>		 				
+							<td><h:outputText id="lrChangeSupervisorRemarks_PageTwo" value="#{lrChangeSupvMB.changeSupervisorRemarks}"/></td>
+		 				</tr>
+		 			</table>
+			</div>	
+			<div style="text-align:center;">
+	        	<h:commandButton 
+	        		id="lrChangeSupervisorButtonConfirmChanges_PageTwo" 
+	        		action="#{lrChangeSupvMB.onConfirmChanges}" 
+	        		value="#{bundle['application.button.label.confirmChanges']}">
+	        	</h:commandButton> 
+	        	&nbsp;&nbsp;&nbsp;
+	        	<h:commandButton 
+	        		id="lrChangeSupervisorButtonReviseChanges_PageTwo" 
+	        		action="#{lrChangeSupvMB.onReviseChanges}" 
+	        		value="#{bundle['application.text.makeRevisions']}">
+	        	</h:commandButton>	        	
+				&nbsp;&nbsp;&nbsp;			
+				<h:button
+					id="lrChangeSupervisorButtonDiscardChangesSO_PageTwo" 
+					value="#{bundle['application.label.discardChanges']}" 
+					outcome="lrListSubmitOwn"
+					rendered="#{lrChangeSupvMB.inSubmitOwnMode}">
+				</h:button>
+				<h:button 
+					id="lrChangeSupervisorButtonDiscardChangesOBO_PageTwo" 
+					value="#{bundle['application.label.discardChanges']}" 
+					outcome="lrListOnBehalfOf"
+					rendered="#{lrChangeSupvMB.inOnBehalfOfMode}">
+				</h:button>					
+			</div>	
+		</div>	
+		<!--  END: CONFIRM CHANGE SUPERVISOR DIV -->				
+
+	</ui:fragment> <!-- END (if page 2) -->
+
+</ui:composition>
+</body>
+</html>

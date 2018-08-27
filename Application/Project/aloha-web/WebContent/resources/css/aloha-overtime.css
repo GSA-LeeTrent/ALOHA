@@ -1,0 +1,163 @@
+@CHARSET "ISO-8859-1";
+table.otDataTable {
+	width:95%;
+	_width:95%;
+	margin-left:auto;
+	margin-right:auto;	
+	border-collapse:collapse;
+	//border-bottom: 10px solid #5c69ad;
+}
+table.list {
+ margin-top:15px;
+ border-bottom: 10px solid #5c69ad;
+}
+
+table.otDataTable td {
+	font-size: 0.75em;
+	font-size:small;
+	border: 2px solid #fff;
+	padding:5px 5px 5px 10px;
+	white-space: normal;
+	vertical-align:top;
+}
+table.otDataTable th a {
+	color: #fff;
+	text-decoration: none;
+}
+table.otDataTable td a {
+	text-decoration: underline
+}
+table.otDataTable tr.odd {
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.otDataTable tr.even {
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.otDataTable tr.error {
+	background-color: #FFF0F5;
+	border-bottom: 2px solid #fff;
+}
+table.otDataTable th {
+	background-color: #5c69ad;
+	color: #fff;
+	/*font-size: 0.75em;	*/
+	font-size:small;
+	line-height: 90%;
+	padding: 5px 5px 5px 13px;
+	border: 2px solid #fff;
+	text-align: left;
+	font-weight:normal;
+}
+table.otDataTable  th.totalsLabel {
+	text-align:right;
+}
+table.otDataTable caption	{
+	font-size:small;
+	font-weight: bold;
+	padding: 10px 0px 5px 10px;
+	text-align: center;
+}
+table.otDataTable caption.supervisor	{
+	font-size:small;
+	font-weight: bold;
+	padding: 10px 0px 5px 10px;
+	text-align: center;
+}
+
+table.otDataTable td.removeTableRow {
+	text-align: center;
+}
+
+table.otDataTable td {
+	color: #4E6A71;
+	font-size: 90%;
+	text-align:top;
+}
+
+table.otDataTable td.removeTableRow a {
+	font-size: x-large;;
+	font-weight: bold;
+	color: red;
+	text-decoration: none;
+}
+table.otDataTable .footer{
+	background-color:red;	
+}	
+div.confirmMsg {
+	width:80%;
+	margin:20px;
+	padding-top:10px;
+	padding-bottom:25px;
+	
+	color:#614A9F;
+	background-color:#F1EEFA;
+	border: 1px double #614A9F;
+	
+	margin-left:auto;
+	margin-right:auto;
+	padding-left:10px;
+	padding-right:10px;
+	font-size:small;
+}
+div.confirmMsg h4 {
+	color:#614A9F;
+	text-decoration:underline;
+}	
+div.confirmMsg ul {
+	margin-left:0px;
+	background-color:#F1EEFA;
+	color:#594397;
+}
+div.confirmMsg ul li{
+	list-style-type:none;
+	margin-left:0px;
+}
+div.confirmMsg div {
+	float:right;
+}
+div.confirmMsg div a {
+	text-decoration:underline;
+	color:navy;
+	color:#435997;
+}
+.errorRow {
+	color:red;
+	font-weight:bold;
+	text-align:center;
+}
+.otTotalsLabel{
+	text-align:right;	
+}
+fieldset.list {
+	width:100%;
+	border: 1px solid #5C69AD;
+	padding-left:10px;
+	padding-bottom:20px;
+}
+fieldset.list legend {
+	margin-left:5px;
+	font-weight:bold;
+	color:navy;
+}
+hr.list{
+	width:90%;
+	margin-top:20px;
+	margin-bottom:15px;
+	margin-left:auto;
+	margin-right:auto;	
+	color:#5C69AD;
+}
+div.inputRemark{
+	width:87%;
+	margin:10px;
+	padding-top:20px;
+	padding-bottom:20px;
+	background-color:#e7ebf7;
+	border:solid 1px #B0B3B9;	
+}
+p.otSectionTitle {
+	margin-top:20px;
+}
+	

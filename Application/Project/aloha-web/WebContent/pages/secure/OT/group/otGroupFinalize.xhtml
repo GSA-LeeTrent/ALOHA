@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+     	<style type="text/css">
+			.ui-datatable-odd {background-color:#F0F0F0 !important;}
+     	</style>
+		<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>	 	
+	 	<div id="main-content">
+			<h:form prependId="false">
+
+				<!-- PAGE TITLE -->
+				<h3 class="pageTitle"><h:outputText value="#{bundle['ot.group.pageTitle.finalize']}"/></h3>
+				<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+
+
+				<!--  TOP PANEL -->
+	            <ui:insert name="otGroupTopPanel">
+	            	<ui:include src="common/otGroupTopPanel.xhtml">
+	            		<ui:param name="readOnly"  value="#{constantsMB.boolTrue}" />
+	            		<ui:param name="otGroup" value="#{otGroupFinalizeMB.otGroup}" />
+	   		            <ui:param name="managedBean" value="#{otGroupFinalizeMB}" />
+	            	</ui:include>
+	            </ui:insert>
+            
+				<!--  SALARY GRADE SUMMARY -->
+	            <ui:insert name="otGroupSummaryTable">
+	            	<ui:include src="common/otGroupSummaryTable.xhtml">
+						<ui:param name="salaryGradeGroupList" value="#{otGroupFinalizeMB.salaryGradeGroupList}" />
+	            	</ui:include>
+	            </ui:insert>	            
+	            
+	            
+				<!-- GROUP COUNTS PANEL -->
+	            <ui:insert name="otGroupCountsPanel">
+	            	<ui:include src="common/otGroupCountsPanel.xhtml">
+	            		<ui:param name="otRequestTypeGroupList" value="#{otGroupFinalizeMB.requestTypeGroupList}" />
+	            	</ui:include>
+	            </ui:insert>  	                  
+
+				<!--  INDIVIDUAL OT DETAILS -->
+	            <ui:insert name="otGroupIndivTable">
+	            	<ui:include src="common/otGroupIndivTable.xhtml">
+	            		<ui:param name="onFinalize" value="#{constantsMB.boolTrue}" />
+	            		<ui:param name="reviewFinalizeDecisionsForIndividuals" value="#{otGroupFinalizeMB.reviewChanges}" />
+	            		<ui:param name="renderApprovalCheckbox" value="#{not otGroupFinalizeMB.reviewChanges}" />
+	            		<ui:param name="otIndivDetailList" value="#{otGroupFinalizeMB.otGroup.approvableRequests}" />
+	            	</ui:include>
+	            </ui:insert>	 
+	            
+ 				<!--  GROUP FINALIZER REMARKS -->
+				<ace:panel id="otGroupReceiverRemarksPanel" header="&nbsp;&nbsp;#{bundle['application.label.ot.group.remarks.finalizer']}" 
+					rendered="#{ otGroupFinalizeMB.otGroup.finalizable }"
+					style="width:90%;margin-top:20px;padding:10px;font-size:small;font-family:Arial;">
+    				<div style="padding:10px;">
+						
+						<!--  PAGE 1 (WRITABLE) -->
+						<h:inputTextarea id="otGroupFinalizerRemarksTextAreaWritable" 
+							rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (not otGroupFinalizeMB.reviewChanges) }"
+							rows="5" cols="70" 
+							value="#{otGroupFinalizeMB.groupFinalizerRemarks}" 
+							style="display:block;margin-left:auto;margin-right:auto;;background-color:#F0F0F0;"  
+							title="#{bundle['application.label.ot.group.remarks.finalizer']}"/>	
+						
+						<!--  PAGE 2 (READ-ONLY) -->
+						<h:outputText id="otGroupFinalizerRemarksOutputTextReadOnly"
+						rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (otGroupFinalizeMB.reviewChanges) }"
+						value="#{otGroupFinalizeMB.groupFinalizerRemarks}"
+						title="#{bundle['application.label.ot.group.remarks.finalizer']}"/>
+					</div>
+				</ace:panel>	                       
+  	            
+            	<!--  AVAILABLE ACTIONS (PAGE 1 - WRITABLE) -->
+				<ace:panel id="otGroupReceiveAvailableActionsPanelPageOne" header="&nbsp;&nbsp;#{bundle['application.text.availableActions']}" 
+					rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (not otGroupFinalizeMB.reviewChanges) }"
+					style="width:90%;margin-top:20px;margin-bottom:20px;padding:5px;font-size:small;font-family:Arial;">
+    				<div style="padding-bottom:25px;">
+	    				<ul style="list-style:none;margin:0px;padding:0px;">	
+	    					<ui:fragment rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (not otGroupFinalizeMB.reviewChanges) }">
+			                 	<li style="float:left;list-style:none;margin:0px;padding:0px;">
+			                 		<ace:linkButton	
+			                  			id="otGroupFinalizeLinkButtonReviewChanges"
+			                  			rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (not otGroupFinalizeMB.reviewChanges) }"
+			                         	value="#{bundle['ot.group.label.finalize.reviewChanges']}"
+			                         	style="font-weight:bold;white-space:nowrap;"
+			                          	action="#{otGroupFinalizeMB.onReviewChanges}">
+			                          	<f:param name="otGroupId" value="#{otGroupFinalizeMB.otGroup.groupId}"/>
+			                  		</ace:linkButton>
+		                       </li>	   	
+	            			</ui:fragment>
+	            			<li style="float:left;list-style:none;margin:0px;padding:0px;">			
+		                    	<ace:linkButton	
+		                    		id="otGroupFinalizeLinkButtonDiscardPageOne"
+		                    		rendered="#{not otGroupFinalizeMB.reviewChanges}"
+			                		value="#{bundle['application.label.discardChanges']}"
+		                          	action="otMgrList"
+		                      		immediate="true"
+		                  			style="white-space:nowrap;font-family:Arial;color:red;font-weight:bold;text-decoration:underline;"/>	
+	                  		</li>							
+						</ul>
+					</div>
+				</ace:panel>	    	            
+  	            
+            	<!--  AVAILABLE ACTIONS (PAGE 2 - READ-ONLY) -->
+				<ace:panel id="otGroupReceiveAvailableActionsPanelPageTwo" header="&nbsp;&nbsp;#{bundle['application.text.availableActions']}" 
+					rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (otGroupFinalizeMB.reviewChanges) }"
+					style="width:90%;margin-top:20px;margin-bottom:20px;padding:5px;font-size:small;font-family:Arial;color:red;">
+    				<div style="padding-bottom:25px;">
+	    				<ul style="list-style:none;margin:0px;padding:0px;">	
+	    					<ui:fragment rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (otGroupFinalizeMB.reviewChanges) }">
+			                 	<li style="float:left;list-style:none;margin:0px;padding:0px;">
+			                 		<ace:linkButton	
+			                  			id="otGroupFinalizeLinkButtonFinalizeGroupRequest"
+			                  			rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (otGroupFinalizeMB.reviewChanges) }"
+			                         	value="#{bundle['ot.group.label.finalize.finalizeGroupRequest']}"
+			                         	style="font-weight:bold;white-space:nowrap;"
+			                          	action="#{otGroupFinalizeMB.onGroupFinalize}">
+			           				</ace:linkButton>
+		                       	</li>	   	
+			                 	<li style="float:left;list-style:none;margin:0px;padding:0px;">
+			                 		<ace:linkButton	
+			                  			id="otGroupFinalizeLinkButtonGoBackAndMakeChanges"
+			                  			rendered="#{ (otGroupFinalizeMB.otGroup.finalizable) and (otGroupFinalizeMB.reviewChanges) }"
+			                         	value="#{bundle['ot.group.label.finalize.goBackAndMakeChanges']}"
+			                         	style="font-weight:bold;white-space:nowrap;"
+			                          	action="#{otGroupFinalizeMB.onGoBackAndMakeChanges}">
+			                 			<f:param name="otGroupId" value="#{otGroupFinalizeMB.otGroup.groupId}"/>			                          	
+			                 		</ace:linkButton>	
+		                       	</li>
+	            			</ui:fragment>
+	            			<li style="float:left;list-style:none;margin:0px;padding:0px;">			
+		                    	<ace:linkButton	
+		                    		id="otGroupFinalizeLinkButtonDiscardPage2"
+		                    		rendered="#{otGroupFinalizeMB.reviewChanges}"
+			                		value="#{bundle['application.label.discardChanges']}"
+		                          	action="otMgrList"
+		                      		immediate="true"
+		                  			style="white-space:nowrap;font-family:Arial;color:red;font-weight:bold;text-decoration:underline;"/>	
+	                  		</li>							
+						</ul>
+					</div>
+				</ace:panel>	  	            	        
+			</h:form>	
+		</div>			
+		<ui:fragment rendered="#{ not otGroupFinalizeMB.reviewChanges }">	
+			<script language="JavaScript">
+				//<![CDATA[
+					//alert("not otGroupFinalizeMB.reviewChanges");
+					populateStatusForAll();
+					//Function to select all elements of a (CSS) class
+					function getElementsByClassName(className){
+						var result = new Array();
+						var elements = document.getElementsByTagName("*");
+						for(var i = 0;i < elements.length;i++){
+							if(elements[i].className.indexOf(" ") >= 0) {
+								var classes = elements[i].className.split(" ");
+								for(var j = 0;j < classes.length;j++) {
+									if(classes[j] == className)
+										result.push(elements[i]);
+								}
+							}
+							else if(elements[i].className == className) {
+								result.push(elements[i]);
+							}
+						}
+						return result;
+					}
+					function checkAll(){
+						var checkboxes = getElementsByClassName("otGroupFinalizeIndivApproveCheckbox");
+						for(var i = 0; i < checkboxes.length; i++){
+							checkboxes[i].checked = true;
+							assignNewStatus(checkboxes[i]);
+						}
+						doCounts(checkboxes);
+					}			
+					function uncheckAll(){
+						var checkboxes = getElementsByClassName("otGroupFinalizeIndivApproveCheckbox");
+						for(var i = 0; i < checkboxes.length; i++){
+							checkboxes[i].checked = false;
+							assignNewStatus(checkboxes[i]);
+						}
+						doCounts(checkboxes);
+					}		
+					function populateStatusForAll() {
+						var checkboxes = getElementsByClassName("otGroupFinalizeIndivApproveCheckbox");
+						for(var i = 0; i < checkboxes.length; i++){
+							assignNewStatus(checkboxes[i]);
+						}
+						doCounts(checkboxes);			
+					}
+					function assignNewStatus(checkboxObj) {
+						var index = checkboxObj.id.substring(checkboxObj.id.indexOf(":") + 1, checkboxObj.id.lastIndexOf(":"));
+						var textBoxObjId = "otGroupIndivDetailDataTable:" + index + ":otNewIndivStatusValue";
+						var textBoxObj = document.getElementById(textBoxObjId); 
+						if (checkboxObj.checked) {
+							textBoxObj.innerHTML = "APPROVED";
+							textBoxObj.style.color = "#3E7D3E";
+						} else {
+							textBoxObj.innerHTML = "DENIED";
+							//textBoxObj.style.color = "#9C4E4E";
+							textBoxObj.style.color = "red";
+						} 
+						doCounts(getElementsByClassName("otGroupFinalizeIndivApproveCheckbox"));
+					}	
+					function doCounts(checkboxes) {
+						var approveCount = parseInt(0,10);
+						var denyCount = parseInt(0,10);
+						var totalCount = parseInt(checkboxes.length, 10);
+						
+						for(var i = 0; i < checkboxes.length; i++) {
+							if (checkboxes[i].checked) {
+								approveCount++;
+							} else {
+								denyCount++;
+							}
+						}
+						var approvedCountMsg = approveCount + " of " + totalCount + " Approved";
+						var deniedCountMsg = denyCount + " of " + totalCount + " Denied";
+						
+						document.getElementById("approvedCountMsg").innerHTML = approvedCountMsg;
+						document.getElementById("deniedCountMsg").innerHTML = deniedCountMsg;				
+						
+					}			
+				//]]>	
+			</script>	
+		</ui:fragment>
+		<ui:fragment rendered="#{ otGroupFinalizeMB.reviewChanges }">	
+			<script language="JavaScript">
+				//<![CDATA[
+					//alert("otGroupFinalizeMB.reviewChanges");
+					doNewStatusReviewCounts();
+					function getElementsByClassName(className){
+						var result = new Array();
+						var elements = document.getElementsByTagName("*");
+						for(var i = 0;i < elements.length;i++){
+							if(elements[i].className.indexOf(" ") >= 0) {
+								var classes = elements[i].className.split(" ");
+								for(var j = 0;j < classes.length;j++) {
+									if(classes[j] == className)
+										result.push(elements[i]);
+								}
+							}
+							else if(elements[i].className == className) {
+								result.push(elements[i]);
+							}
+						}
+						return result;
+					}
+					function doNewStatusReviewCounts() {
+						var newStatusValues = getElementsByClassName("otGroupFinalizeNewIndivStatusValue");
+						var approveCount = parseInt(0,10);
+						var denyCount = parseInt(0,10);
+						var totalCount = parseInt(newStatusValues.length, 10);
+						
+						for( var ii = 0; ii < newStatusValues.length; ii++) {
+							if (newStatusValues[ii].innerHTML == 'APPROVED') {
+								approveCount++;
+							} else {
+								denyCount++;
+							}
+						}
+						var approvedCountMsg = approveCount + " of " + totalCount + " Approved";
+						var deniedCountMsg = denyCount + " of " + totalCount + " Denied";
+						
+						document.getElementById("approvedCountMsgForReview").innerHTML = approvedCountMsg;
+						document.getElementById("deniedCountMsgForReview").innerHTML = deniedCountMsg;				
+					}			
+				//]]>	
+			</script>	 
+		</ui:fragment>
+	</ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="common/otGroupSidebar.xhtml">
+            <ui:param name="otGroup" value="#{otGroupFinalizeMB.otGroup}" />   		
+   		</ui:include>
+    </ui:define>  
+</ui:composition>
+</html>

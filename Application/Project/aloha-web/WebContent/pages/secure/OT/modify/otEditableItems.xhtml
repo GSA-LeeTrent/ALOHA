@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"	  
+   	xmlns:ui="http://java.sun.com/jsf/facelets"
+   	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components" 
+	xmlns:ice="http://www.icesoft.com/icefaces/component" 
+	xmlns:icecore="http://www.icefaces.org/icefaces/core" 
+	xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">       
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<p class="sectionTitle"><h:outputText value="#{bundle['ot.review.sectionTitle.overtimeTasks']}"/></p>
+	<icecore:config render="true"/>
+	<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+
+	<!--  
+	<div style="width:90%;margin-bottom:20px;padding:10px;color:#594397;background-color:#E5DFF4;border:1px double #594397;">
+		<div style="font-weight:bold;font-style:italic;">To add a new task:</div>
+		<ul>
+			<li style="margin-left:35px;">Click on the "plus sign" in the upper right-hand corner (next to "Estimated Hours")</li>
+		</ul>
+		<div style="margin-top:10px;font-weight:bold;font-style:italic;">To delete an existing task:</div>
+		<ul>
+			<li style="margin-left:35px;">Click inside the row containing the task</li>
+			<li style="margin-left:35px;">Click the <span style="color:red;font-weight:bold;">'X'</span> to delete the task</li>
+		</ul>
+		<div style="margin-top:10px;font-weight:bold;font-style:italic;">To edit an existing task:</div>
+		<ul>
+			<li style="margin-left:35px;">Click inside the row containing the task</li>
+			<li style="margin-left:35px;">Make the necessary changes</li>
+			<li style="margin-left:35px;">Click the check mark once you have completed making your changes to this task</li>
+		</ul>	
+		<div style="margin-top:10px;font-weight:bold;font-style:italic;">To save your changes:</div>
+		<ul>
+			<li style="margin-left:35px;">Click the "Modify" button at the bottom of this page</li>
+		</ul>			
+			
+	</div>	
+	-->
+	
+	<div style="width:90%;color:#000;text-align:center;font-size:medium;font-weight:bold;font-style:italic;">To Modify: Click in Task Description or Estimated Hours to modify a task</div>
+
+	<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+	<h:form>
+		<ice-cc:editableTable
+			bean="#{managedBean.editableTableBean}"
+	      	id="otEditableItemsTable" idProperty="id"
+	       	readOnly="false"
+	       	renderIdCol="false"
+	       	showDataPager="false"
+	       	showDataPagerInfo="false"
+	       	showRowControls="false"
+	       	showMessagesInComp="false"
+	     	fastStep="2">
+
+			<ice-cc:textColumn title="Task Description" property="taskDescription" width="600px" 
+				bean="#{managedBean.editableTableBean}" titleProperty="taskDescription">
+				<ui:define name="validator">
+             		<f:validator validatorId="otTaskDescValidator"/>
+             	</ui:define>
+			</ice-cc:textColumn>
+
+			<ice-cc:textColumn title="Estimated Hours" property="estimatedHoursAsText" width="70px" 
+				bean="#{managedBean.editableTableBean}" titleProperty="estimatedHoursAsText">
+				<ui:define name="validator">
+             		<f:validator validatorId="otEstHoursValidator"/>
+             	</ui:define>
+			</ice-cc:textColumn>
+
+		</ice-cc:editableTable>
+	</h:form>
+</ui:composition>
+</body>
+</html>

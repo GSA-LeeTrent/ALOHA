@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<td width="80%" style="vertical-align:middle;">
+		<c:if test="#{otTask.descError}">
+			<h:inputTextarea id="#{otTask.descId}" rows="4" cols="58" value="#{otTask.desc}" style="background-color:#FAAFBE;" 
+				onclick="this.style.backgroundColor='#FFF';document.getElementById('#{otTask.descErrorId}').innerHTML='';"/>
+			<h:outputFormat id="#{otTask.descErrorId}" value="#{bundle['ot.create.msg.error']}" 
+				escape="false" styleClass="errorRow" rendered="#{otTask.descError}">
+				<f:param value="#{otTask.errorRowNbr}" />
+			</h:outputFormat>	
+		</c:if>
+		<c:if test="#{not otTask.descError}">
+			<h:inputText id="#{otTask.descId}" size="90" maxlength="4000" value="#{otTask.desc}"/>
+			<!--  
+			<h:inputTextarea id="#{otTask.descId}" value="#{otTask.desc}" rows="4" cols="58"/>
+			-->										
+		</c:if>										
+	</td>
+	<td style="vertical-align:middle;">
+		<c:if test="#{otTask.estHoursError}">
+			<h:inputText id="#{otTask.estHoursId}" value="#{otTask.estHours}" size="4" maxlength="4" 
+				style="background-color:#FAAFBE" 
+				onclick="this.style.backgroundColor='#FFF';document.getElementById('#{otTask.estHoursErrorId}').innerHTML='';"
+				onchange="processOvertimeHours(this);"/>
+			<h:outputFormat id="#{otTask.estHoursErrorId}" value="#{bundle['ot.create.msg.error']}" escape="false" styleClass="errorRow" 
+				rendered="#{otTask.estHoursError}">
+				<f:param value="#{otTask.errorRowNbr}" />
+			</h:outputFormat>
+		</c:if>
+		<c:if test="#{not otTask.estHoursError}">
+			<h:inputText id="#{otTask.estHoursId}" value="#{otTask.estHours}" size="4" maxlength="4" onchange="processOvertimeHours(this);"/>										
+		</c:if>										
+	</td>
+	<td class="removeTableRow" style="vertical-align:top;">
+		<a class="removeTableRow" href="#" onclick="removeTaskRow('#{otTask.id}','#{otTask.descId}','#{otTask.estHoursId}');">x</a>
+	</td>
+</ui:composition>
+</body>
+</html>

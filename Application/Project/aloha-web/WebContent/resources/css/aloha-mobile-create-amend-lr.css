@@ -1,0 +1,188 @@
+@CHARSET "ISO-8859-1";
+
+@media all and (max-width: 600px) {
+
+div.mainPanel {
+	width: 100%;
+}
+
+div.topPanel {
+	width: 96%;
+	
+	
+}
+
+
+div.panelItem {
+	float: left!important;
+	width: 100%;
+	
+}
+
+div.roundedBox {
+	width: 100%;
+	
+}
+
+select.wideSelect {
+	width:98%;
+}
+
+/* formatting, hiding column */
+/*table#leaveItemsDataTableForCreateOnPageTwo>tbody>tr>td:nth-child(4), table#leaveItemsDataTableForCreateOnPageTwo>thead>tr>th:nth-child(4){ display:none;}
+table#leaveItemsDataTableForCreateOnPageTwo>tbody>tr>td:nth-child(1),table#leaveItemsDataTableForCreateOnPageTwo>thead>tr>th:nth-child(1) { display:table-cell;}
+table#leaveItemsDataTableForCreateOnPageTwo>tbody>tr>td:nth-child(3), table#leaveItemsDataTableForCreateOnPageTwo>thead>tr>th:nth-child(3){ display:table-cell;}*/
+
+/*table#leaveItemsDataTableForCreateOnPageThree >tbody>tr>td:nth-child(4), table#leaveItemsDataTableForCreateOnPageThree >thead>tr>th:nth-child(4){ display:none;}
+table#leaveItemsDataTableForCreateOnPageThree >tbody>tr>td:nth-child(1),table#leaveItemsDataTableForCreateOnPageThree >thead>tr>th:nth-child(1) { display:table-cell;}
+table#leaveItemsDataTableForCreateOnPageThree >tbody>tr>td:nth-child(3), table#leaveItemsDataTableForCreateOnPageThree >thead>tr>th:nth-child(3){ display:table-cell;}
+*/
+
+/*table#leaveItemsDataTableForCreateOnPageFour >tbody>tr>td:nth-child(4), table#leaveItemsDataTableForCreateOnPageFour >thead>tr>th:nth-child(4){ display:none;}
+table#leaveItemsDataTableForCreateOnPageFour >tbody>tr>td:nth-child(1),table#leaveItemsDataTableForCreateOnPageFour >thead>tr>th:nth-child(1) { display:table-cell;}
+table#leaveItemsDataTableForCreateOnPageFour >tbody>tr>td:nth-child(3), table#leaveItemsDataTableForCreateOnPageFour >thead>tr>th:nth-child(3){ display:table-cell;}
+*/
+
+/* adding for amendment table -- may want to replace this with a class */
+/*table#leaveItemsDataTableForAmendOnPageOne >tbody>tr>td:nth-child(4), table#leaveItemsDataTableForAmendOnPageOne >thead>tr>th:nth-child(4){ display:none;}
+table#leaveItemsDataTableForAmendOnPageOne >tbody>tr>td:nth-child(1),table#leaveItemsDataTableForAmendOnPageOne >thead>tr>th:nth-child(1) { display:table-cell;}
+table#leaveItemsDataTableForAmendOnPageOne >tbody>tr>td:nth-child(3), table#leaveItemsDataTableForAmendOnPageOne >thead>tr>th:nth-child(3){ display:table-cell;}*/
+
+table.leaveItemsGrid >tbody>tr>td:nth-child(4), table.leaveItemsGrid >thead>tr>th:nth-child(4){ display:none;}
+table.leaveItemsGrid >tbody>tr>td:nth-child(1),table.leaveItemsGrid >thead>tr>th:nth-child(1) { display:table-cell;}
+table.leaveItemsGrid >tbody>tr>td:nth-child(3), table.leaveItemsGrid >thead>tr>th:nth-child(3){ display:table-cell;}
+
+
+
+
+
+
+/* verify this next is necessary*/
+
+table#remarksTableOnPageFour >tbody>tr>td:nth-child(1),table#remarksTableOnPageFour >thead>tr>th:nth-child(1) { display:table-cell;}
+table#remarksTableOnPageFour >tbody>tr>td:nth-child(3), table#remarksTableOnPageFour >thead>tr>th:nth-child(3){ display:table-cell;}
+
+
+
+
+div.leftSideItem, div.rightSideItem {
+	clear:both;
+	float:none;
+	width:auto;
+}
+
+div.bottomMargin {
+	margin-bottom: 1em;
+	
+}
+
+div.paddedDiv {
+	padding:3px;	
+}
+
+/* hide date column on remarks table */
+	div#remarksTableDiv>div.ui-datatable table>thead>tr>th:nth-child(1), div#remarksTableDiv>div.ui-datatable table>tbody>tr>td:nth-child(1) { display:none;}
+
+/* added for create leave request notice formatting */
+div#createLeaveReqNoticep3 {
+	height:auto;
+	/* width:90%; */
+	width: 95%;
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #614A9F;
+}
+
+div#createLeaveReqNoticep4 {
+
+	height:auto;
+	width: 95%; 
+	/* width:90%; */
+	vertical-align:middle;
+	margin-top:15px;
+	margin-left:0px;
+	margin-right:auto;
+	border: 5px solid #00FF00;
+
+}
+div#createLeaveReqNoticeMessagep4, div#createLeaveReqNoticeMessagep3 {
+	
+	width: 70%;
+}
+
+#createLeaveReqNoticep4 > div.createLeaveReqNoticeImage > img {
+	/* max-width: 140%; */
+	max-width: 95%;
+}
+
+#createLeaveReqNoticep3 > div.createLeaveReqNoticeImage > img {
+	/* max-width: 140%; */
+	max-width: 95%;
+}
+
+/*
+div#logos {
+	display:none;
+}
+*/
+
+/*div#actionButtons {
+	width: 130px;
+}
+*/
+div.actionButtons {
+	width: 130px;
+}
+
+
+/* following is formatting for amendment table */
+
+
+
+/* hide two header columns */
+/*	th.iceDatTblColGrpHdrCol.amendTableColGrpHdrCol:nth-child(3), th.iceDatTblColGrpHdrCol.amendTableColGrpHdrCol:nth-child(6){display:none;} */
+
+/* hide two data columns */
+	table.amendTable>tbody>tr>td:nth-child(4), table.amendTable>tbody>tr>th:nth-child(4){ display:none;}
+	table.amendTable>tbody>tr>td:nth-child(7), table.amendTable>tbody>tr>th:nth-child(7){ display:none;}
+
+/* note: it is inside another div so 95% instead of 96%*/
+div.allRemarksDiv {
+	width:95%;
+}
+
+/* make more space for big remarks */
+div#lrAllRemarksPanel>div.ui-panel-content {
+padding-left: 0px;
+padding-right: 0px;
+}
+
+
+/* make more space for wider leave types */
+div#leaveItemsPanelForAmendOnPageOne>div.ui-panel-content {
+padding-left: 0px; padding-right: 0px;
+}
+
+div#lrSideBySidePanel_lrAmendOnPage2>div.ui-panel-content {
+padding-left: 0px; padding-right: 0px;
+}
+
+div#leaveItemsPanelForCreateOnPageTwo>div.ui-panel-content {
+padding-left: 0px; padding-right: 0px;
+}
+
+input.numberOfHours 
+{
+	font-size: 17px;
+	
+}
+
+
+} /* end mobile media query */
+
+
+
+
+/*113*/

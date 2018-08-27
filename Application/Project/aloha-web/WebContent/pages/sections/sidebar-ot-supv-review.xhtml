@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+	<body>
+		<ui:composition>
+	 		 <div id="sidebar">
+				<div class="top-sidebar-box"> 
+					<div class="otBalance"> 
+						<h5><h:outputText value="#{bundle['ot.sidebar.label.earnedBalances']}"/></h5> 							
+						<h:dataTable styleClass="sidebar" rowClasses="oddRow,evenRow" value="#{otSupvReviewMB.otBalances}" 
+							var="otBalanceItem" rendered="#{not empty otSupvReviewMB.otBalances}">
+							<f:facet name="caption">
+								<h:outputText value="#{otSupvReviewMB.otDetail.employee.fullName}"/>
+							</f:facet>
+							<h:column>
+   								<f:facet name="header">
+                                	<h:outputText value="#{bundle['ot.sidebar.label.otType']}"/>
+                            	</f:facet>							
+								<h:outputText value="#{otBalanceItem.key}"/>
+							</h:column>
+							<h:column>
+   								<f:facet name="header">
+                                	<h:outputText value="#{bundle['ot.sidebar.label.otBalance']}"/>
+                            	</f:facet>							
+								<h:outputText value="#{otBalanceItem.value}"/>
+							</h:column>			
+						</h:dataTable>
+						<div class="sidebarDisclaimer"><h:outputText value="#{bundle['ot.disclaimer.text']}"/></div>
+					</div>
+				</div>	
+				<div class="sidebar-box"> 
+					<div class="leaveHistory"> 
+						<h5><h:outputText value="#{bundle['ot.history.label']}"/></h5> 	
+						<h:dataTable styleClass="sidebar" rowClasses="oddRow,evenRow" 
+							value="#{otSupvReviewMB.otDetail.header.detailHistory}" var="history">
+							<f:facet name="caption" style="font-size:x-small;font-weight:bold;">
+								<h:outputFormat value="#{bundle['ot.caption.requestId']}" 
+									style="font-size:x-small;font-weight:bold;">
+									<f:param value="#{otSupvReviewMB.otDetail.requestId}" />
+								</h:outputFormat>
+							</f:facet>
+							<h:column>
+   								<f:facet name="header">
+                                	<h:outputText value="Date"/>
+                            	</f:facet>							
+								<h:outputText value="#{history.actionDatetime}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>
+							</h:column>
+							<h:column>
+   								<f:facet name="header">
+                                	<h:outputText value="Action"/>
+                            	</f:facet>							
+								<h:outputText value="#{history.statusTransition.actionLabel}"/>
+							</h:column>
+						</h:dataTable>
+					</div>						
+				</div>	
+	 		 </div>
+		</ui:composition>
+	</body>
+</html>

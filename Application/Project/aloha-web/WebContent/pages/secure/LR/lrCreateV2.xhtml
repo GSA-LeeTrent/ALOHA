@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-leave-r.xhtml">
+	<ui:define name="content">
+	 	<link href="#{facesContext.externalContext.requestContextPath}/xmlhttp/css/rime/rime.css" rel="stylesheet" type="text/css"/>
+	 	<div id="main-content">
+			
+				<!-- PAGE TITLE (all pages)-->
+				<ui:fragment rendered="#{lrCreateV2MB.inSubmitOwnMode}">
+					<h3 class="pageTitle"><h:outputText value="Create My Leave Request"/></h3>
+				</ui:fragment>
+				
+				<ui:fragment rendered="#{lrCreateV2MB.inOnBehalfOfMode}">
+					<h3 class="pageTitle"><h:outputText value="Create Leave Request for a Team Member"/></h3>
+				</ui:fragment>				
+
+				<!--  PAGE 1 PROCESSING -->
+				<ui:fragment rendered="#{lrCreateV2MB.pageOne}">
+				  	<ui:insert name="lrCreateV2_p1">
+				        <ui:include src="lrCreateV2_p1.xhtml">
+				        	<ui:param name="lrCreateV2MB" value="#{lrCreateV2MB}" />
+				        </ui:include>
+				 	</ui:insert>
+				</ui:fragment>
+				
+				<!--  PAGE 2 PROCESSING -->
+				<ui:fragment rendered="#{lrCreateV2MB.pageTwo}">
+				  	<ui:insert name="lrCreateV2_p2">
+				        <ui:include src="lrCreateV2_p2.xhtml">
+				        	<ui:param name="lrCreateV2MB" value="#{lrCreateV2MB}" />
+				        </ui:include>
+				 	</ui:insert>
+				</ui:fragment>
+				
+				<!--  PAGE 3 PROCESSING -->
+				<ui:fragment rendered="#{lrCreateV2MB.pageThree}">
+				  	<ui:insert name="lrCreateV2_p3">
+				        <ui:include src="lrCreateV2_p3.xhtml">
+				        	<ui:param name="lrCreateV2MB" value="#{lrCreateV2MB}" />
+				        </ui:include>
+				 	</ui:insert>
+				</ui:fragment>
+
+				<!--  PAGE 4 PROCESSING -->
+				<ui:fragment rendered="#{lrCreateV2MB.pageFour}">
+				  	<ui:insert name="lrCreateV2_p4">
+				        <ui:include src="lrCreateV2_p4.xhtml">
+				        	<ui:param name="lrCreateV2MB" value="#{lrCreateV2MB}" />
+				        </ui:include>
+				 	</ui:insert>
+				</ui:fragment>				
+				
+		</div>			
+     </ui:define>
+     
+     <!-- SIDEBAR FOR LEAVE BALANCES (pages 1 & 2)-->
+     
+ 	     <ui:define name="sidebar">
+	   		<ui:include src="common/lrSidebarForLRCreateV2.xhtml">
+	            <ui:param name="#{lrCreateV2MB}" value="#{lrCreateV2MB}" />
+	   		</ui:include>
+	    </ui:define>    
+ </ui:composition>
+</html>

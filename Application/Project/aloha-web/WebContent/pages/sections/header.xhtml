@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head>
+		<meta http-equiv="Cache-Control" content="no-cache"/>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="-1"/>
+		<title>IGNORED</title>
+	</head>
+   	<body>
+   		<ui:composition>
+			<div id="top-links" >
+				<h:form>	
+			   		<ul>
+			   			<ui:fragment rendered="#{userMB.loggedIn}">
+						   	<li class="desktopOnly"><h:outputText value="#{userMB.user.loginName}" style="color:#9FA3AE;"/></li>
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{ (userMB.loggedIn) and (userMB.showHeaderLinks) }">
+				   			<li class="desktopOnly">|</li>
+			   			</ui:fragment>
+			   			
+						<ui:fragment rendered="#{ (not userMB.loggedIn) or ( (userMB.loggedIn) and (userMB.showHeaderLinks) ) }">
+				   			<li class="desktopOnly">
+						    	<h:commandLink tabindex="60" action="help" >
+							     	<h:outputText value="#{bundle['header.label.help']}"/>
+						    	</h:commandLink>
+				   			</li>
+						</ui:fragment>
+			   			<ui:fragment rendered="#{ (userMB.loggedIn) and (userMB.showHeaderLinks) }">
+			   				<li class="desktopOnly">|</li>
+						   	<li>
+				    			<h:commandLink tabindex="61" action="home">
+				     				<h:outputText value="#{bundle['header.label.home']}"/>
+				    			</h:commandLink>
+						   	</li>
+						   	
+						   	<!--  
+						   	<li class="desktopOnly">|</li>
+							<li class="desktopOnly">
+								<a href="#" tabindex="62" onclick="onSelectUserPreferences();">Preferences</a>
+			   				</li>
+			   				-->
+			   				
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{ (userMB.loggedIn) and (userMB.showHeaderLinks) }">
+			   				<li>|</li>
+			   				<li>
+				    			<h:commandLink tabindex="63" action="#{userMB.logout}" onclick="removeCookie();">
+				     				<h:outputText value="#{bundle['header.label.logout']}"/>
+				    			</h:commandLink>
+			   				</li>
+			   			</ui:fragment>
+			   			<ui:fragment rendered="#{ not userMB.loggedIn}">
+			   				<li>|</li>
+			   				<li>
+				    			<h:commandLink action="login">
+				     				<h:outputText value="#{bundle['header.label.login']}"/>
+				    			</h:commandLink>
+			   				</li>
+			   			</ui:fragment>
+			   		</ul>
+				</h:form>
+			</div>
+			<div id="userpref">	
+				<div id="userpref-right">
+				<span id="spanUserPref" style="display:none;">
+						<ui:include src="../secure/admin/userPref.xhtml" rendered="#{userMB.loggedIn}"></ui:include>
+				</span>
+				</div>
+			</div>			
+			<div id="logos">
+			 	<div id="logo-left" class="desktopOnly">
+			 		<h:graphicImage alt="#{bundle['header.image.alt.GSALogo']}" url="/resources/images/GSAlogo.gif"/>
+			 	</div>
+			 	<div id="logo-right" class="desktopOnly"><h:outputText value="#{bundle['application.title']}"/></div>	
+				<div id="logo-mobile" class="mobileOnly">
+					<div style="position:absolute;left:0px;">
+						<h:graphicImage alt="#{bundle['header.image.alt.GSALogo']}" url="/resources/images/GSAlogo1.gif"/>
+					</div>
+					<div style="text-align:center;">
+						<h:outputText value="#{bundle['application.title']}"/>
+					</div>
+				</div>
+			</div>         
+			<div id="top-navbar"></div>
+			<script language="JavaScript">
+			//<![CDATA[
+				function onSelectUserPreferences() {
+					document.getElementById("spanUserPref").style.display="table";
+					document.getElementById("spanUserPref").style.position="relative";
+					document.getElementById("spanUserPref").style.cssFloat="right";
+				}
+				function removeCookie() {
+					deleteCookie('lastAlohaHomeTabVisited', '/', '');
+				}
+				function deleteCookie( name, path, domain ) {
+					if ( getCookie( name ) ) document.cookie = name + "=" +
+					( ( path ) ? ";path=" + path : "") +
+					( ( domain ) ? ";domain=" + domain : "" ) +
+					";expires=Thu, 01-Jan-1970 00:00:01 GMT";
+				}
+				function getCookie( check_name ) {
+					// first we'll split this cookie up into name/value pairs
+					// note: document.cookie only returns name=value, not the other components
+					var a_all_cookies = document.cookie.split( ';' );
+					var a_temp_cookie = '';
+					var cookie_name = '';
+					var cookie_value = '';
+					var b_cookie_found = false; // set boolean t/f default f
+
+					for ( i = 0; i < a_all_cookies.length; i++ ) {
+						// now we'll split apart each name=value pair
+						a_temp_cookie = a_all_cookies[i].split( '=' );
+
+						// and trim left/right whitespace while we're at it
+						cookie_name = a_temp_cookie[0].replace(/^\s+|\s+$/g, '');
+						
+						// if the extracted name matches passed check_name
+						if ( cookie_name == check_name ) {
+							b_cookie_found = true;
+							// we need to handle case where cookie has no value but exists (no = sign, that is):
+							if ( a_temp_cookie.length > 1 )	{
+								cookie_value = unescape( a_temp_cookie[1].replace(/^\s+|\s+$/g, '') );
+							}
+							// note that in cases where cookie is initialized but no value, null is returned
+							return cookie_value;
+							break;
+						}
+						a_temp_cookie = null;
+						cookie_name = '';
+					}
+					if ( !b_cookie_found )	{
+						return null;
+					}
+				}				
+				//]]>				
+			</script>
+      </ui:composition>
+   </body>
+</html>

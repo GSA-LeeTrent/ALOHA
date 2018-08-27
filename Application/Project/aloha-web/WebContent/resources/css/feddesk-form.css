@@ -1,0 +1,52 @@
+@CHARSET "ISO-8859-1";
+h2.formTitle {
+	text-align:left
+	color: #333;
+}
+input[type="button"] {
+	padding:3px;
+}
+input[type="submit"] {
+	padding:3px;
+}
+p.seperator{
+ 	border-bottom:none;
+ 	border-left:none;
+ 	border-right:none;
+    border-top-width: 1px;
+    border-top-color: #333;
+    border-top-style:solid;
+    display: block; 
+    font-weight: bold;
+    margin: 1em 0px 0.5em 0px;
+    padding: 4px 0px 2px 0px;
+    width: 96%;
+}
+table.leaveRequestForm td {
+	padding:100px;
+}
+#employeeSignature {
+  font-family: "Script MT Bold";
+  font-size:large;
+  margin-left:10px;
+}
+table.formTable {
+	width:100%;
+	/*border: 1px solid #000;*/
+	margin:0;
+	padding:0;
+}
+table.formTable caption{
+	font-weight: bold;
+	text-align: left;
+	color:#435997;
+	font-size:small;
+}
+table.formTable tr{
+	height:3px;
+}	
+table.formTable td{
+	margin:3px;
+	padding:3px;
+}	
+/*textarea.remarks {margin-left:8px;border:solid 20px #d0d8ef;}*/	

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<h5 class="subsystem">MY REQUESTS:</h5> 
+	<dl style="margin-left:20px;">
+		<dt style="font-weight:bold;color:#282E8C;font-style:italic;">Leave:</dt>
+		<dd>
+			<ul>
+				<li>
+					<h:commandLink value="#{bundle['home.link.text.createLeaveRequest']}" action="#{lrCreateMB.initCreate}"
+						rendered="#{userMB.user.submitOwn}">
+						<f:param name="#{lrModeMB.modeKey}" value="#{lrModeMB.submitOwnMode}"/>
+					</h:commandLink>
+				</li>
+				<li>
+					<h:commandLink value="#{bundle['home.link.text.viewModifyLeaveRequests']}" action="#{lrListMB.initList}"
+						rendered="#{userMB.user.submitOwn}">
+						<f:param name="LR_MODE" value="#{lrModeMB.submitOwnMode}"/>
+					</h:commandLink>
+				</li>							
+			</ul>	
+		</dd>
+	</dl>
+	<dl style="margin-top:15px;margin-left:20px;">
+		<dt style="font-weight:bold;color:#282E8C;font-style:italic;">Overtime:</dt>
+		<dd>
+			<ul>
+				<li>
+					<h:commandLink value="#{bundle['home.link.text.createOvertimeRequest']}" action="otCreateSO" 
+						rendered="#{userMB.user.submitOwn}"/>
+				</li>			
+				<li>
+					<h:commandLink value="#{bundle['home.link.text.ot.submitOwn.viewModify']}" action="otListSO"
+						rendered="#{userMB.user.submitOwn}"/>
+				</li>		
+			</ul>	
+		</dd>
+	</dl>
+</ui:composition>
+</body>
+</html>

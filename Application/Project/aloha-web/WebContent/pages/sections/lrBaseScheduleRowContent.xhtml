@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<head><title>IGNORED</title></head>
+<body>
+	<ui:composition>
+		<td style="text-align:center;">
+			<c:if test="#{not scheduleItem.duplicate}">
+				<c:choose>
+					<c:when test="#{scheduleItem.duplicatePopulated}">
+						<h:outputLink id="#{scheduleItem.outputLinkId}" value="#" class="insertRow" style="visibility:hidden;" onclick="insertRow(this);return false;">+</h:outputLink>															
+					</c:when>
+					<c:otherwise>
+						<h:outputLink id="#{scheduleItem.outputLinkId}" value="#" class="insertRow" onclick="insertRow(this);return false;">+</h:outputLink>	
+					</c:otherwise>
+				</c:choose>
+			</c:if>
+			<c:if test="#{scheduleItem.duplicate and scheduleItem.populated}">
+				<h:outputLink id="#{scheduleItem.outputLinkId}" value="#" class="collapseRow" onclick="collapseRow(this);return false;">-</h:outputLink>
+			</c:if>
+			<c:if test="#{scheduleItem.duplicate and not scheduleItem.populated}">
+				<h:outputLink id="#{scheduleItem.outputLinkId}" value="#" class="collapseRow" onclick="collapseRow(this);return false;">-</h:outputLink>
+			</c:if>
+		</td>																
+		<c:choose>
+			<c:when test="${scheduleItem.duplicate}">
+				<td colspan="3">&nbsp;</td>
+			</c:when>
+			<c:otherwise>
+				<td>
+					<h:outputText id="#{scheduleItem.calendarDateId}" value="#{scheduleItem.calendarDate}">
+						<f:convertDateTime pattern="MM/dd/yyyy"/>
+					</h:outputText>
+				</td>
+				<td>
+					<h:outputText value="#{scheduleItem.dayOfWeek}" rendered="#{not scheduleItem.holiday}"/>
+					<h:outputText value="#{scheduleItem.holidayDesc}" rendered="#{scheduleItem.holiday}"/>					
+				</td>
+				<td><h:outputText id="#{scheduleItem.hoursScheduledId}" value="#{scheduleItem.hoursScheduled}"/></td>	
+			</c:otherwise>
+		</c:choose>
+		<td>
+			<h:selectOneMenu id="#{scheduleItem.selectedLeaveTypeCodeId}" value="#{scheduleItem.selectedLeaveTypeCode}" style="width:300px;"> 
+					<f:selectItem itemLabel="" itemValue="0"/>
+					<f:selectItems value="#{leaveTypeMB.leaveTypes}"/>
+			</h:selectOneMenu>
+		</td>
+		<td>
+			<h:inputText id="#{scheduleItem.numberOfLeaveHoursId}" value="#{scheduleItem.numberOfLeaveHours}" size="4" maxlength="4" 
+				onchange="processLeaveHours(this);"/>
+		</td>
+		<td>
+			<h:selectOneMenu id="#{scheduleItem.startTimeId}" value="#{scheduleItem.startTime}"> 
+					<f:selectItem itemLabel="" itemValue="99"/>
+					<f:selectItems value="#{timeIntervalMB.selectItems}"/>
+			</h:selectOneMenu>
+		</td>
+		<td style="text-align:center;">
+			<c:choose>
+				<c:when test="#{not scheduleItem.firstRow}">
+					<h:outputLink id="#{scheduleItem.copyIconId}" value="#" onclick="copyRow(this);return false;">
+						<h:graphicImage style="border:0;" alt="Copy previous row" title="Copy previous row" 
+							url="/resources/images/synchronize.png"/>
+					</h:outputLink>
+				</c:when>
+				<c:otherwise>&nbsp;</c:otherwise>
+			</c:choose>
+		</td>				
+		<td style="text-align:center;">
+			<h:outputLink id="#{scheduleItem.eraserIconId}" value="#" onclick="clearRow(this);return false;">
+				<h:graphicImage style="border:0;" alt="Erase current row" title="Erase current row" url="/resources/images/eraser.png"/>
+			</h:outputLink>
+		</td>				
+	</ui:composition>
+</body>
+</html>

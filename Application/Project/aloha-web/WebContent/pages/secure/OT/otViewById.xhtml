@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core">
+            
+	<ui:composition>
+	<h:form>
+		<table>
+		    <tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otEmpName" value="#{bundle['application.label.employee']}" ></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otEmpName" value="#{oTViewDtlMB.otd.employee.fullName}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otStatus" value="#{bundle['application.text.status']}" ></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otStatus" value="#{oTViewDtlMB.otStatus}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otSubmitter" value="#{bundle['application.label.submitter']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otSubmitter" value="#{oTViewDtlMB.otSubmitter}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otApprover" value="#{bundle['application.label.supervisor']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otApprover" value="#{oTViewDtlMB.otApprover}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otSubCmnt" value="#{bundle['application.label.remarks.submitter']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otSubCmnt" value="#{oTViewDtlMB.otSubmitterComments}" style="vertical-align:top;" ></h:outputText>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:top;">
+					<h:outputLabel for="otAprvrCmnt" value="#{bundle['application.label.remarks.supervisor']}" style="vertical-align:top;"></h:outputLabel>
+				</td>
+				<td style="vertical-align:top;">
+					<h:outputText id="otAprvrCmnt" value="#{oTViewDtlMB.otSupervisorComments}"  style="vertical-align:top;"></h:outputText>
+				</td>
+			</tr>
+		</table>
+		<h:dataTable value="#{oTViewDtlMB.otiList}" var="otvd" border="1" cellpadding="5">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['ot.list.th.type']}" />
+				</f:facet>
+				<h:outputText value="#{otvd.detail.type.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['leaveRequest.label.payperiod']}" />
+				</f:facet>
+				<h:outputText value="#{otvd.detail.payPeriod.number}" >
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['ot.create.taskList.columnHeader.taskDesc']}" />
+				</f:facet>
+				<h:outputText value="#{otvd.taskDescription}"  style="text-align:right;float:right;" >
+				</h:outputText>
+			</h:column>				 
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="#{bundle['leaveRequest.label.hours']}" />
+				</f:facet>
+				<h:outputText value="#{otvd.estimatedHours}" style="text-align:right;float:right;" />
+			</h:column>			
+		</h:dataTable>
+	</h:form>		
+	</ui:composition>
+
+</html>

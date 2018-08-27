@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="/pages/templates/template-overtime.xhtml">
+	<ui:define name="content">
+	 	<div id="main-content">
+            <ui:insert name="otView">
+            	<ui:include src="otView.xhtml">
+            		<ui:param name="otDetail" value="#{otViewSupvMB.otDetail}" />
+            	</ui:include>
+            </ui:insert>
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+			<div class="availableActions">
+           		<h:form>
+					
+					<!--  REVIEW -->
+					<ui:fragment rendered="#{otViewSupvMB.otDetail.reviewableBySupervisor}">
+						<h:commandLink value="#{bundle['application.link.text.review']}" action="otReviewSupv" style="margin-right:20x;">
+							<f:param name="otDetailId" value="#{otViewSupvMB.otDetail.id}"/>
+						</h:commandLink>			
+					</ui:fragment>	
+
+					<!--  APPROVED/DENY -->
+					<ui:fragment rendered="#{otViewSupvMB.otDetail.approvableBySupervisor}">
+						<h:commandLink value="#{bundle['application.link.text.approveDeny']}" action="otReviewSupv" style="margin-right:20px;">
+							<f:param name="otDetailId" value="#{otViewSupvMB.otDetail.id}"/>
+						</h:commandLink>							
+					</ui:fragment>
+												
+					<!--  MODIFY -->
+	         		<ui:fragment rendered="#{ otViewSupvMB.otDetail.modifiableBySupervisor }">
+						<h:commandLink value="#{bundle['application.button.label.modify']}" action="otModifyIndivReqMgr" style="margin-right:20px;">
+							<f:param name="otDetailId" value="#{otViewSupvMB.otDetail.id}"/>
+						</h:commandLink>					
+					</ui:fragment> 
+	         		
+	         		<!-- CANCEL -->
+	         		<ui:fragment rendered="#{ otViewSupvMB.otDetail.cancellableBySupervisor }">
+						<h:commandLink value="#{bundle['ot.link.label.cancel']}" action="otCancelSupv" style="margin-right:20px;">
+							<f:param name="otDetailId" value="#{otViewSupvMB.otDetail.id}"/>
+						</h:commandLink>				
+					</ui:fragment>    		
+	        		
+	        		<!--  RETURN TO LIST --> 
+	        		<h:commandLink value="#{bundle['application.link.text.returnToList']}" action="otMgrList" style="margin-right:20px;"/>
+	        		
+	        		<!--  HOME -->
+	        		<h:commandLink value="#{bundle['application.button.label.home']}" action="home"/>	        		
+				
+				</h:form>                   		
+           	</div>
+		</div>			
+     </ui:define>
+     <ui:define name="sidebar">
+   		<ui:include src="otSidebar.xhtml">
+            <ui:param name="otDetail" value="#{otViewSupvMB.otDetail}" />   		
+            <ui:param name="otBalances" value="#{otViewSupvMB.otBalances}" />
+   		</ui:include>
+    </ui:define>        
+</ui:composition>
+</html>

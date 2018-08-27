@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"> 
+	<head><title>IGNORED</title></head>
+<body>
+	<ui:composition>
+       <ice:panelTabSet selectedIndex="#{otMgrListTabSetGroupMB.selectedIndex}" 
+       		tabChangeListener="#{otMgrListTabSetGroupMB.processTabChange}">
+
+			<ice:panelTab label="Incoming">
+				<ui:insert name="otMgrListTabGroupIncoming">
+	            	<ui:include src="otMgrListTabGroupIncoming.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>   
+
+
+			<ice:panelTab label="Pending">
+				<ui:insert name="otMgrListTabGroupPending">
+	            	<ui:include src="otMgrListTabGroupPending.xhtml"/>
+	            </ui:insert>
+			</ice:panelTab>   
+			
+			<ice:panelTab label="Outgoing">
+				<ui:insert name="otMgrListTabGroupOutgoing">
+	            	<ui:include src="otMgrListTabGroupOutgoing.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>    
+
+			<ice:panelTab label="Finalized">
+				<ui:insert name="otMgrListTabGroupFinalized">
+	            	<ui:include src="otMgrListTabGroupFinalized.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab> 
+	
+			<ice:panelTab label="Cancelled">
+				<ui:insert name="otMgrListTabGroupCancelled">
+	            	<ui:include src="otMgrListTabGroupCancelled.xhtml"/>
+	            </ui:insert>
+	        </ice:panelTab>                                         
+
+		</ice:panelTabSet>
+	</ui:composition>
+</body>
+</html>

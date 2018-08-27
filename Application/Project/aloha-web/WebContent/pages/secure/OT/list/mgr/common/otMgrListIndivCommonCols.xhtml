@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps">
+<head>
+<title>IGNORED</title>
+</head>
+<body>
+	<ui:composition>
+	
+		<ice-cc:column title="#{bundle['application.label.list.payPeriod']}"
+			value="#{row.payPeriodDateRange}" name="payPeriodDateRange"
+			sortable="true" />
+		
+		<ice-cc:column title="#{bundle['ot.label.text.fundingRequired']}"
+			name="fundingRequired" sortable="true">
+			<h:outputText id="otFundingRequiredSymbol" escape="true"
+				value="&#10004;"
+				style="text-align:center;font-size:large;color:red;"
+				rendered="#{row.fundingRequired}" />
+			<h:outputText id="otFundingNotRequiredSymbol" escape="true" value=" "
+				rendered="#{not row.fundingRequired}" />
+		</ice-cc:column>
+		
+		<ice-cc:column title="#{bundle['ot.group.column.label.requestId']}"
+			value="#{row.headerId}" name="headerId" sortable="true" />		
+		
+		<ice-cc:column title="#{bundle['ot.v2.list.otType']}"
+			value="#{row.typeName}" name="typeName" sortable="true" />
+		
+		<ice-cc:column title="#{bundle['ot.v2.list.employeeName']}"
+			value="#{row.employeeName}" name="employeeName" sortable="true" />
+		
+		<ice-cc:column title="#{bundle['ot.v2.list.submitterName']}"
+			value="#{row.submitterName}" name="submitterName" sortable="true" />
+		
+		<ice-cc:column title="#{bundle['ot.v2.list.receiverName']}"
+			value="#{row.supervisorName}" name="receiverName" sortable="true" />
+
+		<ice-cc:column title="#{bundle['ot.v2.list.otStatus']}"
+			value="#{row.statusName}" name="statusName" sortable="true" />
+
+	</ui:composition>
+</body>
+</html>

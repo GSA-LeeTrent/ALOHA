@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"> 
+	<head><title>IGNORED</title></head>
+	<body>
+		<ui:composition>
+       		<ice:panelTabSet selectedIndex="#{otMgrListTabSetMB.selectedIndex}" tabChangeListener="#{otMgrListTabSetMB.processTabChange}">
+				<ice:panelTab label="Individual Requests">
+	            	<ui:insert name="otMgrListTabSetIndiv">
+	            		<ui:include src="otMgrListTabSetIndiv.xhtml"/>
+	            	</ui:insert>			            
+              	</ice:panelTab>
+  
+				<ice:panelTab label="Group Requests">
+	            	<ui:insert name="otMgrListTabSetGroup">
+	            		<ui:include src="otMgrListTabSetGroup.xhtml"/>
+	            	</ui:insert>			            
+         		</ice:panelTab> 
+          
+      		</ice:panelTabSet>          
+		</ui:composition>
+	</body>
+</html>

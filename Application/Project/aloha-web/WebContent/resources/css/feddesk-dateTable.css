@@ -1,0 +1,211 @@
+@CHARSET "ISO-8859-1";
+caption.search{
+	font-weight: bold;
+	text-align: left;
+	color:#435997;
+}	
+table.Datatable {      
+	margin-top:10px;
+	border-collapse:collapse;
+	margin-left:8px;
+	/*border-bottom: 10px solid red;*/
+	/*margin-left:auto;margin-right:auto;*/
+	/*border: 3px solid #5c69ad;*/
+}
+table.thin {
+	border: 3px solid #5c69ad;
+}
+
+table.Datatable td {      
+	font-size: 0.75em;
+	font-size:small;
+	border: 2px solid #fff;
+	/*padding:5px 5px 5px 5px;*/
+	padding:1px;
+}
+table.Datatable th a {      
+	color: #fff;
+	text-decoration: none;
+}
+table.Datatable td a {
+	text-decoration: underline
+}			
+table.Datatable tr.oddRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.evenRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.weekEndRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+	color:#808080;
+}
+table.Datatable tr.holidayRow {	
+	background-color: #E4F3F5;
+	border-bottom: 2px solid #fff;
+	color:#4A95A0;
+}
+table.Datatable tr.duplicateHolidayRow {	
+	background-color: #4A95A0;
+	border-bottom: 2px solid #fff;
+	color:#E4F3F5;
+}
+
+table.Datatable tr.weekEndRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+	/*color:#A2A6B3;*/
+	color:#445A9B;
+}
+table.Datatable tr.weekDayRow {	
+	background-color: #e7ebf7;
+	color:#4B61A1;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.duplicateWeekDayRow {	
+	/*background-color: #9DAAD3;
+	color:#334789;*/
+	background-color: #4B61A1;
+	color:#E7EBF7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.duplicateWeekEndRow {	
+	background-color: #445A9B;
+	color:#D0D8EF;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.applyToAllRow {	
+	background-color:#9FA8D6;
+	color:#FFF;	
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.applyToAllRow td {	
+	text-align:center;
+}
+table.Datatable tr.applyToAllRow a {	
+	font-weight:bold;
+	font-size:small;
+	color: #5c69ad;
+}
+table.Datatable tr.workDayRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.Datatable tr.nonWorkDayRow {	
+	background-color: lightgray;
+	border-bottom: 2px solid #fff;
+	color:#808080;
+}
+
+table.Datatable th, table.Datatable tr.headerRow {
+	background-color: #5c69ad;
+	color: #fff;
+	/*font-size: 0.75em;	*/
+	font-size:small;
+	line-height: 100%;
+	/*padding: 5px 5px 5px 5px;*/
+	/* padding: 2px 2px 2px 2px; */
+	padding:1px;
+	border: 2px solid #fff;
+	text-align: center;
+	font-weight:normal;
+	
+}
+table.Datatable th.totalsLabel {text-align:right;}
+table.Datatable th.totalsValue {text-align:right;}
+table.Datatable caption	{
+	text-align:center;
+	font-weight:bold;
+	color:#000;
+}
+table.Datatable.td.holiday{text-align:center;}
+
+td.changeReportColumn {
+	border-style: none none solid none;
+	border-width: 2px;
+	border-color: black;
+	padding: 0px
+}
+
+table.sidebar{
+	/*background-color:yellow;*/
+	/*border: 1px solid #000;*/
+	margin-left:auto;
+	margin-right:auto;
+}
+table.sidebar {      
+	/*margin-top:10px;*/
+	margin-top:10px;
+	width: 90%; 
+	_width: 90%;
+	border-collapse:collapse;
+}
+
+table.sidebar caption{
+	text-align: center;
+	font-weight:bold;
+	color:#435997;		
+}	
+table.sidebar tr.oddRow {	
+	background-color: #d0d8ef;
+	border-bottom: 2px solid #fff;
+}
+table.sidebar tr.evenRow {	
+	background-color: #e7ebf7;
+	border-bottom: 2px solid #fff;
+}
+table.sidebar td{
+	font-size: 0.75em;
+	border: 2px solid #fff;
+	padding:5px 5px 5px 10px;
+}
+table.sidebar th{
+	background-color: #5c69ad;
+	color: #fff;
+	font-size: 0.75em;
+	line-height: 100%;
+	padding: 5px 5px 5px 13px;
+	border: 2px solid #fff;
+	text-align: left;
+}
+table.dataTableView {      
+	border: 1px solid #000;
+}
+table.dataTableView tr.oddRow {	
+	background-color: #fff;
+	border-bottom: 1px solid #red;	
+}
+table.dataTableView tr.evenRow {	
+	background-color:lightgray;
+	border-bottom: 1px solid #red;
+}
+table.dataTableView th {
+	font-size:small;
+	background-color:#A9A9A9;
+	color: #fff;
+	padding-left:2px;
+	padding-right:2px;
+	text-align: left;
+}
+table.dataTableView td {      
+	font-size:small;
+	padding-left:2px;
+	padding-right:2px;
+}
+table.dataTableView th a {      
+	color: #fff;
+	text-decoration: none;
+}
+table.dataTableView td a {
+	text-decoration: underline
+}			
+table.dataTableView  th.totalsLabel {text-align:right;}
+table.dataTableView  th.totalsValue {text-align:center;}
+table.dataTableView  caption	{
+	text-align: center;
+	font-weight:bold;
+	color:#435997;		
+}

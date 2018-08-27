@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:c="http://java.sun.com/jsp/jstl/core"
+   template="/pages/templates/template-1Col.xhtml">
+     
+  <ui:define name="content"> 
+  	<p class="sectionTitle"><h:outputText value="#{bundle['adXref.title']}" class="sectionTitle"/></p>
+  	<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+    <h:form>
+    	<table class="formTable" style="margin-left:auto;margin-right:auto;">
+    		<tr>
+    			<ui:fragment rendered="#{!empty adXrefMB.editOriginalLoginName}">
+    			
+    			<td>
+    				<fieldset style="width:100%;border-style:solid;border-width:thin">
+			    		<legend><h:outputLabel value="#{bundle['adXref.currentValues']}"></h:outputLabel></legend>
+				
+						<table class="formTable" style="margin-left:auto;margin-right:auto;">
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.loginName']}"></h:outputLabel>
+								</td>
+								<td>
+									<h:outputText id="editOriginalLoginName" value="#{adXrefMB.editOriginalLoginName}"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.etamsUser']}"></h:outputLabel>
+								</td>
+								<td>					
+									<h:outputText id="editOriginalEtamsUser" value="#{adXrefMB.editOriginalEtamsUser}"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.emailAddress']}"></h:outputLabel>
+								</td>
+								<td>					
+									<h:outputText id="editOriginalEmailAddress" value="#{adXrefMB.editOriginalEmailAddress}"/>
+								</td>
+							</tr>					
+							<tr>
+								<td colspan="2">
+								</td>
+							</tr>
+						</table>
+	    			</fieldset>
+    			
+    			</td>
+    			
+    			</ui:fragment>
+    			<td>
+			    	<fieldset style="border-style:solid;border-width:thin">
+			    		<legend><h:outputLabel value="#{bundle['adXref.newValues']}"></h:outputLabel></legend>
+
+						<table class="formTable" style="margin-left:auto;margin-right:auto;">
+						
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.loginName']}"></h:outputLabel>
+								</td>
+								<td>
+									<h:inputText id="editLoginName" value="#{adXrefMB.editLoginName}"/>
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.etamsUser']}"></h:outputLabel>
+								</td>
+								<td>					
+									<h:inputText id="editAjaxSearchEtamsUser" value="#{adXrefMB.editStartingEtamsUser}">
+										<f:ajax event="keyup" listener="#{adXrefMB.getEtamsUser}" render="selectEtamsUser "/>
+									</h:inputText>
+									<h:outputLabel value="#{bundle['adXref.ajaxEtamsSearch']}"></h:outputLabel><br/>
+									<h:selectOneMenu id="selectEtamsUser" value="#{adXrefMB.editSelectedEtamsUserId}">
+										
+										<f:selectItems value="#{adXrefMB.editEtamsUserId}"></f:selectItems>
+										
+									</h:selectOneMenu> 
+								</td>
+							</tr>
+							<tr>
+								<td align="left">
+									<h:outputLabel value="#{bundle['adXref.emailAddress']}"></h:outputLabel>
+								</td>
+								<td>					
+									<h:inputText id="editEmailAddress" value="#{adXrefMB.editEmailAddress}"/>
+								</td>
+							</tr>							
+							<tr>
+								<td colspan="2">
+									<h:commandButton id="saveAdXref" tabindex="2" styleClass="submitButton" 
+								 						action="#{adXrefMB.save}" value="#{bundle['application.save']}"/>
+									<h:commandButton id="cancel" tabindex="2" styleClass="submitButton" 
+								 						action="#{adXrefMB.cancel}" value="#{bundle['leaveRequest.button.cancel']}"/>
+
+								</td>
+							</tr>
+						</table>
+	    			</fieldset>
+    			</td>
+    		</tr>		
+    	</table>
+    </h:form>        
+  </ui:define>
+    
+</ui:composition>

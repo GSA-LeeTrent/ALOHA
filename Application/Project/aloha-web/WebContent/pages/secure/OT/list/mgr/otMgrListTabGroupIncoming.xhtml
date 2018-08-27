@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"     
+      xmlns:ice-cc="http://www.icesoft.com/icefaces-composite-comps"> 
+	<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<ace:panel id="otMgrListTabGroupIncomingPanel" header="Incoming Group Requests:" style="font-size:small;" rendered="true">		
+		 <div style="padding:10px;">
+		 
+			<div style="margin-bottom:20px;padding:15px;color:#606060;background-color:#F8F8F8;border:1px double #9FA3AE;">
+				Group requests that have been submitted to you and are waiting to be reviewed ...
+			</div>	
+
+			<ui:fragment rendered="#{ not empty otMgrListMB.incomingGroupRequests}">
+	            <ui:insert name="otGroupRowTable">
+	            	<ui:include src="common/otGroupRowTable.xhtml">
+						<ui:param name="otGroupIsViewable" value="#{constantsMB.boolFalse}" />
+						<ui:param name="otGroupIsSubmitable" value="#{constantsMB.boolFalse}" />
+						<ui:param name="otGroupIsReviewable" value="#{constantsMB.boolTrue}" />
+						<ui:param name="otGroupIsCancelable" value="#{constantsMB.boolFalse}" />
+	            		<ui:param name="readOnly" value="#{constantsMB.boolFalse}" />
+	            		<ui:param name="otGroupRowDataTableId" value="otGroupRowDataTableIncoming" />
+	            		<ui:param name="otGroupRowList" value="#{otMgrListMB.incomingGroupRequests}" />
+	            	</ui:include>
+	            </ui:insert>	
+			</ui:fragment>			
+		
+			<ui:fragment rendered="#{ empty otMgrListMB.incomingGroupRequests}">
+	            <ui:insert name="otMgrListNoDataFound">
+	            	<ui:include src="common/otMgrListNoDataFound.xhtml"/>
+	            </ui:insert>	
+			</ui:fragment>		
+
+		</div>
+	</ace:panel>			
+</ui:composition>
+</body>
+</html>

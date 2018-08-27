@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core">
+<ui:composition template="/pages/templates/template-leave.xhtml">
+	<ui:define name="content">
+		<icecore:config render="false"/>
+ 		<div id="main-content">
+			<h:form id="lrAmendmentForm" prependId="false">
+ 			<h3 style="text-align:center;">Leave Request Amendment</h3>
+			<h:messages styleClass="errorMsg" globalOnly="true"></h:messages>
+			<p class="sectionTitle">
+				<h:outputText value="Approved Leave Request" rendered="#{lrAmendMB.approvedLeaveDetail.approved}"/>
+			</p>
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrAmendMB.approvedLeaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrAmendMB.approvedLeaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="submitterFullName" value="#{lrAmendMB.approvedLeaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="payPeriod" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrAmendMB.approvedLeaveDetail.payPeriodDateRange}"/></td>
+				</tr>		
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approvers" value="#{bundle['application.label.supervisor']}"/></td>
+					<td>
+						<h:selectOneMenu label="#{bundle['leaveRequest.label.approver']}" id="approvers" tabindex="2" value="#{lrAmendMB.selectedApprover}">
+			 					<f:selectItems value="#{lrAmendMB.approvers}"/>
+		 				</h:selectOneMenu>								
+					</td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatus" value="#{lrAmendMB.approvedLeaveDetail.leaveStatus.label}"/></td>								
+				</tr>	
+				<tr>
+				
+				</tr>
+			</table>						 			
+			<p class="sectionTitle">Approved Leave:</p>
+				<table class="Datatable">
+					<caption>
+						<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+							<f:param value="#{lrAmendMB.approvedLeaveDetail.payPeriodDateRange}" />
+						</h:outputFormat>					
+					</caption>
+		            <ui:insert name="lrBaseScheduleHeader">
+		            	<ui:include src="../../sections/lrBaseScheduleHeader.xhtml"/>
+		            </ui:insert>
+					<tbody>
+			            <ui:insert name="lrBaseScheduleApplyToAll">
+			            	<ui:include src="../../sections/lrBaseScheduleApplyToAll.xhtml"/>
+			            </ui:insert>
+						<c:forEach var="scheduleItem" items="#{lrAmendMB.employeeSchedule}" varStatus="index">
+				            <ui:insert name="lrBaseScheduleRow">
+				            	<ui:include src="../../sections/lrBaseScheduleRow.xhtml">
+				            		<ui:param name="scheduleItem" value="#{scheduleItem}" />
+				            	</ui:include>
+				            </ui:insert>				            
+						</c:forEach>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th class="totalsLabel"><h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']}"/>&nbsp;</th>
+							<th class="totalsValue"><h:outputText id="totalLeaveHours" value="#{lrAmendMB.totalLeaveHours}"/></th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+						</tr>
+					</tfoot>					
+				</table>		
+				<p class="sectionTitle" style="margin-top:25px;">
+					<h:outputLabel for="amendmentRemarks" value="#{bundle['leaveRequest.amend.label.remarks']}"/>
+				</p>
+				<h:inputTextarea id="amendmentRemarks" class="remarks" rows="6" cols="80" value="#{lrAmendMB.submitterRemarks}" 
+					title="#{bundle['leaveRequest.amend.label.remarks']}"/>
+
+		 		<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>	 							
+
+               	<div id="amendLRFormButtonPanel" class="availableActions">
+   
+               		<h:commandButton 
+               			action="#{lrAmendMB.onAmend}" 
+               			value="#{bundle['application.label.reviewChanges']}" 
+               			id="lrCreateAmendSubmitButton" 
+               			onclick="onLRAmendFormButtonClicked();">
+               			</h:commandButton>&nbsp;
+               			
+ 					<h:button
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListSubmitOwn"
+						rendered="#{lrAmendMB.inSubmitOwnMode}">
+					</h:button>
+					
+					<h:button
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListOnBehalfOf"
+						rendered="#{lrAmendMB.inOnBehalfOfMode}">
+					</h:button>               			
+
+               	</div>
+
+				<h:inputHidden id="workDayCount" value="#{lrAmendMB.workDayCount}"/>
+			</h:form>
+		</div>
+		<script language="JavaScript">
+			function onLRAmendFormButtonClicked() {
+				document.getElementById("amendLRFormButtonPanel").style.display="none";
+			}
+		</script>					
+    </ui:define>
+	<ui:define name="sidebar">
+		<ui:include src="../../sections/sidebar-lr-amend.xhtml"/>
+	</ui:define>
+</ui:composition>
+</html>

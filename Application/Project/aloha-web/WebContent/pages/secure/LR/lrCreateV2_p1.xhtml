@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+    <ui:fragment rendered="#{lrCreateV2MB.pageOne}">
+        <ace:panel id="lrTopPanelForCreateOnPageOne" header="New Leave Request" rendered="true"
+            style="margin-top:20px;font-size:small;font-family:Arial;" styleClass="topPanel paddedDiv">
+            <div style="padding:0;">
+
+                <h:form id="lrTopPanelForCreateFormOnPageOne" prependId="false">
+                    <div id="lrTopPanelForCreateTableOnPageOne" class="formTable" style="widthfont-family:Arial;font-size:small;">
+                    	<h:messages for="employeeDropDownValuesOnPageOneEmpty" styleClass="errorMsg" style="width:45%;border:5px solid red;font-weight:bold;"></h:messages>
+                    	<h:messages for="employeeDropDownValuesOnPageOneNotEmpty" styleClass="errorMsg" style="width:45%;border:5px solid red;font-weight:bold;"></h:messages>
+                    	<h:messages for="payPeriodDropDownValuesOnPageOne" styleClass="errorMsg" style="width:45%;border:5px solid red;font-weight:bold;"></h:messages>
+                        <div id="rowOneInLrTopPanelForCreateTableOnPageOne">
+                            <!-- EMPLOYEE NAME WHEN IN SUBMIT OWN MODE -->
+                            <ui:fragment rendered="#{lrCreateV2MB.inSubmitOwnMode}">
+                                 <div style="float:left;" class="panelItem bottomMargin">
+                                    <div style="text-align:left;">
+                                        <h:outputLabel 
+                                            id="employeeNameLabelOnPageOne" 
+                                            for="employeeNameValueOnPageOne" 
+                                            value="#{bundle['leaveRequest.label.employee']}" />
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <h:outputText 
+                                            id="employeeNameValueOnPageOne" 
+                                            value="#{lrCreateV2MB.employee.fullName}"/>
+                                   </div>
+                               </div>
+                            </ui:fragment>
+                            
+                            <!-- EMPLOYEE DROP-DOWN WHEN IN ON BEHALF OF MODE -->
+                            <ui:fragment rendered="#{lrCreateV2MB.inOnBehalfOfMode}">
+                                <div style="float:left;" class="panelItem bottomMargin">
+                                    <div style="text-align:left;">
+                                        <h:outputLabel 
+                                            id="employeeDropDownLabelOnPageOneEmpty"
+                                            rendered="#{ empty lrCreateV2MB.selectedEmployeeUserIdAsString}"
+                                            for="employeeDropDownValuesOnPageOneEmpty" 
+                                            value="#{bundle['leaveRequest.label.employee']}"/>
+                                        <h:outputLabel 
+                                            id="employeeDropDownLabelOnPageOneNotEmpty"
+                                            rendered="#{ not empty lrCreateV2MB.selectedEmployeeUserIdAsString}"
+                                            for="employeeDropDownValuesOnPageOneNotEmpty" 
+                                            value="#{bundle['leaveRequest.label.employee']}"/>
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <h:selectOneMenu 
+                                            id="employeeDropDownValuesOnPageOneEmpty"
+                                            rendered="#{ empty lrCreateV2MB.selectedEmployeeUserIdAsString}"
+                                            style="background-color:#FFFFCC;"
+                                            onclick="this.style.backgroundColor='#FFF';"
+                                            value="#{lrCreateV2MB.selectedEmployeeUserIdAsString}">
+                                            	<f:validator validatorId="gov.gsa.ocfo.aloha.web.validator.EmployeeValidator"/>
+                                                <f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.employee']}" itemValue="0"/>
+                                                <f:selectItems value="#{lrCreateV2MB.employees}"/>
+                                        </h:selectOneMenu>
+                                        <h:selectOneMenu 
+                                            id="employeeDropDownValuesOnPageOneNotEmpty"
+                                            rendered="#{ not empty lrCreateV2MB.selectedEmployeeUserIdAsString}"
+                                            value="#{lrCreateV2MB.selectedEmployeeUserIdAsString}">
+                                            	<f:validator validatorId="gov.gsa.ocfo.aloha.web.validator.EmployeeValidator"/>
+                                                <f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.employee']}" itemValue="0"/>
+                                                <f:selectItems value="#{lrCreateV2MB.employees}"/>
+                                        </h:selectOneMenu>                                  
+                                    </div>
+                                </div>
+                            </ui:fragment>
+
+                            <!-- PAY PERIOD DROP-DOWN WHEN IN BOTH MODES -->
+                            <div style="float:right;" class="panelItem">
+                                <div style="text-align:left;">
+                                    <h:outputLabel
+                                        id="payPeriodDropDownLabelOnPageOne"
+                                        for="payPeriodDropDownValuesOnPageOne" 
+                                        value="#{bundle['leaveRequest.label.payPeriod']}"/>
+                                </div>
+                                <div style="text-align:left;">
+                                    <h:selectOneMenu 
+                                        id="payPeriodDropDownValuesOnPageOne" 
+                                        value="#{lrCreateV2MB.selectedPayPeriodValue}"
+                                       style="background-color:#FFFFCC;"
+                                        onclick="this.style.backgroundColor='#FFF';">
+                                        	<f:validator validatorId="gov.gsa.ocfo.aloha.web.validator.PayPeriodValidator"/>
+                                            <f:selectItem itemLabel="#{bundle['leaveRequest.dropDown.prompt.payPeriod']}" itemValue="0"/>
+                                            <f:selectItems value="#{payPeriodMB.limitedPayPeriods}"/>
+                                    </h:selectOneMenu>
+                                </div>    
+                            </div>                        
+                       	</div>   
+                       	<div style="clear:both;"/>
+                    	<div id="rowTwoInLrTopPanelForCreateTableOnPageOne">
+                            <div style="float:left;margin-top:10px;" class="panelItem">
+                           		<div style="text-align:left;">
+                                    <h:outputLabel
+                                        id="submitterNameLabelOnPageOne" 
+                                        for="submitterNameValueOnPageOne" 
+                                        value="#{bundle['application.label.submitter']}" />
+                               	</div>
+                                <div style="text-align:left;">
+                                    <h:outputText 
+                                        id="submitterNameValueOnPageOne" 
+                                        value="#{lrCreateV2MB.submitter.fullName}"/>
+                                </div>
+                            </div>
+                             <div style="float:right;" class="panelItem">
+                                <div style="text-align:left;margin-top:12px;">                        
+                                    <!-- SUBMIT OWN MODE -->
+                                    <h:commandButton
+                                        rendered="#{lrCreateV2MB.inSubmitOwnMode}" 
+                                        id="payPeriodSubmitOwnSubmitButtonOnPageOne" 
+                                        styleClass="submitButton" 
+                                        style="color:#808080 ;font-weight:bold;"
+                                        action="#{lrCreateV2MB.onSelectedPayPeriod}" 
+                                        value="#{bundle['application.button.label.select']}" />
+        
+                                    <!-- ON BEHALF OF MODE -->
+                                    <h:commandButton 
+                                        rendered="#{lrCreateV2MB.inOnBehalfOfMode}" 
+                                        id="payPeriodOnBehalfOfSubmitButtonOnPageOne"
+                                        styleClass="submitButton" 
+                                        style="color:#808080 ;font-weight:bold;"
+                                        action="#{lrCreateV2MB.onSelectedEmployeeAndPayPeriod}" 
+                                        value="#{bundle['application.button.label.select']}"/>
+                                </div>
+                             </div>
+                            <div style="clear:both;"/>             
+                       </div>  
+                    </div>
+                </h:form>
+            </div>
+        </ace:panel>
+    </ui:fragment> <!-- END (if page 1) -->
+
+</ui:composition>
+</body>
+</html>

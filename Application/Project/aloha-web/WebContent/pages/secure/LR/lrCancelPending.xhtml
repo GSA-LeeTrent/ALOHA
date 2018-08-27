@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+            xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/pages/templates/template-leave.xhtml">
+	<ui:define name="content">
+ 		<div id="main-content">
+ 			<h3 style="text-align:center;">Leave Request Cancellation</h3>
+			<h2 class="formTitle">Pending:</h2>
+			<ul class="message">
+				<li>To confirm your intent to have this leave request canceled, click the &quot;Confirm&quot; button.</li>
+				<li>To add or change your remarks, click the &quot;Change&quot; button.</li>
+				<li><h:outputText value="Otherwise, click the &quot;Discard&quot; button."/></li>
+			</ul>
+ 			<p class="sectionTitle"><h:outputText value="#{bundle['leaveRequest.sectionHeader.submitted']}"/></p>
+			<table class="view">
+				<tr>
+					<td class="firstCol"><h:outputLabel for="employeeName" value="#{bundle['application.label.employee']}"/></td>
+					<td><h:outputText id="employeeName" value="#{lrCancelMB.leaveDetail.employeeName}"/></td>
+					<td class="secondCol"><h:outputLabel for="requestId"  value="#{bundle['application.label.requestID']}"/></td>
+					<td><h:outputText id="requestId" value="#{lrCancelMB.leaveDetail.leaveHeader.id}"/></td>
+				</tr>
+				<tr>
+					<td class="firstCol"><h:outputLabel for="submitterFullName" value="#{bundle['application.label.submitter']}"/></td>
+					<td><h:outputText id="submitterFullName" value="#{lrCancelMB.leaveDetail.submitter.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.label.payPeriod']}"/></td>
+					<td><h:outputText id="payPeriod" value="#{lrCancelMB.leaveDetail.payPeriodDateRange}"/></td>								
+				</tr>		
+				<tr>
+					<td class="firstCol"><h:outputLabel for="approverFullName" value="#{bundle['application.label.supervisor']}"/></td>
+					<td><h:outputText id="approverFullName" value="#{lrCancelMB.leaveDetail.approver.fullName}"/></td>							
+					<td class="secondCol"><h:outputLabel for="leaveStatus" value="#{bundle['application.text.status']}"/></td>
+					<td><h:outputText id="leaveStatus" value="#{lrCancelMB.leaveDetail.leaveStatus.label}"/></td>										
+				</tr>	
+			</table>									
+			
+			<!--
+			<c:if test="#{not empty lrCancelMB.leaveDetail.submitterComments}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.submitterRemarks02']}" /></p>
+				<div class="remarks">
+					<c:forEach var="submitterComment" items="#{lrCancelMB.leaveDetail.submitterComments}">
+						<h:outputText value="#{submitterComment.commentDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText>:<br/>
+						<h:outputText value="#{submitterComment.comment}"/>
+						<p>&nbsp;</p>
+					</c:forEach>
+				</div>
+			</c:if>
+			-->
+			
+			<!-- ALL REMARKS  -->
+			<h:form>
+				<ui:insert name="lrAllRemarksPanel">
+					<ui:include src="common/lrAllRemarks.xhtml">
+						<ui:param name="lrAllRemarksList" value="#{lrCancelMB.leaveDetail.leaveHeader.allRemarks}" />
+					</ui:include>
+				</ui:insert>	   
+			</h:form>			
+			
+			<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['leaveRequest.label.requstedTimeOff']}"/></p>			
+			<table class="dataTableView">
+				<caption>
+					<h:outputFormat value="#{bundle['application.label.detail.payPeriod']}">
+						<f:param value="#{lrCancelMB.leaveDetail.payPeriodDateRange}" />
+					</h:outputFormat>					
+				</caption>
+				<thead>
+					<tr>
+						<th><h:outputText value="#{bundle['leaveRequest.label.schedule.date']}"/></th>
+						<th><h:outputText value="#{bundle['leaveRequest.label.schedule.dayOfWeek']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.leaveDesc']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.leaveHours']}"/></th>
+						<th><h:outputText escape="false" value="#{bundle['leaveRequest.label.schedule.startTime']}"/></th>
+					</tr>
+				</thead>
+				<tbody>	
+					<c:forEach var="leaveItem" items="#{lrCancelMB.leaveDetail.leaveItems}" varStatus="status">
+						<c:choose>
+							<c:when test="#{ status.index % 2 == 0 }">
+								<tr class="even">
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+									<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+									<td>
+										<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+											<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+										</h:outputText>
+										<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+									</td>										
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr class="odd">
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="MM/dd/yyyy"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveDate}"><f:convertDateTime pattern="EEE"/></h:outputText></td>
+									<td><h:outputText value="#{leaveItem.leaveType.label}"/></td>
+									<td class="number"><h:outputText value="#{leaveItem.leaveHours}"/></td>
+									<td>
+										<h:outputText value="#{leaveItem.startTime}" rendered="#{leaveItem.startTimePopulated}">
+											<f:convertDateTime pattern="h:mm a" timeZone="CST"/>
+										</h:outputText>
+										<h:outputText escape="false" value="&nbsp;" rendered="#{not leaveItem.startTimePopulated}"/>
+									</td>										
+								</tr>											
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</tbody>
+				<tfoot>	
+					<tr>
+						<th colspan="3" class="number"><h:outputText value="#{bundle['leaveRequest.footer.totalLeaveHoursLabel']}"/>&nbsp;</th>
+						<th class="number">
+							<h:outputText value="#{lrCancelMB.leaveDetail.totalLeaveHours}"/></th>
+							<th>&nbsp;</th>
+					</tr>
+				</tfoot>						
+			</table>
+			<c:if test="#{not empty lrCancelMB.cancellationRemarks}">
+				<p class="sectionTitle"><h:outputText value="#{bundle['application.label.cancellationRemarks']}"/></p>
+				<div class="remarks">
+					<h:outputText value="#{lrCancelMB.cancellationRemarks}"/>			
+				</div>
+			</c:if>				
+        	<div id="lrCancelButtonPanel" class="availableActions" style="margin-top:20px;margin-bottom:20px;">
+   				<p class="sectionTitle" style="margin-top:20px;"><h:outputText value="#{bundle['application.text.availableActions']}"/></p>
+   				<h:form prependId="false">
+       				<h:commandButton 
+       					action="#{lrCancelMB.onConfirm}" 
+       					value="#{bundle['application.text.confirmCancellation']}" 
+       					onclick="onLRCancelButtonClicked();">
+       				</h:commandButton>&nbsp; 
+       				<h:commandButton 
+       					action="#{lrCancelMB.onChange}" 
+       					value="#{bundle['application.text.makeRevisions']}"
+          				onclick="onLRCancelButtonClicked();">
+          			</h:commandButton>&nbsp;	
+	 				<h:button
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListSubmitOwn"
+						rendered="#{lrCancelMB.inSubmitOwnMode}"
+						onclick="onLRCancelButtonClicked();">
+					</h:button>
+					<h:button 
+						value="#{bundle['application.label.discardChanges']}" 
+						outcome="lrListOnBehalfOf"
+						rendered="#{lrCancelMB.inOnBehalfOfMode}"
+						onclick="onLRCancelButtonClicked();">
+					</h:button>		         					
+				</h:form>   
+          	</div>
+		</div>	
+		<script language="JavaScript">
+			function onLRCancelButtonClicked() {
+				document.getElementById("lrCancelButtonPanel").style.display="none";
+			}
+		</script>		
+    </ui:define>
+    <ui:define name="sidebar">
+   		<ui:include src="../../sections/sidebar-lr-cancel.xhtml"/>
+    </ui:define>    
+</ui:composition>
+</html>

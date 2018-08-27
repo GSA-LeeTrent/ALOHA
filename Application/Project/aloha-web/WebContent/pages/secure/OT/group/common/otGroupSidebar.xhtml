@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"	  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head><title>IGNORED</title></head>
+<body>
+<ui:composition>
+	<div id="sidebar">
+		<div class="top-sidebar-box"> 
+			<div class="leaveHistory"> 
+				<h5><h:outputText value="#{bundle['ot.history.label']}"/></h5> 	
+				<h:dataTable styleClass="sidebar"  rowClasses="oddRow,evenRow" 
+					value="#{otGroup.historicalEntries}" var="history">
+					<f:facet name="caption" style="font-size:x-small;font-weight:bold;">
+						<h:outputFormat value="#{bundle['ot.caption.groupId']}" 
+							style="font-size:x-small;font-weight:bold;">
+							<f:param value="#{otGroup.id}" />
+						</h:outputFormat>
+					</f:facet>
+					<h:column>
+ 						<f:facet name="header">
+                        	<h:outputText value="Date"/>
+                       	</f:facet>							
+						<h:outputText value="#{history.dateCreated}">
+							<f:convertDateTime pattern="MM/dd/yyyy"/>
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+                     		<h:outputText value="Action"/>
+                     	</f:facet>							
+						<h:outputText value="#{history.statusTransition.actionLabel}"/>
+					</h:column>
+				</h:dataTable>
+			</div>						
+		</div>
+	</div>
+</ui:composition>
+</body>
+</html>
